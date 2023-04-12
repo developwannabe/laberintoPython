@@ -68,7 +68,7 @@ class Juego():
 
         puerta.lado1 = hab1
         puerta.lado2 = hab2
-        
+
         hab1.norte= Pared()
         hab1.este= Pared()
         hab1.oeste= Pared()
