@@ -8,6 +8,11 @@ class Juego():
     def __init__(self):
         self.laberinto = None
 
+    #Métodos iterator
+
+    def abrirPuertas(self):
+        funcl = lambda x: x.abrir() if x.esPuerta() else None
+        self.laberinto.recorrer(funcl)
     #Métodos para el Factory Method
 
     def fabricarLaberinto(self):

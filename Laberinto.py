@@ -10,6 +10,9 @@ class Laberinto():
     def obtenerHabitacion(self,num):
         return self.habitaciones[num]
     
+    def recorrer(self, funcion):
+        funcion(self.habitaciones.values())
+    
     def __str__(self):
         strdev = "Contenido del laberinto:\n"
         habs = self.habitaciones.values()

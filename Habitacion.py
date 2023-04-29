@@ -1,16 +1,13 @@
 from ElementoMapa import ElementoMapa
+from Contenedor import Contenedor
 
-class Habitacion(ElementoMapa):
-
-    def __init__(self,num):
-        self.num = num
-        self.norte = None
-        self.este = None
-        self.oeste = None
-        self.sur = None
+class Habitacion(Contenedor):
 
     def entrar(self):
         print("Estás en la habitación ",self.num,".")
+
+    def esHabitacion(self):
+        return True
 
     def __str__(self):
         return "Habitación: " + str(self.num) +"\n   -Norte: " + str(self.norte) +"\n   -Este: " + str(self.este) +"\n   -Oeste: " + str(self.oeste) +"\n   -Sur: " + str(self.sur)

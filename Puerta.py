@@ -13,6 +13,12 @@ class Puerta(ElementoMapa):
         else:
             print("La puerta está cerrada.")
 
+    def abrir(self):
+        self.abierta = True
+    
+    def esPuerta(self):
+        return True
+
     def __str__(self):
         return "Puerta: Lado 1 es Hab " + str(self.lado1.num) +", Lado 2 es hab " + str(self.lado2.num)
     
