@@ -2,6 +2,9 @@ from abc import ABC
 
 class ElementoMapa(ABC):
     
+    def __init__(self):
+        self.padre = None
+        
     def entrar(self):
         pass
 

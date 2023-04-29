@@ -6,5 +6,8 @@
 
 ### Algoritmos implementados:
   - Factory Method
+  - Composite
+  - Iterator
+  - Singleton
 
 ![StarUML FM](https://github.com/developwannabe/laberintoPython/blob/main/StarUMLFM.jpg?raw=true)

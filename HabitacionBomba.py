@@ -3,6 +3,7 @@ from Habitacion import Habitacion
 class HabitacionBomba(Habitacion):
 
     def __init__(self,num):
+        super().__init__()
         self.activa = True
         self.num = num
 

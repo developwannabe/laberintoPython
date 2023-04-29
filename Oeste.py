@@ -6,8 +6,13 @@ class Oeste(Orientacion):
     def __init__(self):
         if Oeste.__instance is None: #Si aún no hay ninguna instancia la creamos
             Oeste.__instance = self
-            
-        return Oeste.__instance #Devolvemos la instancia
+    
+    def obtenerInstancia():
+        if Oeste.__instance is None:
+            Oeste.__instance = Oeste()
+            return Oeste.__instance
+        else:
+            return Oeste.__instance
     
     def obtenerElementoEn(self,cont):
         return cont.oeste

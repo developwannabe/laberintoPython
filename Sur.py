@@ -6,8 +6,13 @@ class Sur(Orientacion):
     def __init__(self):
         if Sur.__instance is None: #Si aún no hay ninguna instancia la creamos
             Sur.__instance = self
-            
-        return Sur.__instance #Devolvemos la instancia
+    
+    def obtenerInstancia():
+        if Sur.__instance is None:
+            Sur.__instance = Sur()
+            return Sur.__instance
+        else:
+            return Sur.__instance
     
     def obtenerElementoEn(self,cont):
         return cont.sur

@@ -6,8 +6,13 @@ class Este(Orientacion):
     def __init__(self):
         if Este.__instance is None: #Si aún no hay ninguna instancia la creamos
             Este.__instance = self
-            
-        return Este.__instance #Devolvemos la instancia
+    
+    def obtenerInstancia():
+        if Este.__instance is None:
+            Este.__instance = Este()
+            return Este.__instance
+        else:
+            return Este.__instance
     
     def obtenerElementoEn(self,cont):
         return cont.este

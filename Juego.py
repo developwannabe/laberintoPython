@@ -2,6 +2,10 @@ from Laberinto import Laberinto
 from Puerta import Puerta
 from Habitacion import Habitacion
 from Pared import Pared
+from Norte import Norte
+from Este import Este
+from Oeste import Oeste
+from Sur import Sur
 
 class Juego():
 
@@ -22,14 +26,82 @@ class Juego():
         return Puerta()
 
     def fabricarHabitacion(self,num):
-        return Habitacion(num)
+        hab = Habitacion(num)
+
+        hab.ponerElementoEn(self.fabricarNorte(),self.fabricarPared())
+        hab.ponerElementoEn(self.fabricarEste(),self.fabricarPared())
+        hab.ponerElementoEn(self.fabricarOeste(),self.fabricarPared())
+        hab.ponerElementoEn(self.fabricarSur(),self.fabricarPared())
+
+        hab.agregarOrientacion(self.fabricarNorte())
+        hab.agregarOrientacion(self.fabricarEste())
+        hab.agregarOrientacion(self.fabricarOeste())
+        hab.agregarOrientacion(self.fabricarSur())
+
+        return hab
 
     def fabricarPared(self):
         return Pared()
 
+    def fabricarNorte(self):
+        return Norte.obtenerInstancia()
+    
+    def fabricarEste(self):
+        return Este.obtenerInstancia()
+    
+    def fabricarOeste(self):
+        return Oeste.obtenerInstancia()
+    
+    def fabricarSur(self):
+        return Sur.obtenerInstancia()
+    
     #Final de los métodos para el Factory Method
 
     #Fabricación de laberintos
+
+    #Laberinto para la segunda entrega
+
+    def laberinto2Entrega(self):
+        self.laberinto = self.fabricarLaberinto()
+
+        hab1 = self.fabricarHabitacion(1)
+        hab2 = self.fabricarHabitacion(2)
+        hab3 = self.fabricarHabitacion(3)
+        hab4 = self.fabricarHabitacion(4)
+
+        p1 = self.fabricarPuerta()
+        p2 = self.fabricarPuerta()
+        p3 = self.fabricarPuerta()
+        p4 = self.fabricarPuerta()
+
+        p1.lado1= hab1
+        p1.lado2= hab2
+
+        p2.lado1= hab2
+        p2.lado2= hab4
+
+        p3.lado1 = hab4
+        p3.lado2 = hab3
+
+        p4.lado1 = hab3
+        p4.lado2 = hab1
+
+        hab1.ponerElementoEn(self.fabricarEste(),p1)
+        hab1.ponerElementoEn(self.fabricarSur(),p4)
+
+        hab2.ponerElementoEn(self.fabricarOeste(),p1)
+        hab2.ponerElementoEn(self.fabricarSur(),p2)
+
+        hab3.ponerElementoEn(self.fabricarNorte(),p4)
+        hab3.ponerElementoEn(self.fabricarEste(),p3)
+
+        hab4.ponerElementoEn(self.fabricarNorte(),p2)
+        hab4.ponerElementoEn(self.fabricarOeste(),p3)
+
+        self.laberinto.agregarHabitacion(hab1)
+        self.laberinto.agregarHabitacion(hab2)
+        self.laberinto.agregarHabitacion(hab3)
+        self.laberinto.agregarHabitacion(hab4)
 
     #Fabricación con FactoryMethod
 
@@ -84,9 +156,3 @@ class Juego():
 
         self.laberinto.agregarHabitacion(hab1)
         self.laberinto.agregarHabitacion(hab2)
-
-juego = Juego()
-
-juego.laberinto2HabFM()
-
-print(juego.laberinto)
