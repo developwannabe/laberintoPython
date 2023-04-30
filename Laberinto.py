@@ -19,7 +19,7 @@ class Laberinto():
         habs = self.habitaciones.values()
         for hab in habs:
             strdev = strdev + str(hab)
-            strdev = strdev + "\n"
+            strdev = strdev + "\n\n"
         return strdev
 
     def __repr__(self):
@@ -27,5 +27,5 @@ class Laberinto():
         habs = self.habitaciones.values()
         for hab in habs:
             strdev = strdev + str(hab)
-            strdev = strdev + "\n"
+            strdev = strdev + "\n\n"
         return strdev

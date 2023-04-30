@@ -6,6 +6,10 @@ from Norte import Norte
 from Este import Este
 from Oeste import Oeste
 from Sur import Sur
+from Bomba import Bomba
+from Baul import Baul
+from Fuego import Fuego
+from Espada import Espada
 
 class Juego():
 
@@ -17,11 +21,31 @@ class Juego():
     def abrirPuertas(self):
         funcl = lambda x: x.abrir() if x.esPuerta() else None
         self.laberinto.recorrer(funcl)
+
+    def cerrarPuerta(self,hab1,hab2):
+        funcl = lambda x: x.cerrar() if x.esPuerta() and (x.lado1.num is hab1 or x.lado2.num is hab1) and (x.lado1.num is hab2 or x.lado2.num is hab2) else None
+        self.laberinto.recorrer(funcl)
+    
     #Métodos para el Factory Method
 
     def fabricarLaberinto(self):
         return Laberinto()
+    
+    def fabricarBaul(self,num,hab):
+        baul = Baul(num)
+        
+        p1= self.fabricarPuerta()
 
+        p1.lado1= baul
+        p1.lado2 =hab
+
+        baul.ponerElementoEn(self.fabricarNorte(),p1)
+        baul.ponerElementoEn(self.fabricarEste(),self.fabricarPared())
+        baul.ponerElementoEn(self.fabricarOeste(),self.fabricarPared())
+        baul.ponerElementoEn(self.fabricarSur(),self.fabricarPared())
+
+        return baul
+    
     def fabricarPuerta(self):
         return Puerta()
 
@@ -55,6 +79,15 @@ class Juego():
     def fabricarSur(self):
         return Sur.obtenerInstancia()
     
+    def fabricarBomba(self):
+        return Bomba()
+    
+    def fabricarFuego(self):
+        return Fuego()
+    
+    def fabricarEspada(self):
+        return Espada()
+    
     #Final de los métodos para el Factory Method
 
     #Fabricación de laberintos
@@ -83,8 +116,28 @@ class Juego():
         p3.lado1 = hab4
         p3.lado2 = hab3
 
+        bomba1 = self.fabricarBomba()
+        bomba1.component = p3
+
         p4.lado1 = hab3
         p4.lado2 = hab1
+
+        baul1 = self.fabricarBaul(1,hab2)
+        baul2 = self.fabricarBaul(2,hab3)
+
+        bomba2 = self.fabricarBomba()
+
+        baul1.agregarHijo(bomba2)
+
+        espada = self.fabricarEspada()
+
+        baul2.agregarHijo(espada)
+
+        fuego = self.fabricarFuego()
+
+        hab4.agregarHijo(fuego)
+        hab2.agregarHijo(baul1)
+        hab3.agregarHijo(baul2)
 
         hab1.ponerElementoEn(self.fabricarEste(),p1)
         hab1.ponerElementoEn(self.fabricarSur(),p4)
@@ -93,10 +146,10 @@ class Juego():
         hab2.ponerElementoEn(self.fabricarSur(),p2)
 
         hab3.ponerElementoEn(self.fabricarNorte(),p4)
-        hab3.ponerElementoEn(self.fabricarEste(),p3)
+        hab3.ponerElementoEn(self.fabricarEste(),bomba1)
 
         hab4.ponerElementoEn(self.fabricarNorte(),p2)
-        hab4.ponerElementoEn(self.fabricarOeste(),p3)
+        hab4.ponerElementoEn(self.fabricarOeste(),bomba1)
 
         self.laberinto.agregarHabitacion(hab1)
         self.laberinto.agregarHabitacion(hab2)

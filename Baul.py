@@ -10,7 +10,14 @@ class Baul (Contenedor):
         return True
 
     def __str__(self):
-        return "Baul " + str(self.num)
+        ret = "Baul " + str(self.num) + " con contenido: "
+        for i in self.hijos:
+            ret = ret + str(i)
+        return ret
+
     
     def __repr__(self):
-        return "Baul " + str(self.num)
+        ret = "Baul " + str(self.num) + " con contenido: "
+        for i in self.hijos:
+            ret = ret + str(i)
+        return ret

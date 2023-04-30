@@ -7,7 +7,8 @@
 ### Algoritmos implementados:
   - Factory Method
   - Composite
+  - Decorator
   - Iterator
   - Singleton
 
-![StarUML FM](https://github.com/developwannabe/laberintoPython/blob/main/StarUMLFM.jpg?raw=true)
+![StarUML FM](https://github.com/developwannabe/laberintoPython/blob/main/Entrega2.jpg?raw=true)

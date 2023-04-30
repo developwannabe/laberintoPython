@@ -17,6 +17,9 @@ class Puerta(ElementoMapa):
     def abrir(self):
         self.abierta = True
     
+    def cerrar(self):
+        self.abierta = False
+        
     def esPuerta(self):
         return True
 
