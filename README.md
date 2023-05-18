@@ -11,4 +11,7 @@
   - Iterator
   - Singleton
 
+### Dependencias a instalar:
+  - pip install pygame
+
 ![StarUML FM](https://github.com/developwannabe/laberintoPython/blob/main/Entrega2.jpg?raw=true)
