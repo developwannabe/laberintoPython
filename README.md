@@ -10,6 +10,9 @@
   - Decorator
   - Iterator
   - Singleton
+  - Strategy
+  - State
+  - Template Method
 
 ### Dependencias a instalar:
   - pip install pygame

@@ -13,3 +13,7 @@ class Orientacion(ABC):
     @abstractmethod
     def recorrerEn(self,cont,func):
         pass
+
+    @abstractmethod
+    def ir(ente):
+        pass

@@ -1,4 +1,5 @@
-from ElementoMapa import ElementoMapa 
+from ElementoMapa import ElementoMapa
+import random
 
 class Contenedor (ElementoMapa):
 
@@ -23,3 +24,12 @@ class Contenedor (ElementoMapa):
 
     def agregarOrientacion(self, ori):
         self.orientaciones.append(ori)
+
+    def obtenerOrientacionAleatoria(self):
+        indice = self.obtenerNumeroAleatorio(len(self.orientaciones))
+
+        return self.orientaciones[indice]
+    
+    def obtenerNumeroAleatorio(self,long):
+        return random.randint(0,long)
+
