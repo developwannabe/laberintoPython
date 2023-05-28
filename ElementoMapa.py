@@ -25,3 +25,9 @@ class ElementoMapa(ABC):
     
     def esBaul(self):
         return False
+    
+    def esEspada(self):
+        return False
+    
+    def esFuego(self):
+        return False

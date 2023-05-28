@@ -6,6 +6,9 @@ class Fuego(Decorator):
         super().__init__()
         self.daño = 10
 
+    def esFuego(self):
+        return True
+    
     def __str__(self):
         return "Fuego"
     

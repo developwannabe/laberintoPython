@@ -12,6 +12,7 @@
   - Iterator
   - Template Method
   - Singleton
+  - Builder
   - State
 
 ### Dependencias a instalar:

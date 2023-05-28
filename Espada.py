@@ -12,3 +12,6 @@ class Espada (Decorator):
     
     def __repr__(self):
         return "Espada"
+    
+    def esEspada(self):
+        return True
