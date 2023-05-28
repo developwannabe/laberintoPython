@@ -2,7 +2,7 @@ from Contenedor import Contenedor
 
 class Baul (Contenedor):
 
-    def entrar(self):
+    def entrar(self,ente):
         print("Contenido del baúl: \n")
         map(lambda y:print('   -',str(y),'\n'),self.hijos)
 

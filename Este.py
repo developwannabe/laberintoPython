@@ -10,9 +10,8 @@ class Este(Orientacion):
     def obtenerInstancia():
         if Este.__instance is None:
             Este.__instance = Este()
-            return Este.__instance
-        else:
-            return Este.__instance
+        
+        return Este.__instance
     
     def obtenerElementoEn(self,cont):
         return cont.este
@@ -22,3 +21,7 @@ class Este(Orientacion):
 
     def recorrerEn(self,cont,func):
         cont.este.recorrer(func)
+
+    def ir(self,ente):
+        cont = ente.posicion
+        cont.este.entrar(ente)

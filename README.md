@@ -6,13 +6,13 @@
 
 ### Algoritmos implementados:
   - Factory Method
-  - Composite
   - Decorator
-  - Iterator
-  - Singleton
   - Strategy
-  - State
+  - Composite
+  - Iterator
   - Template Method
+  - Singleton
+  - State
 
 ### Dependencias a instalar:
   - pip install pygame

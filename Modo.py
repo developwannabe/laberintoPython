@@ -6,7 +6,7 @@ class Modo():
     def actua(self,unBicho):
         self.dormir()
         self.caminar(unBicho)
-        self.atacar(unBicho)
+        #self.atacar(unBicho) TODO:xd
 
     def dormir(self):
         print('Bicho duerme')

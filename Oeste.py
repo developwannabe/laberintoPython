@@ -10,9 +10,8 @@ class Oeste(Orientacion):
     def obtenerInstancia():
         if Oeste.__instance is None:
             Oeste.__instance = Oeste()
-            return Oeste.__instance
-        else:
-            return Oeste.__instance
+            
+        return Oeste.__instance
     
     def obtenerElementoEn(self,cont):
         return cont.oeste
@@ -22,3 +21,7 @@ class Oeste(Orientacion):
 
     def recorrerEn(self,cont,func):
         cont.oeste.recorrer(func)
+
+    def ir(self,ente):
+        cont = ente.posicion
+        cont.oeste.entrar(ente)

@@ -8,11 +8,16 @@ class Puerta(ElementoMapa):
         self.lado1 = None
         self.lado2 = None
 
-    def entrar(self):
+    def entrar(self,ente):
         if self.abierta:
-            print("Puedes pasar al otro lado.")
+            if ente.posicion == self.lado1:
+                self.lado2.entrar(ente)
+            else:
+                self.lado1.entrar(ente)
         else:
-            print("La puerta está cerrada.")
+            print(str(ente)," ha chocado con una puerta cerrada.")
+
+
 
     def abrir(self):
         self.abierta = True

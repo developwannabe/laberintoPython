@@ -8,6 +8,10 @@ class Contenedor (ElementoMapa):
         self.num= num
         self.hijos = []
         self.orientaciones = []
+        self.norte = None
+        self.este = None
+        self.oeste= None
+        self.sur = None
 
     def recorrer(self,func):
         func(self)
@@ -31,5 +35,5 @@ class Contenedor (ElementoMapa):
         return self.orientaciones[indice]
     
     def obtenerNumeroAleatorio(self,long):
-        return random.randint(0,long)
+        return random.randint(0,long-1)
 

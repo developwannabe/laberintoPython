@@ -9,12 +9,12 @@ class Bomba (Decorator):
     def esBomba(self):
         return True
     
-    def entrar(self):
+    def entrar(self,ente):#TODO:Dañar al personaje
         if self.activa:
             print("La bomba ha explotado.")
             self.activa = False
         else:
-            self.component.entrar()
+            self.component.entrar(ente)
     
     def __str__(self):
         if self.component is not None:

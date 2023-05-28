@@ -10,11 +10,19 @@ from Bomba import Bomba
 from Baul import Baul
 from Fuego import Fuego
 from Espada import Espada
+from Bicho import Bicho
+from Personaje import Personaje
+from Agresivo import Agresivo
+from Perezoso import Perezoso
+import threading
 
 class Juego():
 
     def __init__(self):
         self.laberinto = None
+        self.personaje = None
+        self.bichos = []
+        self.hilos=dict()
 
     #Métodos iterator
 
@@ -25,11 +33,56 @@ class Juego():
     def cerrarPuerta(self,hab1,hab2):
         funcl = lambda x: x.cerrar() if x.esPuerta() and (x.lado1.num is hab1 or x.lado2.num is hab1) and (x.lado1.num is hab2 or x.lado2.num is hab2) else None
         self.laberinto.recorrer(funcl)
+
+    #Hilos
+
+    def lanzarBichos(self):
+        for bicho in self.bichos:
+            self.lanzarHilo(bicho)
     
+    def agregarBicho(self,unBicho):
+        unBicho.juego = self
+        self.bichos.append(unBicho)
+        unBicho.num = len(self.bichos)
+
+    def lanzarHilo(self,bicho):
+        hilo = threading.Thread(target=bicho.actua)
+        hilo.start()
+        self.agregarHilo(bicho,hilo)
+
+    def agregarHilo(self,bicho,hilo):
+        self.hilos[bicho.num]=hilo
+
     #Métodos para el Factory Method
 
     def fabricarLaberinto(self):
         return Laberinto()
+    
+    def fabricarModoAgresivo(self):
+        return Agresivo()
+    
+    def fabricarModoPerezoso(self):
+        return Perezoso()
+    
+    def fabricarBicho(self):
+        return Bicho()
+    
+    def fabricarBichoAgresivo(self,posicion):
+        bicho = self.fabricarBicho()
+        bicho.posicion = posicion
+        bicho.modo = self.fabricarModoAgresivo()
+        bicho.vidas = 10
+        bicho.poder = 3
+        return bicho
+    
+    def fabricarBichoPerezoso(self,posicion):
+        bicho = self.fabricarBicho()
+        bicho.posicion = posicion
+        bicho.modo = self.fabricarModoPerezoso()
+        bicho.vidas = 10
+        bicho.poder = 1
+        return bicho
+
     
     def fabricarBaul(self,num,hab):
         baul = Baul(num)
@@ -155,6 +208,12 @@ class Juego():
         self.laberinto.agregarHabitacion(hab2)
         self.laberinto.agregarHabitacion(hab3)
         self.laberinto.agregarHabitacion(hab4)
+
+        b1= self.fabricarBichoPerezoso(hab1)
+        b2= self.fabricarBichoAgresivo(hab2)
+        self.agregarBicho(b1)
+        self.agregarBicho(b2)
+
 
     #Fabricación con FactoryMethod
 

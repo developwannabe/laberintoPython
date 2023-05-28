@@ -3,8 +3,9 @@ from Contenedor import Contenedor
 
 class Habitacion(Contenedor):
 
-    def entrar(self):
-        print("Estás en la habitación ",self.num,".")
+    def entrar(self,ente):
+        ente.posicion = self
+        print(str(ente)," está en la habitación ",self.num,".")
 
     def esHabitacion(self):
         return True

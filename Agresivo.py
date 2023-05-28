@@ -9,7 +9,7 @@ class Agresivo(Modo):
         return True
     
     def __str__(self):
-        return "-Agresivo"
+        return "-Agresivo:"
     
     def __repr__(self):
-        return "-Agresivo"
+        return "-Agresivo:"

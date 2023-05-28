@@ -3,12 +3,15 @@ from Norte import Norte
 from Este import Este
 from Oeste import Oeste
 from Sur import Sur
-class Ente():
+from abc import ABC,abstractmethod
+class Ente(ABC):
 
     def __init__(self):
         self.vidas = 100
         self.poder = 1
         self.estado = Vivo()
+        self.posicion= None
+        self.juego = None
     
     def estaVivo(self):
         return self.estado.estaVivo()
@@ -27,3 +30,7 @@ class Ente():
 
     def irAlSur(self):
         self.irA(Sur.obtenerInstancia())
+    #TODO:xd
+    #@abstractmethod
+    #def enteMuere():
+    #    pass

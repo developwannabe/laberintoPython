@@ -1,7 +1,7 @@
 from Modo import Modo
 import time
 
-class Agresivo(Modo):
+class Perezoso(Modo):
     
     def atacar(self,unBicho):
         unBicho.atacar()

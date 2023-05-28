@@ -10,9 +10,8 @@ class Sur(Orientacion):
     def obtenerInstancia():
         if Sur.__instance is None:
             Sur.__instance = Sur()
-            return Sur.__instance
-        else:
-            return Sur.__instance
+        
+        return Sur.__instance
     
     def obtenerElementoEn(self,cont):
         return cont.sur
@@ -22,3 +21,7 @@ class Sur(Orientacion):
 
     def recorrerEn(self,cont,func):
         cont.sur.recorrer(func)
+
+    def ir(self,ente):
+        cont = ente.posicion
+        cont.sur.entrar(ente)

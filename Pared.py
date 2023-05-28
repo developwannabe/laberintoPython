@@ -2,7 +2,7 @@ from ElementoMapa import ElementoMapa
 
 class Pared(ElementoMapa):
     
-    def entrar(self):
+    def entrar(self,ente):
         print("Te has chocado con una pared.")
 
     def esPared(self):

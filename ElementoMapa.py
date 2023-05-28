@@ -5,7 +5,7 @@ class ElementoMapa(ABC):
     def __init__(self):
         self.padre = None
         
-    def entrar(self):
+    def entrar(self,ente):
         pass
 
     def recorrer(self, funcion):

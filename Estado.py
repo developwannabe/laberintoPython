@@ -10,5 +10,5 @@ class Estado(ABC):
         pass
     
     @abstractmethod
-    def estaVivo():
+    def estaVivo(self):
         pass

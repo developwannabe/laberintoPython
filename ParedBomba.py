@@ -6,7 +6,7 @@ class ParedBomba(Pared):
         super().__init__()
         self.activa = True
 
-    def entrar(self):
+    def entrar(self,ente):
         if self.activa:
             print("La bomba ha explotado.")
             self.activa = False
