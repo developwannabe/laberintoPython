@@ -14,6 +14,8 @@ from Bicho import Bicho
 from Personaje import Personaje
 from Agresivo import Agresivo
 from Perezoso import Perezoso
+from Juego import Juego
+from Armario import Armario
 
 class LaberintoBuilder():
     
@@ -24,6 +26,12 @@ class LaberintoBuilder():
 
     def obtenerJuego(self):
         return self.juego
+    
+    def fabricarJuego(self):
+        juego = Juego()
+        juego.laberinto = self.laberinto
+        self.juego = juego
+        return juego
     
     def fabricarLaberinto(self):
         self.laberinto = Laberinto()
@@ -36,6 +44,29 @@ class LaberintoBuilder():
     
     def fabricarBicho(self):
         return Bicho()
+    
+    def fabricarArmario(self,num):
+        return Armario(num)
+    
+    def fabricarArmarioEn(self,padre,num):
+        armario = self.fabricarArmario(num)
+        
+        p1= self.fabricarPuerta()
+
+        p1.lado1= armario
+        p1.lado2 = padre
+
+        armario.ponerElementoEn(self.fabricarNorte(),self.fabricarPared())
+        armario.ponerElementoEn(self.fabricarEste(),self.fabricarPared())
+        armario.ponerElementoEn(self.fabricarOeste(),self.fabricarPared())
+        armario.ponerElementoEn(self.fabricarSur(),p1)
+
+        padre.agregarHijo(armario)
+
+    def fabricarBombaEn(self,padre):
+        bomba = self.fabricarBomba()
+        padre.agregarHijo(bomba)
+        
     
     def fabricarBichoAgresivo(self,posicion):
         bicho = self.fabricarBicho()
@@ -53,6 +84,16 @@ class LaberintoBuilder():
         bicho.poder = 1
         return bicho
 
+    def fabricarBichoL(self,modo,posicion):
+        hab = self.juego.obtenerHabitacion(posicion)
+
+        if modo == "agresivo":
+            bicho = self.fabricarBichoAgresivo(hab)
+        if modo == "perezoso":
+            bicho = self.fabricarBichoPerezoso(hab)
+        
+        if bicho is not None:
+            self.juego.agregarBicho(bicho)
     
     def fabricarBaul(self,num,hab):
         baul = Baul(num)
@@ -85,7 +126,25 @@ class LaberintoBuilder():
         hab.agregarOrientacion(self.fabricarOeste())
         hab.agregarOrientacion(self.fabricarSur())
 
+        self.laberinto.agregarHabitacion(hab)
+
         return hab
+
+    def fabricarPuertaL(self,n1,or1,n2,or2):
+        lado1=self.laberinto.obtenerHabitacion(n1)
+        lado2=self.laberinto.obtenerHabitacion(n2)
+
+        ori1=getattr(self,'fabricar'+or1)()
+        ori2=getattr(self,'fabricar'+or2)()
+
+        puerta = self.fabricarPuerta()
+
+        puerta.lado1=lado1
+        puerta.lado2=lado2
+
+        lado1.ponerElementoEn(ori1,puerta)
+        lado2.ponerElementoEn(ori2,puerta)
+
 
     def fabricarPared(self):
         return Pared()

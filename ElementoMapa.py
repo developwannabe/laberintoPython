@@ -31,3 +31,6 @@ class ElementoMapa(ABC):
     
     def esFuego(self):
         return False
+
+    def esArmario(self):
+        return False

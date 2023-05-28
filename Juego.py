@@ -22,7 +22,10 @@ class Juego():
         self.laberinto = None
         self.personaje = None
         self.bichos = []
-        self.hilos=dict()
+        self.hilos={}
+
+    def obtenerHabitacion(self,num):
+        return self.laberinto.obtenerHabitacion(num)
 
     #Métodos iterator
 
