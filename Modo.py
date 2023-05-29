@@ -4,9 +4,9 @@ from abc import ABC, abstractmethod
 class Modo():
     
     def actua(self,unBicho):
-        self.dormir()
         self.caminar(unBicho)
-        #self.atacar(unBicho) TODO:xd
+        self.atacar(unBicho)
+        self.dormir()
 
     def dormir(self):
         print('Bicho duerme')

@@ -26,7 +26,43 @@ class Juego():
 
     def obtenerHabitacion(self,num):
         return self.laberinto.obtenerHabitacion(num)
+    
+    #Métodos Mediator
 
+    def buscarBicho(self):
+        pos=self.personaje.posicion
+        for bicho in self.bichos:
+            if bicho.posicion == pos:
+                return bicho
+        return None
+    
+    def buscarPersonaje(self,unBicho):
+        if unBicho.posicion == self.personaje.posicion:
+            return self.personaje
+        else:
+            return None
+        
+    def muereBicho(self):
+        if self.todosMuertos():
+            self.finJuego()
+
+    def todosMuertos(self):
+        for bicho in self.bichos:
+            if bicho.estaVivo():
+                return False
+        return True
+    
+    def terminarBichos(self):
+        for bicho in self.bichos:
+            self.terminarHilo(bicho)
+    
+    def terminarHilo(self,unBicho):
+        unBicho.heMuerto()
+
+    #TODO: Fases del juego
+    def finJuego(self):
+        print(str(self.personaje)," gana el juego.")
+    
     #Métodos iterator
 
     def abrirPuertas(self):

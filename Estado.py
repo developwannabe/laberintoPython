@@ -6,7 +6,7 @@ class Estado(ABC):
         pass
     
     @abstractmethod
-    def enteEsAtacadoPor(atacado,atacante):
+    def enteEsAtacadoPor(self,atacado,atacante):
         pass
     
     @abstractmethod

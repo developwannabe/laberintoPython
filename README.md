@@ -14,6 +14,7 @@
   - Singleton
   - Builder
   - Bridge
+  - Mediator
   - State
 
 ### Dependencias a instalar:

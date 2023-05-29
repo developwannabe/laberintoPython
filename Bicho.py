@@ -1,4 +1,5 @@
 from Ente import Ente
+from Muerto import Muerto
 import threading
 
 class Bicho(Ente):
@@ -7,6 +8,9 @@ class Bicho(Ente):
         super().__init__()
         self.modo=None
         self.num=None
+
+    def buscarEnemigo(self):
+        return self.juego.buscarPersonaje(self)
 
     def actua(self):
         while self.estaVivo():
@@ -18,6 +22,19 @@ class Bicho(Ente):
     def puedeActuar(self):
         self.modo.actua(self)
 
+    def enteMuere(self):
+        self.heMuerto()
+
+    def heMuerto(self):
+        self.estado=Muerto()
+        self.muere()
+        self.juego.muereBicho()
+
+    def muere(self):
+        print(str(self), " muere.")
+        self.vidas = 0
+        self.estado=Muerto()
+    
     def __str__(self):
         return "Bicho" + str(self.modo) + " "+str(self.num)
     
