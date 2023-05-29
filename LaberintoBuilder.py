@@ -16,6 +16,7 @@ from Agresivo import Agresivo
 from Perezoso import Perezoso
 from Juego import Juego
 from Armario import Armario
+from Cuadrado import Cuadrado
 
 class LaberintoBuilder():
     
@@ -45,6 +46,9 @@ class LaberintoBuilder():
     def fabricarBicho(self):
         return Bicho()
     
+    def fabricarForma(self):
+        return Cuadrado()
+    
     def fabricarArmario(self,num):
         return Armario(num)
     
@@ -53,6 +57,7 @@ class LaberintoBuilder():
         
         p1= self.fabricarPuerta()
 
+        armario.forma= self.fabricarForma()
         p1.lado1= armario
         p1.lado2 = padre
 
@@ -115,6 +120,10 @@ class LaberintoBuilder():
 
     def fabricarHabitacion(self,num):
         hab = Habitacion(num)
+
+        forma = self.fabricarForma()
+        forma.num= num
+        hab.forma = forma
 
         hab.ponerElementoEn(self.fabricarNorte(),self.fabricarPared())
         hab.ponerElementoEn(self.fabricarEste(),self.fabricarPared())

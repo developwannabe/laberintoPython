@@ -11,7 +11,7 @@ class Habitacion(Contenedor):
         return True
 
     def __str__(self):
-        ret= "Habitación: " + str(self.num) +"\n   -Norte: " + str(self.norte) +"\n   -Este: " + str(self.este) +"\n   -Oeste: " + str(self.oeste) +"\n   -Sur: " + str(self.sur)
+        ret= "Habitación "+str(self.num) +": "+ str(self.forma) 
         if len(self.hijos) > 0:
             ret = ret + "\n   -Hijos:"
             for i in self.hijos:
@@ -19,7 +19,7 @@ class Habitacion(Contenedor):
         return ret
     
     def __repr__(self):
-        ret= "Habitación: " + str(self.num) +"\n   -Norte: " + str(self.norte) +"\n   -Este: " + str(self.este) +"\n   -Oeste: " + str(self.oeste) +"\n   -Sur: " + str(self.sur)
+        ret= "Habitación "+str(self.num) +": "+ str(self.forma)
         if len(self.hijos) > 0:
             ret = ret + "\n   -Hijos:"
             for i in self.hijos:

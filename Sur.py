@@ -23,5 +23,5 @@ class Sur(Orientacion):
         cont.sur.recorrer(func)
 
     def ir(self,ente):
-        cont = ente.posicion
+        cont = ente.posicion.forma
         cont.sur.entrar(ente)

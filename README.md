@@ -13,6 +13,7 @@
   - Template Method
   - Singleton
   - Builder
+  - Bridge
   - State
 
 ### Dependencias a instalar:

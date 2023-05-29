@@ -23,5 +23,5 @@ class Norte(Orientacion):
         cont.norte.recorrer(func)
 
     def ir(self,ente):
-        cont = ente.posicion
+        cont = ente.posicion.forma
         cont.norte.entrar(ente)

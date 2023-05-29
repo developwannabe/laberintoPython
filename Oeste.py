@@ -23,5 +23,5 @@ class Oeste(Orientacion):
         cont.oeste.recorrer(func)
 
     def ir(self,ente):
-        cont = ente.posicion
+        cont = ente.posicion.forma
         cont.oeste.entrar(ente)
