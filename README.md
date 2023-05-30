@@ -23,4 +23,4 @@
 ### Dependencias a instalar:
   - pip install pygame
 
-![StarUML FM](https://github.com/developwannabe/laberintoPython/blob/main/UML.png?raw=true)
+![StarUML FM](https://github.com/developwannabe/laberintoPython/blob/main/uml/UML.png?raw=true)
