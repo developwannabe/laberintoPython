@@ -1,4 +1,3 @@
-from Juego import Juego
 from Director import Director
 from Personaje import Personaje
 
@@ -6,13 +5,14 @@ from Personaje import Personaje
 director = Director()
 director.procesar('/home/lln/lab4hab4bichostunel.json')
 juego = director.obtenerJuego()
+nombre = input("Nick del personaje: ")
 personaje = Personaje()
-personaje.nick = "Illan"
+personaje.nick = nombre
 juego.agregarPersonaje(personaje)
 juego.personaje = personaje
 while(True):
     print("¿Qué deseas hacer?\n    A. Atacar\n    1. Mover al norte\n    2. Mover al este\n    3. Mover al oeste\n    4. Mover al sur\n",
-          "   5. Abrir Puertas\n    6. Lanzar bichos\n    H. Obtener hijos")
+          "   5. Abrir Puertas\n    6. Lanzar bichos\n    H. Obtener hijos de la posición del personaje")
     eleccion=input()
     if eleccion == "1":
         personaje.irAlNorte()
@@ -36,5 +36,10 @@ while(True):
             print("    ",i,". ",hijo)
             i+=1
         el = input()
-        hijos[int(el)].entrar(personaje)
+        el = int(el)
+        if el < len(hijos) and el >= 0:
+            hijos[el].entrar(personaje)
+        else:
+            print("Has introducido un índice incorrecto.")
+    
         

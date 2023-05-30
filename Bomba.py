@@ -14,7 +14,10 @@ class Bomba (Decorator):
             print("La bomba ha explotado.")
             self.activa = False
         else:
-            self.component.entrar(ente)
+            if self.component is not None:
+                self.component.entrar(ente)
+            else:
+                print("Bomba desactivada.")
     
     def __str__(self):
         if self.component is not None:
