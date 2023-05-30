@@ -60,6 +60,8 @@ class Ente(ABC):
     def irAlSur(self):
         self.irA(Sur.obtenerInstancia())
 
+    #TODO: Implementar irAlNoreste, irAlNoroeste...
+
     @abstractmethod
     def enteMuere():
         pass

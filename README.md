@@ -11,6 +11,7 @@
   - Composite
   - Iterator
   - Template Method
+  - Abstract Factory
   - Singleton
   - Builder
   - Proxy

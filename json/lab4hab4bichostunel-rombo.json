@@ -1,0 +1,20 @@
+{
+    "forma":"rombo",
+    "laberinto":[
+        {"tipo":"habitacion","num":1,"hijos":[
+            {"tipo":"armario","num":1,"hijos":[]}
+        ]},
+        {"tipo":"habitacion","num":2,"hijos":[
+            {"tipo":"armario","num":2,"hijos":[]}
+        ]},
+        {"tipo":"habitacion","num":3,"hijos":[
+            {"tipo":"armario","num":3,"hijos":[]}
+        ]},
+        {"tipo":"habitacion","num":4,"hijos":[
+            {"tipo":"armario","num":4,"hijos":[]}
+        ]}
+    ],
+    "puertas":[[1,"Sureste",2,"Noroeste"],[4,"Noroeste",3,"Sureste"],[3,"Suroeste",1,"Noreste"]],
+    "bichos":[{"modo":"agresivo","posicion":1},{"modo":"perezoso","posicion":2},{"modo":"agresivo","posicion":3},{"modo":"perezoso","posicion":4}]
+    
+}

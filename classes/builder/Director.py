@@ -1,4 +1,5 @@
 from classes.builder.LaberintoBuilder import LaberintoBuilder
+from classes.builder.LaberintoRomboBuilder import LaberintoRomboBuilder
 import json
 
 class Director():
@@ -24,6 +25,8 @@ class Director():
     def iniBuilder(self):
         if self.dicc['forma'] == "cuadrado":
             self.builder = LaberintoBuilder()
+        if self.dicc['forma'] == "rombo":
+            self.builder = LaberintoRomboBuilder()
 
     def crearLaberinto(self):
         self.builder.fabricarLaberinto()

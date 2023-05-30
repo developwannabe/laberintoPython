@@ -1,12 +1,12 @@
 from classes.builder.Director import Director
 from classes.ente.Personaje import Personaje
 from classes.juego.Juego import Juego
-from classes.laberintoFactory.LaberintoFactory import LaberintoFactory
-from classes.laberintoFactory.LaberintoBombasFactory import LaberintoBombasFactory
+#from classes.laberintoFactory.LaberintoFactory import LaberintoFactory
+#from classes.laberintoFactory.LaberintoBombasFactory import LaberintoBombasFactory
 
-"""
+
 director = Director()
-director.procesar('json/lab4hab4bichostunel.json')
+director.procesar('json/lab4hab4bichostunel-rombo.json')
 juego = director.obtenerJuego()
 nombre = input("Nick del personaje: ")
 personaje = Personaje()
@@ -64,10 +64,10 @@ while(True):
             else:
                 print("Has introducido un índice incorrecto.")
         else:
-            print("No hay comandos disponibles.")"""
-
+            print("No hay comandos disponibles.")
+'''
 juego = Juego()
 af = LaberintoBombasFactory()
 juego.laberinto2EntregAF(af)
-print(juego.laberinto)
+print(juego.laberinto)'''
 
