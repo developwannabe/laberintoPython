@@ -7,8 +7,7 @@ class Personaje(Ente):
         self.nick=None
 
     def enteMuere(self):
-        print(str(self), " ha muerto.")
-        self.juego.terminarBichos()
+        self.juego.personajeMuere()
 
     def buscarEnemigo(self):
         return self.juego.buscarBicho()

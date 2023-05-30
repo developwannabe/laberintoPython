@@ -13,6 +13,8 @@ from classes.elementoMapa.hoja.decorator.Espada import Espada
 from classes.ente.Bicho import Bicho
 from classes.modo.Agresivo import Agresivo
 from classes.modo.Perezoso import Perezoso
+from classes.fase.Inicio import Inicio
+from classes.fase.Final import Final
 import threading
 import copy
 
@@ -24,10 +26,11 @@ class Juego():
         self.bichos = []
         self.prototipo = None
         self.hilos={}
+        self.fase = Inicio()
+        self.ganaPersonaje = True
 
     def obtenerHabitacion(self,num):
         return self.laberinto.obtenerHabitacion(num)
-    
     
     #Métodos Personaje
     
@@ -35,6 +38,9 @@ class Juego():
         return self.personaje.posicion.obtenerHijos()
     
     def agregarPersonaje(self,personaje):
+        self.fase.agregarPersonaje(personaje,self)
+
+    def puedeAgregarPersonaje(self,personaje):
         personaje.juego = self
         self.laberinto.entrar(personaje)
 
@@ -59,7 +65,8 @@ class Juego():
             return None
         
     def muereBicho(self):
-        if self.todosMuertos():
+        if self.todosMuertos() and self.ganaPersonaje:
+            print(str(self.personaje)," gana el juego.")
             self.finJuego()
 
     def todosMuertos(self):
@@ -75,9 +82,15 @@ class Juego():
     def terminarHilo(self,unBicho):
         unBicho.heMuerto()
 
-    #TODO: Fases del juego
+    def personajeMuere(self):
+        print(str(self.personaje), " ha muerto. Ganan los bichos.")
+        self.ganaPersonaje = False
+        self.terminarBichos()
+        self.finJuego()
+
     def finJuego(self):
-        print(str(self.personaje)," gana el juego.")
+        self.fase = Final()
+        
     
     #Métodos iterator
 
@@ -90,8 +103,10 @@ class Juego():
         self.laberinto.recorrer(funcl)
 
     #Hilos
-
     def lanzarBichos(self):
+        self.fase.lanzarBichos(self)
+
+    def puedeLanzarBichos(self):
         for bicho in self.bichos:
             self.lanzarHilo(bicho)
     

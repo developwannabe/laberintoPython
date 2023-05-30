@@ -5358,7 +5358,7 @@
 											"_parent": {
 												"$ref": "AAAAAAGHzjDAbcG8Qkc="
 											},
-											"font": "Arial;13;1",
+											"font": "Arial;13;3",
 											"left": 325,
 											"top": 271,
 											"width": 86.6962890625,
@@ -10155,7 +10155,7 @@
 											"_parent": {
 												"$ref": "AAAAAAGIaX9Rcay2HIw="
 											},
-											"font": "Arial;13;1",
+											"font": "Arial;13;3",
 											"left": 501,
 											"top": 271,
 											"width": 41.919921875,
@@ -11551,7 +11551,7 @@
 											"_parent": {
 												"$ref": "AAAAAAGIbKpnXXUuDg0="
 											},
-											"font": "Arial;13;1",
+											"font": "Arial;13;3",
 											"left": 973,
 											"top": 151,
 											"width": 59.94091796875,
@@ -14148,7 +14148,7 @@
 											"_parent": {
 												"$ref": "AAAAAAGIbsR5yUL65a4="
 											},
-											"font": "Arial;13;1",
+											"font": "Arial;13;3",
 											"left": 109,
 											"top": 319,
 											"width": 41.919921875,
@@ -16611,7 +16611,8 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Orientaciones"
+					"name": "Orientaciones",
+					"isAbstract": true
 				},
 				{
 					"_type": "UMLClass",
@@ -17099,7 +17100,8 @@
 								"multiplicity": "1..*"
 							}
 						}
-					]
+					],
+					"isAbstract": true
 				},
 				{
 					"_type": "UMLClass",
@@ -17185,7 +17187,8 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Comando"
+					"name": "Comando",
+					"isAbstract": true
 				},
 				{
 					"_type": "UMLClass",
@@ -17364,7 +17367,8 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Fase"
+					"name": "Fase",
+					"isAbstract": true
 				},
 				{
 					"_type": "UMLClass",

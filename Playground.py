@@ -13,7 +13,7 @@ personaje = Personaje()
 personaje.nick = nombre
 juego.agregarPersonaje(personaje)
 juego.personaje = personaje
-while(True):
+while not juego.fase.esFinal():
     print("¿Qué deseas hacer?\n    A. Atacar\n    1. Mover al norte\n    2. Mover al este\n    3. Mover al oeste\n    4. Mover al sur\n",
           "   5. Abrir Puertas\n    6. Lanzar bichos\n    H. Obtener hijos de la posición del personaje\n",
           "   C. Obtener Comandos")
