@@ -17,6 +17,7 @@ from Perezoso import Perezoso
 from Juego import Juego
 from Armario import Armario
 from Cuadrado import Cuadrado
+from Tunel import Tunel
 
 class LaberintoBuilder():
     
@@ -53,6 +54,13 @@ class LaberintoBuilder():
     def fabricarArmario(self,num):
         return Armario(num)
     
+    def fabricarTunel(self):
+        return Tunel()
+    
+    def fabricarTunelEn(self,padre):
+        tunel = self.fabricarTunel()
+        padre.agregarHijo(tunel)
+
     def fabricarArmarioEn(self,padre,num):
         armario = self.fabricarArmario(num)
         

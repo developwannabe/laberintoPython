@@ -1,11 +1,16 @@
-
-class Laberinto():
+from Contenedor import Contenedor
+class Laberinto(Contenedor):
 
     def __init__(self):
         self.habitaciones = {}
 
     def agregarHabitacion(self,habitacion):
         self.habitaciones[habitacion.num] = habitacion
+
+    def entrar(self,ente):
+        hab1 = self.obtenerHabitacion(1)
+        hab1.entrar(ente)
+        print(self)
 
     def obtenerHabitacion(self,num):
         return self.habitaciones[num]

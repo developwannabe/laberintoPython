@@ -29,6 +29,15 @@ class Juego():
     def obtenerHabitacion(self,num):
         return self.laberinto.obtenerHabitacion(num)
     
+    #Métodos Personaje
+    
+    def obtenerHijosPosicion(self):
+        return self.personaje.posicion.obtenerHijos()
+    
+    def agregarPersonaje(self,personaje):
+        personaje.juego = self
+        self.laberinto.entrar(personaje)
+
     #Métodos Prototype
 
     def clonarLaberinto(self):

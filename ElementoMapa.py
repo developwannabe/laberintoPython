@@ -1,10 +1,11 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
 class ElementoMapa(ABC):
     
     def __init__(self):
         self.padre = None
-        
+
+    @abstractmethod 
     def entrar(self,ente):
         pass
 
@@ -33,4 +34,7 @@ class ElementoMapa(ABC):
         return False
 
     def esArmario(self):
+        return False
+    
+    def esTunel(self):
         return False

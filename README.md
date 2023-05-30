@@ -13,6 +13,7 @@
   - Template Method
   - Singleton
   - Builder
+  - Proxy
   - Bridge
   - Mediator
   - State

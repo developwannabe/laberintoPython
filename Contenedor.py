@@ -32,3 +32,5 @@ class Contenedor (ElementoMapa):
     def obtenerNumeroAleatorio(self,long):
         return random.randint(0,long-1)
 
+    def obtenerHijos(self):
+        return self.hijos
