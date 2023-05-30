@@ -3,7 +3,7 @@ from Personaje import Personaje
 
 
 director = Director()
-director.procesar('/home/lln/lab4hab4bichostunel.json')
+director.procesar('json/lab4hab4bichostunel.json')
 juego = director.obtenerJuego()
 nombre = input("Nick del personaje: ")
 personaje = Personaje()
@@ -12,7 +12,8 @@ juego.agregarPersonaje(personaje)
 juego.personaje = personaje
 while(True):
     print("¿Qué deseas hacer?\n    A. Atacar\n    1. Mover al norte\n    2. Mover al este\n    3. Mover al oeste\n    4. Mover al sur\n",
-          "   5. Abrir Puertas\n    6. Lanzar bichos\n    H. Obtener hijos de la posición del personaje")
+          "   5. Abrir Puertas\n    6. Lanzar bichos\n    H. Obtener hijos de la posición del personaje\n",
+          "   C. Obtener Comandos")
     eleccion=input()
     if eleccion == "1":
         personaje.irAlNorte()
@@ -30,16 +31,35 @@ while(True):
         personaje.atacar()
     if eleccion == "h" or eleccion == "H":
         hijos = juego.obtenerHijosPosicion()
-        print("Selecciona hijo: ")
-        i = 0
-        for hijo in hijos:
-            print("    ",i,". ",hijo)
-            i+=1
-        el = input()
-        el = int(el)
-        if el < len(hijos) and el >= 0:
-            hijos[el].entrar(personaje)
+        if len(hijos) > 0:
+            print("Selecciona hijo: ")
+            i = 0
+            for hijo in hijos:
+                print("    ",i,". ",hijo)
+                i+=1
+            el = input()
+            el = int(el)
+            if el < len(hijos) and el >= 0:
+                hijos[el].entrar(personaje)
+            else:
+                print("Has introducido un índice incorrecto.")
         else:
-            print("Has introducido un índice incorrecto.")
-    
+            print("No hay hijos disponibles.")
+
+    if eleccion == "c" or eleccion == "C":
+        coms = personaje.obtenerComandos()
+        if len(coms) > 0:
+            print("Selecciona comando: ")
+            i = 0
+            for com in coms:
+                print("    ",i,". ",com)
+                i+=1
+            el = input()
+            el = int(el)
+            if el < len(coms) and el >= 0:
+                coms[el].ejecutar(personaje)
+            else:
+                print("Has introducido un índice incorrecto.")
+        else:
+            print("No hay comandos disponibles.")
         

@@ -7,6 +7,12 @@ class Forma():
     def agregarOrientacion(self, orientacion):
         self.orientaciones.append(orientacion)
     
+    def obtenerComandos(self):
+        listaComandos = []
+        for ori in self.orientaciones:
+            listaComandos.extend(ori.obtenerComandosDe(self))
+        return listaComandos
+
     def obtenerElemento(self, unaOr):
         return unaOr.obtenerElementoEn(unaOr)
     

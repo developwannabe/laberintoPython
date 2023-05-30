@@ -18,6 +18,7 @@ from Juego import Juego
 from Armario import Armario
 from Cuadrado import Cuadrado
 from Tunel import Tunel
+from Abrir import Abrir
 
 class LaberintoBuilder():
     
@@ -126,6 +127,9 @@ class LaberintoBuilder():
     
     def fabricarPuerta(self):
         return Puerta()
+    
+    def fabricarAbrir(self):
+        return Abrir()
 
     def fabricarHabitacion(self,num):
         hab = Habitacion(num)
@@ -159,6 +163,10 @@ class LaberintoBuilder():
 
         puerta.lado1=lado1
         puerta.lado2=lado2
+
+        com = self.fabricarAbrir()
+        com.receptor = puerta
+        puerta.agregarComando(com)
 
         lado1.ponerElementoEn(ori1,puerta)
         lado2.ponerElementoEn(ori2,puerta)

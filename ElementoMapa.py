@@ -4,10 +4,20 @@ class ElementoMapa(ABC):
     
     def __init__(self):
         self.padre = None
+        self.comandos = []
 
     @abstractmethod 
     def entrar(self,ente):
         pass
+
+    def agregarComando(self,comando):
+        self.comandos.append(comando)
+
+    def obtenerComandos(self):
+        return self.comandos
+    
+    def quitarComando(self,comando):
+        self.comandos.remove(comando)
 
     def recorrer(self, funcion):
         funcion(self)

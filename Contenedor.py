@@ -14,6 +14,14 @@ class Contenedor (ElementoMapa):
         map(func,self.hijos)
         self.forma.recorrer(func)
 
+    def obtenerComandos(self):
+        listaComandos = []
+        listaComandos.extend(self.comandos)
+        for hijo in self.hijos:
+            listaComandos.extend(hijo.obtenerComandos())
+        listaComandos.extend(self.forma.obtenerComandos())
+        return listaComandos
+
     def agregarHijo(self, EM):
         EM.padre = self
         self.hijos.append(EM)

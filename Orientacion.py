@@ -11,6 +11,10 @@ class Orientacion(ABC):
         pass
     
     @abstractmethod
+    def obtenerComandosDe(self,forma):
+        pass
+
+    @abstractmethod
     def recorrerEn(self,cont,func):
         pass
 

@@ -1,4 +1,7 @@
 from ElementoMapa import ElementoMapa
+from Abrir import Abrir
+from Entrar import Entrar
+from Cerrar import Cerrar
 
 class Puerta(ElementoMapa):
 
@@ -17,13 +20,43 @@ class Puerta(ElementoMapa):
         else:
             print(str(ente)," ha chocado con una puerta cerrada.")
 
-
-
-    def abrir(self):
+    def abrir(self,ente = None):#Al no existir la sobrecarga de métodos en python, usamos argumentos adicionales
         self.abierta = True
+        if ente is not None:
+            self.quitarAbrir()
+            com1 = Entrar()
+            com2 = Cerrar()
+            com1.receptor = self
+            com2.receptor = self
+            self.agregarComando(com1)
+            self.agregarComando(com2)
     
-    def cerrar(self):
+    def quitarAbrir(self):
+        for com in self.comandos:
+            if com.esAbrir():
+                self.quitarComando(com)
+                return
+
+    def cerrar(self,ente = None):
         self.abierta = False
+        if ente is not None:
+            self.quitarCerrar()
+            self.quitarEntrar()
+            com = Abrir()
+            com.receptor = self
+            self.agregarComando(com)
+
+    def quitarCerrar(self):
+        for com in self.comandos:
+            if com.esCerrar():
+                self.quitarComando(com)
+                return
+    
+    def quitarEntrar(self):
+        for com in self.comandos:
+            if com.esEntrar():
+                self.quitarComando(com)
+                return
         
     def esPuerta(self):
         return True

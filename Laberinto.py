@@ -2,10 +2,10 @@ from Contenedor import Contenedor
 class Laberinto(Contenedor):
 
     def __init__(self):
-        self.habitaciones = {}
+        super().__init__(0)
 
     def agregarHabitacion(self,habitacion):
-        self.habitaciones[habitacion.num] = habitacion
+        self.hijos.append(habitacion)
 
     def entrar(self,ente):
         hab1 = self.obtenerHabitacion(1)
@@ -13,15 +13,15 @@ class Laberinto(Contenedor):
         print(self)
 
     def obtenerHabitacion(self,num):
-        return self.habitaciones[num]
+        return self.hijos[num-1]
     
     def recorrer(self, funcion):
-        for habi in list(self.habitaciones.values()):
+        for habi in self.hijos:
             habi.recorrer(funcion)
     
     def __str__(self):
         strdev = "Contenido del laberinto:\n"
-        habs = self.habitaciones.values()
+        habs = self.hijos
         for hab in habs:
             strdev = strdev + str(hab)
             strdev = strdev + "\n\n"
@@ -29,7 +29,7 @@ class Laberinto(Contenedor):
 
     def __repr__(self):
         strdev = "Contenido del laberinto:\n"
-        habs = self.habitaciones.values()
+        habs = self.hijos
         for hab in habs:
             strdev = strdev + str(hab)
             strdev = strdev + "\n\n"

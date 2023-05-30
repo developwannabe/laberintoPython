@@ -13,6 +13,9 @@ class Personaje(Ente):
     def buscarEnemigo(self):
         return self.juego.buscarBicho()
     
+    def obtenerComandos(self):
+        return self.posicion.obtenerComandos()
+    
     def __str__(self):
         return "Personaje " + str(self.nick)
     

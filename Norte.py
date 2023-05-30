@@ -19,6 +19,9 @@ class Norte(Orientacion):
     def ponerElementoEn(self,em,cont):
         cont.norte = em
 
+    def obtenerComandosDe(self,forma):
+        return forma.norte.obtenerComandos()
+
     def recorrerEn(self,cont,func):
         cont.norte.recorrer(func)
 

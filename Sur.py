@@ -22,6 +22,9 @@ class Sur(Orientacion):
     def recorrerEn(self,cont,func):
         cont.sur.recorrer(func)
 
+    def obtenerComandosDe(self,forma):
+        return forma.sur.obtenerComandos()
+
     def ir(self,ente):
         cont = ente.posicion.forma
         cont.sur.entrar(ente)

@@ -29,6 +29,7 @@ class Juego():
     def obtenerHabitacion(self,num):
         return self.laberinto.obtenerHabitacion(num)
     
+    
     #Métodos Personaje
     
     def obtenerHijosPosicion(self):

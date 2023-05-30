@@ -19,6 +19,9 @@ class Este(Orientacion):
     def ponerElementoEn(self,em,cont):
         cont.este = em
 
+    def obtenerComandosDe(self,forma):
+        return forma.este.obtenerComandos()
+
     def recorrerEn(self,cont,func):
         cont.este.recorrer(func)
 

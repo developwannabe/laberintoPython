@@ -3,6 +3,7 @@ from Hoja import Hoja
 class Tunel(Hoja):
     
     def __init__(self):
+        super().__init__()
         self.laberinto = None
 
     def entrar(self,ente): #TODO: Arreglar vuelta al laberinto
