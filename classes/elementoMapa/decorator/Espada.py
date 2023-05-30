@@ -6,6 +6,9 @@ class Espada (Decorator):
         super().__init__()
         self.poder = 10
         self.usos = 5
+    
+    def entrar(self,ente):
+        print("Espada")
 
     def __str__(self):
         return "Espada"

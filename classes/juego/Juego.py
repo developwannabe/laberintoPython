@@ -11,7 +11,6 @@ from classes.elementoMapa.contenedor.Baul import Baul
 from classes.elementoMapa.decorator.Fuego import Fuego
 from classes.elementoMapa.decorator.Espada import Espada
 from classes.ente.Bicho import Bicho
-from classes.ente.Personaje import Personaje
 from classes.modo.Agresivo import Agresivo
 from classes.modo.Perezoso import Perezoso
 import threading
@@ -200,6 +199,74 @@ class Juego():
     #Final de los métodos para el Factory Method
 
     #Fabricación de laberintos
+
+    #Fabricación con AbstractFactory
+    def laberinto2EntregAF(self,AF):
+        self.laberinto = self.fabricarLaberinto()
+
+        hab1 = AF.fabricarHabitacion(1)
+        hab2 = AF.fabricarHabitacion(2)
+        hab3 = AF.fabricarHabitacion(3)
+        hab4 = AF.fabricarHabitacion(4)
+
+        p1 = AF.fabricarPuerta()
+        p2 = AF.fabricarPuerta()
+        p3 = AF.fabricarPuerta()
+        p4 = AF.fabricarPuerta()
+
+        p1.lado1= hab1
+        p1.lado2= hab2
+
+        p2.lado1= hab2
+        p2.lado2= hab4
+
+        p3.lado1 = hab4
+        p3.lado2 = hab3
+
+        bomba1 = AF.fabricarBomba()
+        bomba1.component = p3
+
+        p4.lado1 = hab3
+        p4.lado2 = hab1
+
+        baul1 = AF.fabricarBaul(1,hab2)
+        baul2 = AF.fabricarBaul(2,hab3)
+
+        bomba2 = AF.fabricarBomba()
+
+        baul1.agregarHijo(bomba2)
+
+        espada = AF.fabricarEspada()
+
+        baul2.agregarHijo(espada)
+
+        fuego = AF.fabricarFuego()
+
+        hab4.agregarHijo(fuego)
+        hab2.agregarHijo(baul1)
+        hab3.agregarHijo(baul2)
+
+        hab1.ponerElementoEn(AF.fabricarEste(),p1)
+        hab1.ponerElementoEn(AF.fabricarSur(),p4)
+
+        hab2.ponerElementoEn(AF.fabricarOeste(),p1)
+        hab2.ponerElementoEn(AF.fabricarSur(),p2)
+
+        hab3.ponerElementoEn(AF.fabricarNorte(),p4)
+        hab3.ponerElementoEn(AF.fabricarEste(),bomba1)
+
+        hab4.ponerElementoEn(AF.fabricarNorte(),p2)
+        hab4.ponerElementoEn(AF.fabricarOeste(),bomba1)
+
+        self.laberinto.agregarHabitacion(hab1)
+        self.laberinto.agregarHabitacion(hab2)
+        self.laberinto.agregarHabitacion(hab3)
+        self.laberinto.agregarHabitacion(hab4)
+
+        b1= AF.fabricarBichoPerezoso(hab1)
+        b2= AF.fabricarBichoAgresivo(hab2)
+        self.agregarBicho(b1)
+        self.agregarBicho(b2)
 
     #Laberinto para la segunda entrega
 
