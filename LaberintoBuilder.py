@@ -31,7 +31,7 @@ class LaberintoBuilder():
     def fabricarJuego(self):
         juego = Juego()
         juego.prototipo = self.laberinto
-        juego.laberinto = self.juego.clonarLaberinto()
+        juego.laberinto = juego.clonarLaberinto()
         self.juego = juego
         return juego
     
