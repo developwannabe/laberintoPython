@@ -1,5 +1,5 @@
 from classes.juego.Juego import Juego
-from classes.elementoMapa.habitacion.HabitacionBomba import HabitacionBomba
+from classes.elementoMapa.contenedor.habitacion.HabitacionBomba import HabitacionBomba
 from classes.elementoMapa.pared.ParedBomba import ParedBomba
 
 class JuegoBombas(Juego):

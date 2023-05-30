@@ -6,7 +6,7 @@ from classes.juego.Juego import Juego
 
 
 director = Director()
-director.procesar('json/lab4hab4bichostunel-rombo.json')
+director.procesar('json/lab4hab4bichostunel.json')
 juego = director.obtenerJuego()
 nombre = input("Nick del personaje: ")
 personaje = Personaje()

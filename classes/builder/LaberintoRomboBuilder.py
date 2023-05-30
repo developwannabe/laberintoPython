@@ -1,6 +1,6 @@
 from classes.forma.Rombo import Rombo
 from classes.builder.LaberintoBuilder import LaberintoBuilder
-from classes.elementoMapa.habitacion.Habitacion import Habitacion
+from classes.elementoMapa.contenedor.habitacion.Habitacion import Habitacion
 from classes.orientacion.Noreste import Noreste
 from classes.orientacion.Noroeste import Noroeste
 from classes.orientacion.Sureste import Sureste

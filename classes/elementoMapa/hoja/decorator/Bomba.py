@@ -1,4 +1,4 @@
-from classes.elementoMapa.decorator.Decorator import Decorator
+from classes.elementoMapa.hoja.decorator.Decorator import Decorator
 
 class Bomba (Decorator):
 

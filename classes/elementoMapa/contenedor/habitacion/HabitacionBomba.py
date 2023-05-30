@@ -1,4 +1,4 @@
-from classes.elementoMapa.habitacion.Habitacion import Habitacion
+from classes.elementoMapa.contenedor.habitacion.Habitacion import Habitacion
 
 class HabitacionBomba(Habitacion):
 
