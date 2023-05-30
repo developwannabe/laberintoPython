@@ -16,6 +16,7 @@
   - Bridge
   - Mediator
   - State
+  - Prototype
 
 ### Dependencias a instalar:
   - pip install pygame

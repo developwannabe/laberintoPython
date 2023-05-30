@@ -17,6 +17,7 @@ from Perezoso import Perezoso
 from Juego import Juego
 from Armario import Armario
 from Cuadrado import Cuadrado
+import copy
 
 class LaberintoBuilder():
     
@@ -30,7 +31,8 @@ class LaberintoBuilder():
     
     def fabricarJuego(self):
         juego = Juego()
-        juego.laberinto = self.laberinto
+        juego.prototipo = self.laberinto
+        juego.laberinto = copy.deepcopy(juego.prototipo)
         self.juego = juego
         return juego
     

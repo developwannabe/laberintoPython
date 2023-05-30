@@ -22,6 +22,7 @@ class Juego():
         self.laberinto = None
         self.personaje = None
         self.bichos = []
+        self.prototipo = None
         self.hilos={}
 
     def obtenerHabitacion(self,num):
