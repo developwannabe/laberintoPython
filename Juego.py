@@ -15,6 +15,7 @@ from Personaje import Personaje
 from Agresivo import Agresivo
 from Perezoso import Perezoso
 import threading
+import copy
 
 class Juego():
 
@@ -27,6 +28,11 @@ class Juego():
 
     def obtenerHabitacion(self,num):
         return self.laberinto.obtenerHabitacion(num)
+    
+    #Métodos Prototype
+
+    def clonarLaberinto(self):
+        return copy.deepcopy(self.prototipo)
     
     #Métodos Mediator
 
