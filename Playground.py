@@ -1,5 +1,5 @@
-from classes.Director import Director
-from classes.Personaje import Personaje
+from classes.builder.Director import Director
+from classes.ente.Personaje import Personaje
 
 
 director = Director()
