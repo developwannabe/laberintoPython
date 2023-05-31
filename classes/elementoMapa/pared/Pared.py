@@ -9,6 +9,9 @@ class Pared(ElementoMapa):
         print("Visitar pared")
         visitor.visitarPared(self)
 
+    def calcularPosicionDesde(self,forma,unPunto):
+        pass
+
     def esPared(self):
         return True
     

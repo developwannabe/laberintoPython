@@ -16,6 +16,10 @@ class Suroeste(Orientacion):
     def obtenerElementoEn(self,cont):
         return cont.suroeste
     
+    def aceptar(self,visitor,forma):
+        print("Visitar suroeste")
+        forma.suroeste.aceptar(visitor)
+
     def ponerElementoEn(self,em,cont):
         cont.suroeste = em
 

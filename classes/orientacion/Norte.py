@@ -16,6 +16,14 @@ class Norte(Orientacion):
     def obtenerElementoEn(self,cont):
         return cont.norte
     
+    def calcularPosicionDesde(self,forma):
+        unPunto = (forma.punto[0],forma.punto[1]-1)
+        forma.norte.calcularPosicionDesde(forma,unPunto)
+    
+    def aceptar(self,visitor,forma):
+        print("Visitar norte")
+        forma.norte.aceptar(visitor)
+    
     def ponerElementoEn(self,em,cont):
         cont.norte = em
 

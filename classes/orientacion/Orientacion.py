@@ -11,6 +11,14 @@ class Orientacion(ABC):
         pass
     
     @abstractmethod
+    def aceptar(self,visitor,forma):
+        pass
+    
+    @abstractmethod
+    def calcularPosicionDesde(self,forma):
+        pass
+
+    @abstractmethod
     def obtenerComandosDe(self,forma):
         pass
 

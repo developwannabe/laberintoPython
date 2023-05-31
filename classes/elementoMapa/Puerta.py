@@ -10,6 +10,7 @@ class Puerta(ElementoMapa):
         self.abierta = False
         self.lado1 = None
         self.lado2 = None
+        self.visitada = False
 
     def entrar(self,ente):
         if self.abierta:
@@ -19,6 +20,17 @@ class Puerta(ElementoMapa):
                 self.lado1.entrar(ente)
         else:
             print(str(ente)," ha chocado con una puerta cerrada.")
+
+    def calcularPosicionDesde(self,forma,unPunto):
+        if self.visitada:
+            return self
+        self.visitada=True
+        if forma.num == self.lado1.num:
+            self.lado2.setPunto(unPunto)
+            self.lado2.calcularPosicion()
+        else:
+            self.lado1.setPunto(unPunto)
+            self.lado1.calcularPosicion()
 
     def aceptar(self,visitor):
         print("Visitar puerta")

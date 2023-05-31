@@ -8,11 +8,27 @@ class Contenedor (ElementoMapa):
         self.num= num
         self.hijos = []
         self.forma = None
+        self.extent = None
 
     def recorrer(self,func):
         func(self)
         map(func,self.hijos)
         self.forma.recorrer(func)
+
+    def calcularPosicion(self):
+        self.forma.calcularPosicion()
+
+    def getPunto(self):
+        return self.forma.punto
+    
+    def setPunto(self,punto):
+        self.forma.punto = punto
+
+    def getExtent(self):
+        return self.forma.extent
+    
+    def setExtent(self,extent):
+        self.forma.extent = extent
 
     def obtenerComandos(self):
         listaComandos = []

@@ -5,15 +5,17 @@ import time
 class LaberintoGUI():
     
     def __init__(self):
-        self.largo = 1150
-        self.ancho = 800
+        self.largoV = 1150
+        self.anchoV = 800
+        self.ancho = None
+        self.alto = None
         self.ventana = None
         self.juego = None
         self.colorFondo = (255,255,255)
         self.fps = 1
         self.personaje = None
         pygame.init()
-        self.ventana = pygame.display.set_mode((self.largo,self.ancho))
+        self.ventana = pygame.display.set_mode((self.largoV,self.anchoV))
         pygame.display.set_caption("No banana, no monkey")
     
     def iniciarJuego(self,json,nombre):
@@ -22,15 +24,57 @@ class LaberintoGUI():
         self.juego = director.obtenerJuego()
         self.agregarPersonaje(nombre)
         self.mostrarLaberinto()
-        #self.dibujarLaberinto()
+        self.dibujarLaberinto()
 
     def mostrarLaberinto(self):
-        pass#TODO:Esto
-        #self.calcularPosicion()
-        #self.normalizar()
-        #self.calcularDimensiones()
-        #self.asignarPuntosReales()
+        pass
+        self.calcularPosicion()
+        self.normalizar()
+        self.calcularDimensiones()
+        self.asignarPuntosReales()
 
+    def calcularPosicion(self):
+        h1= self.juego.obtenerHabitacion(1)
+        h1.setPunto((0,0))
+        h1.calcularPosicion()
+
+    def normalizar(self):
+        minX = 0
+        minY = 0
+        for hijo in self.juego.laberinto.hijos:
+            if hijo.getPunto()[0] < minX:
+                minX = hijo.getPunto()[0]
+            if hijo.getPunto()[1] < minY:
+                minY = hijo.getPunto()[1]
+        
+        for hijo in self.juego.laberinto.hijos:
+            unPunto = hijo.getPunto()
+            hijo.setPunto((unPunto[0] + abs(minX),unPunto[1]+abs(minY)))
+
+    def calcularDimensiones(self):
+        maxX = 0
+        maxY = 0
+        for hijo in self.juego.laberinto.hijos:
+            if hijo.getPunto()[0] > maxX:
+                maxX = hijo.getPunto()[0]
+            if hijo.getPunto()[1] > maxY:
+                maxY = hijo.getPunto()[1]
+        maxX += 1
+        maxY += 1
+        self.ancho = int(self.anchoV/maxX)
+        self.alto = int(self.anchoV/maxY)
+
+    def asignarPuntosReales(self):
+        x = 0
+        y = 0
+        origen = (70,10)
+        for hijo in self.juego.laberinto.hijos:
+            x = origen[0] + (hijo.getPunto()[0] * self.ancho)
+            y = origen[1] + (hijo.getPunto()[1] * self.alto)
+            hijo.setExtent((self.ancho,self.alto))
+            hijo.punto = (x,y)
+
+    
     def dibujarLaberinto(self):
         if self.juego is not None:
             self.juego.laberinto.aceptar(self)
@@ -40,6 +84,7 @@ class LaberintoGUI():
             #self.mostrarCerrarPuertas()
             #self.mostrarPersonaje()
             #self.mostrarBichos()
+            pygame.display.update()
 
     def agregarPersonaje(self,nombre):
         personaje = Personaje()
@@ -52,7 +97,8 @@ class LaberintoGUI():
         self.dibujarContenedorRectangular(hab.forma,1)
     
     def visitarArmario(self,arm):
-        self.dibujarArmario(arm)
+        pass
+        #TODO:self.dibujarArmario(arm)
     
     def visitarBaul(self,baul):
         self.dibujarBaul(baul)
@@ -75,7 +121,12 @@ class LaberintoGUI():
     def visitarTunel(self,tunel):
         pass#TODO:Dibujar tunel
 
-
+    def dibujarContenedorRectangular(self,forma,escala):
+        unPunto = forma.punto
+        an = forma.extent[0] / escala
+        al = forma.extent[1] / escala
+        self.ventana.fill(self.colorFondo)
+        pygame.draw.rect(self.ventana, (0, 0, 0), (an*(unPunto[0]), al*(unPunto[1]), an, al), 2)
 
     def ejecutar(self):
         monkeyIm = pygame.image.load("gui/img/monkey.png")
@@ -95,15 +146,13 @@ class LaberintoGUI():
                 if event.type == pygame.QUIT:
                     running = False
             time.sleep(2)
-            self.ventana.fill(self.colorFondo)
-            self.ventana.blit(monkeyIm, (coords,coords))
-            self.ventana.blit(snakeIm, (100,100))
-            pygame.draw.rect(self.ventana, (255, 0, 0), (200, 200, 200, 150), 10)
+            #self.ventana.blit(monkeyIm, (coords,coords))
+            #self.ventana.blit(snakeIm, (100,100))
             if abierto:
-                self.ventana.blit(openwardrobeIM, (400,400))
+                #self.ventana.blit(openwardrobeIM, (400,400))
                 abierto = False
             else:
-                self.ventana.blit(closedwardrobeIM, (400,400))
+                #self.ventana.blit(closedwardrobeIM, (400,400))
                 abierto = True
             pygame.display.update()
             if bool:

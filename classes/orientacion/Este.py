@@ -16,6 +16,14 @@ class Este(Orientacion):
     def obtenerElementoEn(self,cont):
         return cont.este
     
+    def calcularPosicionDesde(self,forma):
+        unPunto = (forma.punto[0] + 1,forma.punto[1])
+        forma.este.calcularPosicionDesde(forma,unPunto)
+    
+    def aceptar(self,visitor,forma):
+        print("Visitar este")
+        forma.este.aceptar(visitor)
+    
     def ponerElementoEn(self,em,cont):
         cont.este = em
 

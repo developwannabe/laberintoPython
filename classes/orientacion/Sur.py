@@ -16,6 +16,14 @@ class Sur(Orientacion):
     def obtenerElementoEn(self,cont):
         return cont.sur
     
+    def calcularPosicionDesde(self,forma):
+        unPunto = (forma.punto[0],forma.punto[1]+1)
+        forma.sur.calcularPosicionDesde(forma,unPunto)
+    
+    def aceptar(self,visitor,forma):
+        print("Visitar sur")
+        forma.sur.aceptar(visitor)
+    
     def ponerElementoEn(self,em,cont):
         cont.sur = em
 
