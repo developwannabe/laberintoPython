@@ -19,6 +19,7 @@
   - Mediator
   - State
   - Prototype
+  - Observer
   - Command
   - Visitor
 
