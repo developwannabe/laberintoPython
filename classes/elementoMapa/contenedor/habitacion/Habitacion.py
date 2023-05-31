@@ -9,6 +9,13 @@ class Habitacion(Contenedor):
 
     def esHabitacion(self):
         return True
+    
+    def aceptar(self,visitor):
+        print("Visitar habitación ",str(self.num))
+        visitor.visitarHabitacion(self)
+        for hijo in self.hijos:
+            hijo.aceptar(visitor)
+        self.forma.aceptar(visitor)
 
     def __str__(self):
         ret= "Habitación "+str(self.num) +": "+ str(self.forma) 

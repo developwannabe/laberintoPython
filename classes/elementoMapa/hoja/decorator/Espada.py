@@ -10,6 +10,10 @@ class Espada (Decorator):
     def entrar(self,ente):
         print("Espada")
 
+    def aceptar(self,visitor):
+        print("Visitar espada")
+        visitor.visitarEspada(self)
+
     def __str__(self):
         return "Espada"
     

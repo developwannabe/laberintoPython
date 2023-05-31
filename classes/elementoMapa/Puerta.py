@@ -20,6 +20,10 @@ class Puerta(ElementoMapa):
         else:
             print(str(ente)," ha chocado con una puerta cerrada.")
 
+    def aceptar(self,visitor):
+        print("Visitar puerta")
+        visitor.visitarPuerta(self)
+
     def abrir(self,ente = None):#Al no existir la sobrecarga de métodos en python, usamos argumentos adicionales
         self.abierta = True
         if ente is not None:

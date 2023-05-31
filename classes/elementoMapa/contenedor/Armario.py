@@ -5,6 +5,10 @@ class Armario(Contenedor):
     def __init__(self,num):
         super().__init__(num)
 
+    def aceptar(self,visitor):
+        print("Visitar armario")
+        visitor.visitarArmario(self)
+
     def entrar(self,ente):
         print("Estás en un armario")
 

@@ -5,6 +5,10 @@ class Pared(ElementoMapa):
     def entrar(self,ente):
         print("Te has chocado con una pared.")
 
+    def aceptar(self,visitor):
+        print("Visitar pared")
+        visitor.visitarPared(self)
+
     def esPared(self):
         return True
     

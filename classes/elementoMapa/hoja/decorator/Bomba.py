@@ -9,6 +9,10 @@ class Bomba (Decorator):
     def esBomba(self):
         return True
     
+    def aceptar(self,visitor):
+        print("Visitar bomba")
+        visitor.visitarBomba(self)
+    
     def entrar(self,ente):#TODO:Dañar al personaje
         if self.activa:
             print("La bomba ha explotado.")

@@ -18,6 +18,12 @@ class Laberinto(Contenedor):
     def recorrer(self, funcion):
         for habi in self.hijos:
             habi.recorrer(funcion)
+
+    def aceptar(self, visitor):
+        print("Recorrer laberinto.")
+        for hijo in self.hijos:
+            hijo.aceptar(visitor)
+
     
     def __str__(self):
         strdev = "Contenido del laberinto:\n"

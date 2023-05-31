@@ -8,6 +8,10 @@ class Fuego(Decorator):
 
     def entrar(self,ente):
         print("Espada")
+
+    def aceptar(self,visitor):
+        print("Visitar fuego")
+        visitor.visitarFuego(self)
         
     def esFuego(self):
         return True

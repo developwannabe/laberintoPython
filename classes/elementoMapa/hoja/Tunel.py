@@ -11,6 +11,10 @@ class Tunel(Hoja):
             self.laberinto = ente.juego.clonarLaberinto()
         self.laberinto.entrar(ente)
 
+    def aceptar(self,visitor):
+        print("Visitar tunel")
+        visitor.visitarTunel(self)
+
     def esTunel(self):
         return True
     

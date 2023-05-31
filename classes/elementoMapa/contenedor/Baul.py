@@ -8,6 +8,10 @@ class Baul (Contenedor):
 
     def esBaul(self):
         return True
+    
+    def aceptar(self,visitor):
+        print("Visitar baúl")
+        visitor.visitarBaul(self)
 
     def __str__(self):
         ret = "Baul " + str(self.num) + " con contenido: "

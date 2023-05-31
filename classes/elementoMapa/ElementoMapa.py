@@ -9,6 +9,10 @@ class ElementoMapa(ABC):
     @abstractmethod 
     def entrar(self,ente):
         pass
+    
+    @abstractmethod
+    def aceptar(self,visitor):
+        pass
 
     def agregarComando(self,comando):
         self.comandos.append(comando)

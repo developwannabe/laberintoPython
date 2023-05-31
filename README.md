@@ -20,6 +20,7 @@
   - State
   - Prototype
   - Command
+  - Visitor
 
 ### Dependencias a instalar:
   - pip install pygame
