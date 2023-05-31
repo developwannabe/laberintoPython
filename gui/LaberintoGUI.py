@@ -14,6 +14,7 @@ class LaberintoGUI():
         self.colorFondo = (255,255,255)
         self.fps = 1
         self.personaje = None
+        self.surface = None
         pygame.init()
         self.ventana = pygame.display.set_mode((self.largoV,self.anchoV))
         pygame.display.set_caption("No banana, no monkey")
@@ -27,7 +28,6 @@ class LaberintoGUI():
         self.dibujarLaberinto()
 
     def mostrarLaberinto(self):
-        pass
         self.calcularPosicion()
         self.normalizar()
         self.calcularDimensiones()
@@ -61,22 +61,26 @@ class LaberintoGUI():
                 maxY = hijo.getPunto()[1]
         maxX += 1
         maxY += 1
-        self.ancho = int(self.anchoV/maxX)
-        self.alto = int(self.anchoV/maxY)
+        self.ancho = int(self.anchoV/maxX) * 0.95
+        self.alto = int(self.anchoV/maxY) * 0.95
 
     def asignarPuntosReales(self):
         x = 0
         y = 0
-        origen = (70,10)
+        origen = (10,10)
         for hijo in self.juego.laberinto.hijos:
             x = origen[0] + (hijo.getPunto()[0] * self.ancho)
             y = origen[1] + (hijo.getPunto()[1] * self.alto)
             hijo.setExtent((self.ancho,self.alto))
-            hijo.punto = (x,y)
+            hijo.setPunto((x,y))
 
     
     def dibujarLaberinto(self):
         if self.juego is not None:
+            running = True
+            self.ventana.fill((255,255,255))
+            self.surface = pygame.Surface((self.anchoV,self.largoV))
+            self.surface.fill((255,255,255))
             self.juego.laberinto.aceptar(self)
             #self.mostrarVidasPersonaje()
             #self.mostrarAbrirPuertas()
@@ -84,7 +88,13 @@ class LaberintoGUI():
             #self.mostrarCerrarPuertas()
             #self.mostrarPersonaje()
             #self.mostrarBichos()
-            pygame.display.update()
+            while running:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        running = False
+                self.ventana.fill((255,255,255))
+                self.ventana.blit(self.surface,(0,0))
+                pygame.display.update()
 
     def agregarPersonaje(self,nombre):
         personaje = Personaje()
@@ -125,8 +135,7 @@ class LaberintoGUI():
         unPunto = forma.punto
         an = forma.extent[0] / escala
         al = forma.extent[1] / escala
-        self.ventana.fill(self.colorFondo)
-        pygame.draw.rect(self.ventana, (0, 0, 0), (an*(unPunto[0]), al*(unPunto[1]), an, al), 2)
+        pygame.draw.rect(self.surface, (0, 0, 0), (unPunto[0], unPunto[1], an, al), 2)
 
     def ejecutar(self):
         monkeyIm = pygame.image.load("gui/img/monkey.png")
@@ -146,10 +155,10 @@ class LaberintoGUI():
                 if event.type == pygame.QUIT:
                     running = False
             time.sleep(2)
-            #self.ventana.blit(monkeyIm, (coords,coords))
-            #self.ventana.blit(snakeIm, (100,100))
+            self.ventana.blit(monkeyIm, (coords,coords))
+            self.ventana.blit(snakeIm, (100,100))
             if abierto:
-                #self.ventana.blit(openwardrobeIM, (400,400))
+                self.ventana.blit(openwardrobeIM, (400,400))
                 abierto = False
             else:
                 #self.ventana.blit(closedwardrobeIM, (400,400))
