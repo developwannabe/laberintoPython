@@ -55,7 +55,7 @@ class Juego():
     def buscarBicho(self):
         pos=self.personaje.posicion
         for bicho in self.bichos:
-            if bicho.posicion == pos:
+            if bicho.posicion == pos and bicho.estaVivo():
                 return bicho
         return None
     
