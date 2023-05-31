@@ -5,14 +5,6 @@ class Personaje(Ente):
     def __init__(self):
         super().__init__()
         self.nick=None
-        self.observadoresPosicion = []
-        self.observadoresVidas = []
-
-    def suscribirPosicion(self,obs):
-        self.observadoresPosicion.append(obs)
-
-    def suscribirVida(self,obs):
-        self.observadoresVidas.append(obs)
 
     def setPosicion(self, pos):
         self.posicion= pos

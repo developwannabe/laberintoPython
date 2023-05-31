@@ -12,7 +12,15 @@ class Ente(ABC):
         self.estado = Vivo()
         self.posicion= None
         self.juego = None
+        self.observadoresPosicion = []
+        self.observadoresVidas = []
 
+
+    def suscribirPosicion(self,obs):
+        self.observadoresPosicion.append(obs)
+
+    def suscribirVida(self,obs):
+        self.observadoresVidas.append(obs)
 
     def setPosicion(self,pos):
         self.posicion = pos

@@ -13,7 +13,7 @@ class Perezoso(Modo):
         return True
     
     def __str__(self):
-        return "-Perezoso"
+        return "-Perezoso:"
     
     def __repr__(self):
-        return "-Perezoso"
+        return "-Perezoso:"

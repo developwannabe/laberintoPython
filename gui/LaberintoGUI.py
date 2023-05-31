@@ -18,6 +18,7 @@ class LaberintoGUI():
         self.capaPersonaje = None
         self.surface = None
         self.vidasP = None
+        self.bichosP = {}
         pygame.init()
         self.ventana = pygame.display.set_mode((self.largoV,self.anchoV))
         pygame.display.set_caption("No banana, no monkey")
@@ -26,7 +27,6 @@ class LaberintoGUI():
         director = Director()
         director.procesar(json)
         self.juego = director.obtenerJuego()
-        self.juego.abrirPuertas()
         self.agregarPersonaje(nombre)
         self.mostrarLaberinto()
         self.dibujarLaberinto()
@@ -81,8 +81,9 @@ class LaberintoGUI():
     
     def dibujarLaberinto(self):
         if self.juego is not None:
-            monkeyIm=pygame.image.load("gui/img/monkey.png")
-            monkeyIm=pygame.transform.scale(monkeyIm,(self.anchoV/12,self.anchoV/12))
+            monkeyIm=pygame.transform.scale(pygame.image.load("gui/img/monkey.png"),(self.anchoV/12,self.anchoV/12))
+            bichoA=pygame.transform.scale(pygame.image.load("gui/img/agresivo.png"),(self.anchoV/13,self.anchoV/13))
+            bichoP=pygame.transform.scale(pygame.image.load("gui/img/perezoso.png"),(self.anchoV/13,self.anchoV/13))
             running = True
             self.ventana.fill((255,255,255))
             self.capaLaberinto = pygame.Surface((self.anchoV,self.largoV))
@@ -90,10 +91,12 @@ class LaberintoGUI():
             self.juego.laberinto.aceptar(self)
             self.mostrarPersonaje()
             self.mostrarVidasPersonaje()
+            for bicho in self.juego.bichos:
+                bicho.suscribirPosicion(self)
+                self.mostrarBicho(bicho)
             #self.mostrarAbrirPuertas()
             #self.mostrarLanzarBichos()
             #self.mostrarCerrarPuertas()
-            #self.mostrarBichos()
             while not self.juego.fase.esFinal() and running:
                 keys = pygame.key.get_pressed()
                 for event in pygame.event.get():
@@ -123,6 +126,11 @@ class LaberintoGUI():
                 self.ventana.fill((255,255,255))
                 self.ventana.blit(self.capaLaberinto,(0,0))
                 self.ventana.blit(self.vidasP,(self.largoV-400,20))
+                for bicho in self.bichosP.values():
+                    if bicho[0] == '-Agresivo:':
+                        self.ventana.blit(bichoA,bicho[1])
+                    if bicho[0] == '-Perezoso:':
+                        self.ventana.blit(bichoP,bicho[1])
                 self.ventana.blit(monkeyIm, self.personajeM)
                 pygame.display.update()
 
@@ -143,6 +151,15 @@ class LaberintoGUI():
         a = unCont.getPunto()[0] + (an / 2)
         b = unCont.getPunto()[1] + (al/2)
         self.personajeM = (a,b)
+
+    def mostrarBicho(self,bicho):
+        self.bichosP[bicho.num] = ()
+        unCont = bicho.posicion
+        an = unCont.getExtent()[0]
+        al = unCont.getExtent()[1]
+        a = unCont.getPunto()[0] + (an / 2) +20
+        b = unCont.getPunto()[1] + (al/2) +20
+        self.bichosP[bicho.num]=(str(bicho.modo),(a,b))
 
     def mostrarVidasPersonaje(self):
         self.vidasP = pygame.font.Font(None,40).render("Vidas " +str(self.personaje) + ": " + str(self.personaje.vidas),True,(0,0,0))

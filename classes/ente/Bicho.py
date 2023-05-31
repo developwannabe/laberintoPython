@@ -9,6 +9,11 @@ class Bicho(Ente):
         self.modo=None
         self.num=None
 
+    def setPosicion(self, pos):
+        self.posicion= pos
+        for obs in self.observadoresPosicion:
+            obs.mostrarBicho(self)
+
     def buscarEnemigo(self):
         return self.juego.buscarPersonaje(self)
 
