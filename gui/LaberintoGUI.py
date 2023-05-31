@@ -93,6 +93,7 @@ class LaberintoGUI():
             self.mostrarVidasPersonaje()
             for bicho in self.juego.bichos:
                 bicho.suscribirPosicion(self)
+                bicho.suscribirVida(self)
                 self.mostrarBicho(bicho)
             #self.mostrarAbrirPuertas()
             #self.mostrarLanzarBichos()
@@ -120,6 +121,9 @@ class LaberintoGUI():
 
                     if keys[pygame.K_p]:
                         self.juego.abrirPuertas()
+
+                    if keys[pygame.K_a]:
+                        self.personaje.atacar()
                 
                 
                 
@@ -160,6 +164,10 @@ class LaberintoGUI():
         a = unCont.getPunto()[0] + (an / 2) +20
         b = unCont.getPunto()[1] + (al/2) +20
         self.bichosP[bicho.num]=(str(bicho.modo),(a,b))
+
+    def vidasBicho(self,bicho):
+        if bicho.vidas == 0:
+            self.bichosP.pop(bicho.num)
 
     def mostrarVidasPersonaje(self):
         self.vidasP = pygame.font.Font(None,40).render("Vidas " +str(self.personaje) + ": " + str(self.personaje.vidas),True,(0,0,0))

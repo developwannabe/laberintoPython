@@ -14,6 +14,11 @@ class Bicho(Ente):
         for obs in self.observadoresPosicion:
             obs.mostrarBicho(self)
 
+    def setVidas(self, vida):
+        self.vidas = vida
+        for obs in self.observadoresPosicion:
+            obs.vidasBicho(self)
+
     def buscarEnemigo(self):
         return self.juego.buscarPersonaje(self)
 
