@@ -4,7 +4,7 @@ from classes.elementoMapa.contenedor.Contenedor import Contenedor
 class Habitacion(Contenedor):
 
     def entrar(self,ente):
-        ente.posicion = self
+        ente.setPosicion(self)
         print(str(ente)," está en la habitación ",self.num,".")
 
     def esHabitacion(self):

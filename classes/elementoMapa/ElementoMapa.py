@@ -5,6 +5,7 @@ class ElementoMapa(ABC):
     def __init__(self):
         self.padre = None
         self.comandos = []
+        self.observadores = []
 
     @abstractmethod 
     def entrar(self,ente):

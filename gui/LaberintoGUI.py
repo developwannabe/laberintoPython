@@ -5,8 +5,8 @@ import time
 class LaberintoGUI():
     
     def __init__(self):
-        self.largoV = 1150
-        self.anchoV = 800
+        self.largoV = 1500
+        self.anchoV = 900
         self.ancho = None
         self.alto = None
         self.ventana = None
@@ -14,7 +14,10 @@ class LaberintoGUI():
         self.colorFondo = (255,255,255)
         self.fps = 1
         self.personaje = None
+        self.personajeM = None
+        self.capaPersonaje = None
         self.surface = None
+        self.vidasP = None
         pygame.init()
         self.ventana = pygame.display.set_mode((self.largoV,self.anchoV))
         pygame.display.set_caption("No banana, no monkey")
@@ -23,6 +26,7 @@ class LaberintoGUI():
         director = Director()
         director.procesar(json)
         self.juego = director.obtenerJuego()
+        self.juego.abrirPuertas()
         self.agregarPersonaje(nombre)
         self.mostrarLaberinto()
         self.dibujarLaberinto()
@@ -77,32 +81,75 @@ class LaberintoGUI():
     
     def dibujarLaberinto(self):
         if self.juego is not None:
+            monkeyIm=pygame.image.load("gui/img/monkey.png")
+            monkeyIm=pygame.transform.scale(monkeyIm,(self.anchoV/12,self.anchoV/12))
             running = True
             self.ventana.fill((255,255,255))
-            self.surface = pygame.Surface((self.anchoV,self.largoV))
-            self.surface.fill((255,255,255))
+            self.capaLaberinto = pygame.Surface((self.anchoV,self.largoV))
+            self.capaLaberinto.fill((255,255,255))
             self.juego.laberinto.aceptar(self)
-            #self.mostrarVidasPersonaje()
+            self.mostrarPersonaje()
+            self.mostrarVidasPersonaje()
             #self.mostrarAbrirPuertas()
             #self.mostrarLanzarBichos()
             #self.mostrarCerrarPuertas()
-            #self.mostrarPersonaje()
             #self.mostrarBichos()
-            while running:
+            while not self.juego.fase.esFinal() and running:
+                keys = pygame.key.get_pressed()
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         running = False
+
+                    if keys[pygame.K_UP]:
+                        self.personaje.irAlNorte()
+                    
+                    if keys[pygame.K_DOWN]:
+                        self.personaje.irAlSur()
+
+                    if keys[pygame.K_RIGHT]:
+                        self.personaje.irAlEste()
+
+                    if keys[pygame.K_LEFT]:
+                        self.personaje.irAlOeste()
+                    
+                    if keys[pygame.K_b]:
+                        self.juego.lanzarBichos()
+
+                    if keys[pygame.K_p]:
+                        self.juego.abrirPuertas()
+                
+                
+                
                 self.ventana.fill((255,255,255))
-                self.ventana.blit(self.surface,(0,0))
+                self.ventana.blit(self.capaLaberinto,(0,0))
+                self.ventana.blit(self.vidasP,(self.largoV-400,20))
+                self.ventana.blit(monkeyIm, self.personajeM)
                 pygame.display.update()
 
     def agregarPersonaje(self,nombre):
         personaje = Personaje()
         personaje.nick = nombre
+        personaje.suscribirPosicion(self)
+        personaje.suscribirVida(self)
         self.juego.agregarPersonaje(personaje)
         self.personaje = self.juego.personaje
-        #TODO: Personaje addDependent
     
+    def mostrarPersonaje(self):
+        if self.personaje is None:
+            return self
+        unCont = self.juego.personaje.posicion
+        an = unCont.getExtent()[0]
+        al = unCont.getExtent()[1]
+        a = unCont.getPunto()[0] + (an / 2)
+        b = unCont.getPunto()[1] + (al/2)
+        self.personajeM = (a,b)
+
+    def mostrarVidasPersonaje(self):
+        self.vidasP = pygame.font.Font(None,40).render("Vidas " +str(self.personaje) + ": " + str(self.personaje.vidas),True,(0,0,0))
+        #self.vidasP = text_surface.get_rect()
+
+        
+
     def visitarHabitacion(self,hab):
         self.dibujarContenedorRectangular(hab.forma,1)
     
@@ -135,7 +182,7 @@ class LaberintoGUI():
         unPunto = forma.punto
         an = forma.extent[0] / escala
         al = forma.extent[1] / escala
-        pygame.draw.rect(self.surface, (0, 0, 0), (unPunto[0], unPunto[1], an, al), 2)
+        pygame.draw.rect(self.capaLaberinto, (0, 0, 0), (unPunto[0], unPunto[1], an, al), 2)
 
     def ejecutar(self):
         monkeyIm = pygame.image.load("gui/img/monkey.png")

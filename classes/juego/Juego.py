@@ -43,6 +43,7 @@ class Juego():
     def puedeAgregarPersonaje(self,personaje):
         personaje.juego = self
         self.laberinto.entrar(personaje)
+        self.personaje = personaje
 
     #Métodos Prototype
 

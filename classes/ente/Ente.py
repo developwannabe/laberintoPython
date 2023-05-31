@@ -13,6 +13,13 @@ class Ente(ABC):
         self.posicion= None
         self.juego = None
 
+
+    def setPosicion(self,pos):
+        self.posicion = pos
+    
+    def setVidas(self,vida):
+        self.vidas = vida
+
     def atacar(self):
         unEnte = self.buscarEnemigo()
         if unEnte is not None:
@@ -27,9 +34,9 @@ class Ente(ABC):
             self.enteMuere()
 
     def recalcularVidas(self,unEnte):
-        self.vidas = self.vidas - unEnte.vidas
+        self.setVidas(self.vidas - unEnte.vidas)
         if self.vidas < 0:
-            self.vidas = 0
+            self.setVidas(0)
         print(str(self)," vidas: "+str(self.vidas))
     
     def comprobarEstado(self):
