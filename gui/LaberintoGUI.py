@@ -19,6 +19,8 @@ class LaberintoGUI():
         self.surface = None
         self.vidasP = None
         self.bichosP = {}
+        self.bananasP = None
+        self.armariosP = None
         pygame.init()
         self.ventana = pygame.display.set_mode((self.largoV,self.anchoV))
         pygame.display.set_caption("No banana, no monkey")
@@ -82,12 +84,15 @@ class LaberintoGUI():
     def dibujarLaberinto(self):
         if self.juego is not None:
             monkeyIm=pygame.transform.scale(pygame.image.load("gui/img/monkey.png"),(self.anchoV/12,self.anchoV/12))
+            colorFondo=(61,76,64)
             bichoA=pygame.transform.scale(pygame.image.load("gui/img/agresivo.png"),(self.anchoV/13,self.anchoV/13))
             bichoP=pygame.transform.scale(pygame.image.load("gui/img/perezoso.png"),(self.anchoV/13,self.anchoV/13))
+            banana=pygame.transform.scale(pygame.image.load("gui/img/banana.png"),(self.anchoV/15,self.anchoV/15))
+            armario=pygame.transform.scale(pygame.image.load("gui/img/closedwardrobe.png"),(self.anchoV/15,self.anchoV/15))
             running = True
-            self.ventana.fill((255,255,255))
+            self.ventana.fill((0,0,0))
             self.capaLaberinto = pygame.Surface((self.anchoV,self.largoV))
-            self.capaLaberinto.fill((255,255,255))
+            self.capaLaberinto.fill(colorFondo)
             self.juego.laberinto.aceptar(self)
             self.mostrarPersonaje()
             self.mostrarVidasPersonaje()
@@ -124,10 +129,12 @@ class LaberintoGUI():
 
                     if keys[pygame.K_a]:
                         self.personaje.atacar()
+
+                    if keys[pygame.K_c]:
+                        com = self.personaje.obtenerComandos()
+                        for i in com:
+                            print(i)
                 
-                
-                
-                self.ventana.fill((255,255,255))
                 self.ventana.blit(self.capaLaberinto,(0,0))
                 self.ventana.blit(self.vidasP,(self.largoV-400,20))
                 for bicho in self.bichosP.values():
@@ -136,6 +143,8 @@ class LaberintoGUI():
                     if bicho[0] == '-Perezoso:':
                         self.ventana.blit(bichoP,bicho[1])
                 self.ventana.blit(monkeyIm, self.personajeM)
+                self.ventana.blit(armario,self.armariosP)
+                self.ventana.blit(banana,self.bananasP)
                 pygame.display.update()
 
     def agregarPersonaje(self,nombre):
@@ -152,8 +161,8 @@ class LaberintoGUI():
         unCont = self.juego.personaje.posicion
         an = unCont.getExtent()[0]
         al = unCont.getExtent()[1]
-        a = unCont.getPunto()[0] + (an / 2)
-        b = unCont.getPunto()[1] + (al/2)
+        a = unCont.getPunto()[0] + (an / 2) -30
+        b = unCont.getPunto()[1] + (al/2) -50
         self.personajeM = (a,b)
 
     def mostrarBicho(self,bicho):
@@ -164,29 +173,45 @@ class LaberintoGUI():
         a = unCont.getPunto()[0] + (an / 2) +20
         b = unCont.getPunto()[1] + (al/2) +20
         self.bichosP[bicho.num]=(str(bicho.modo),(a,b))
+    
+    def mostrarBanana(self,banana):
+        unCont = banana.padre
+        an = unCont.getExtent()[0]
+        al = unCont.getExtent()[1]
+        a = unCont.getPunto()[0] + (an / 2) +20
+        b = unCont.getPunto()[1] + (al/2) +20
+        self.bananasP = (a,b)
 
     def vidasBicho(self,bicho):
         if bicho.vidas == 0:
             self.bichosP.pop(bicho.num)
 
     def mostrarVidasPersonaje(self):
-        self.vidasP = pygame.font.Font(None,40).render("Vidas " +str(self.personaje) + ": " + str(self.personaje.vidas),True,(0,0,0))
-        #self.vidasP = text_surface.get_rect()
+        self.vidasP = pygame.font.Font(None,40).render("Vidas " +str(self.personaje) + ": " + str(self.personaje.vidas),True,(255,255,255))
 
-        
 
     def visitarHabitacion(self,hab):
         self.dibujarContenedorRectangular(hab.forma,1)
     
     def visitarArmario(self,arm):
-        pass
-        #TODO:self.dibujarArmario(arm)
+        self.mostrarArmario(arm)
+
+    def mostrarArmario(self,arm):
+        unCont = arm.padre
+        a = unCont.getPunto()[0] -100
+        b = unCont.getPunto()[1] -400
+        arm.setExtent((0,0))
+        arm.setPunto((a,b))
+        self.armariosP = (a,b)
     
     def visitarBaul(self,baul):
         self.dibujarBaul(baul)
 
     def visitarBomba(self,bomba):
         pass#TODO:Dibujar Bomba
+
+    def visitarBanana(self,banana):
+        self.mostrarBanana(banana)
 
     def visitarFuego(self,fuego):
         pass#TODO:Dibujar Fuego
@@ -207,41 +232,4 @@ class LaberintoGUI():
         unPunto = forma.punto
         an = forma.extent[0] / escala
         al = forma.extent[1] / escala
-        pygame.draw.rect(self.capaLaberinto, (0, 0, 0), (unPunto[0], unPunto[1], an, al), 2)
-
-    def ejecutar(self):
-        monkeyIm = pygame.image.load("gui/img/monkey.png")
-        monkeyIm = pygame.transform.scale(monkeyIm,(100,100))
-        snakeIm = pygame.image.load("gui/img/snake.png")
-        snakeIm = pygame.transform.scale(snakeIm,(100,100))
-        openwardrobeIM = pygame.image.load("gui/img/openwardrobe.png")
-        closedwardrobeIM = pygame.image.load("gui/img/closedwardrobe.png")
-        openwardrobeIM = pygame.transform.scale(openwardrobeIM,(100,100))
-        closedwardrobeIM = pygame.transform.scale(closedwardrobeIM,(100,100))
-        bool = True
-        running = True
-        abierto = False
-        coords = 100
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-            time.sleep(2)
-            self.ventana.blit(monkeyIm, (coords,coords))
-            self.ventana.blit(snakeIm, (100,100))
-            if abierto:
-                self.ventana.blit(openwardrobeIM, (400,400))
-                abierto = False
-            else:
-                #self.ventana.blit(closedwardrobeIM, (400,400))
-                abierto = True
-            pygame.display.update()
-            if bool:
-                coords += 50
-                bool = False
-            else:
-                coords -= 50
-                bool = True
-
-    def terminar(self):
-        pygame.quit()
+        pygame.draw.rect(self.capaLaberinto, (255, 0, 0), (unPunto[0], unPunto[1], an, al), 4)

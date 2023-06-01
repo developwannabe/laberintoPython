@@ -23,7 +23,7 @@ class Personaje(Ente):
         return self.juego.buscarBicho()
     
     def obtenerComandos(self):
-        return self.posicion.obtenerComandos()
+        return self.posicion.obtenerComandos(self)
     
     def __str__(self):
         return "Personaje " + str(self.nick)

@@ -9,10 +9,10 @@ class Forma():
     def agregarOrientacion(self, orientacion):
         self.orientaciones.append(orientacion)
     
-    def obtenerComandos(self):
+    def obtenerComandos(self,ente):
         listaComandos = []
         for ori in self.orientaciones:
-            listaComandos.extend(ori.obtenerComandosDe(self))
+            listaComandos.extend(ori.obtenerComandosDe(self,ente))
         return listaComandos
     
     def calcularPosicion(self):

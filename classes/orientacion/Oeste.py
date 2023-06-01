@@ -30,8 +30,8 @@ class Oeste(Orientacion):
     def recorrerEn(self,cont,func):
         cont.oeste.recorrer(func)
 
-    def obtenerComandosDe(self,forma):
-        return forma.oeste.obtenerComandos()
+    def obtenerComandosDe(self,forma,ente):
+        return forma.oeste.obtenerComandos(ente)
 
     def ir(self,ente):
         cont = ente.posicion.forma

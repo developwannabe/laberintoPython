@@ -70,10 +70,22 @@ class LaberintoBuilder():
         armario = self.fabricarArmario(num)
         
         p1= self.fabricarPuerta()
+        com = Abrir()
+        com.receptor=armario
+        p1.agregarComando(com)
+
+
+        p1.lado1=self
+        p1.lado2=padre
 
         armario.forma= self.fabricarForma()
         p1.lado1= armario
         p1.lado2 = padre
+
+        armario.agregarOrientacion(self.fabricarNorte())
+        armario.agregarOrientacion(self.fabricarEste())
+        armario.agregarOrientacion(self.fabricarOeste())
+        armario.agregarOrientacion(self.fabricarSur())
 
         armario.ponerElementoEn(self.fabricarNorte(),self.fabricarPared())
         armario.ponerElementoEn(self.fabricarEste(),self.fabricarPared())

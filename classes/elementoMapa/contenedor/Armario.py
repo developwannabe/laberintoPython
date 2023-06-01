@@ -8,7 +8,19 @@ class Armario(Contenedor):
     def aceptar(self,visitor):
         print("Visitar armario")
         visitor.visitarArmario(self)
+        for hijo in self.hijos:
+            hijo.aceptar(visitor)
+        self.forma.aceptar(visitor)
 
+    def obtenerComandos(self,ente):
+        listaComandos = []
+        listaComandos.extend(self.comandos)
+        if ente.posicion == self:
+            for hijo in self.hijos:
+                listaComandos.extend(hijo.obtenerComandos(ente))
+        listaComandos.extend(self.forma.obtenerComandos(ente))
+        return listaComandos
+    
     def entrar(self,ente):
         print("Estás en un armario")
 

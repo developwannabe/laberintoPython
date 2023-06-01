@@ -30,12 +30,12 @@ class Contenedor (ElementoMapa):
     def setExtent(self,extent):
         self.forma.extent = extent
 
-    def obtenerComandos(self):
+    def obtenerComandos(self,ente):
         listaComandos = []
         listaComandos.extend(self.comandos)
         for hijo in self.hijos:
-            listaComandos.extend(hijo.obtenerComandos())
-        listaComandos.extend(self.forma.obtenerComandos())
+            listaComandos.extend(hijo.obtenerComandos(ente))
+        listaComandos.extend(self.forma.obtenerComandos(ente))
         return listaComandos
 
     def agregarHijo(self, EM):

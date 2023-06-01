@@ -17,7 +17,7 @@ class ElementoMapa(ABC):
     def agregarComando(self,comando):
         self.comandos.append(comando)
 
-    def obtenerComandos(self):
+    def obtenerComandos(self,ente):
         return self.comandos
     
     def quitarComando(self,comando):
