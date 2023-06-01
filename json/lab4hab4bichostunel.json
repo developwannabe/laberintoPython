@@ -2,7 +2,7 @@
     "forma":"cuadrado",
     "laberinto":[
         {"tipo":"habitacion","num":1,"hijos":[
-            {"tipo":"armario","num":1,"hijos":[]},
+            {"tipo":"armario","num":1,"hijos":[{"tipo":"banana"}]},
             {"tipo":"tunel"},
             {"tipo":"bomba"}
         ]},

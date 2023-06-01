@@ -19,6 +19,7 @@ from classes.elementoMapa.contenedor.Armario import Armario
 from classes.forma.Cuadrado import Cuadrado
 from classes.elementoMapa.hoja.Tunel import Tunel
 from classes.comando.Abrir import Abrir
+from classes.elementoMapa.objeto.Banana import Banana
 
 class LaberintoBuilder():
     
@@ -49,6 +50,9 @@ class LaberintoBuilder():
     def fabricarBicho(self):
         return Bicho()
     
+    def fabricarBanana(self):
+        return Banana()
+    
     def fabricarForma(self):
         return Cuadrado()
     
@@ -77,6 +81,7 @@ class LaberintoBuilder():
         armario.ponerElementoEn(self.fabricarSur(),p1)
 
         padre.agregarHijo(armario)
+        return armario
 
     def fabricarBombaEn(self,padre):
         bomba = self.fabricarBomba()
@@ -171,6 +176,8 @@ class LaberintoBuilder():
         lado1.ponerElementoEn(ori1,puerta)
         lado2.ponerElementoEn(ori2,puerta)
 
+    def fabricarBananaEn(self,padre):
+        padre.agregarHijo(self.fabricarBanana())
 
     def fabricarPared(self):
         return Pared()

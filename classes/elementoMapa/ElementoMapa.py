@@ -52,3 +52,9 @@ class ElementoMapa(ABC):
     
     def esTunel(self):
         return False
+    
+    def esBolsa(self):
+        return False
+    
+    def esBanana(self):
+        return False

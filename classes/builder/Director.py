@@ -47,6 +47,10 @@ class Director():
             pad = self.builder.fabricarBombaEn(padre)
         if unDic['tipo'] == 'tunel':
             pad = self.builder.fabricarTunelEn(padre)
+
+        #Objetos
+        if unDic['tipo'] == 'banana':
+            pad = self.builder.fabricarBananaEn(padre)
         
         #Hijos
         hijos = unDic.get('hijos',[])

@@ -4,6 +4,8 @@
 
 - Versión: Python 3.11
 
+- A instalar: pip install pygame
+
 ### Algoritmos implementados:
   - Factory Method
   - Decorator
@@ -23,7 +25,7 @@
   - Command
   - Visitor
 
-### Dependencias a instalar:
-  - pip install pygame
+### Funcionalidades añadidas:
+  - El personaje tiene una bolsa con objetos que podrán ser usados.
 
 ![UML Laberinto](https://github.com/developwannabe/laberintoPython/blob/main/uml/UML.svg?raw=true)
