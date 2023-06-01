@@ -10,3 +10,8 @@ class Cerrar(Comando):
     
     def __str__(self):
         return "Cerrar " + str(self.receptor)
+    
+    def equals(self,comando):
+        if comando.esCerrar():
+            return True
+        return False

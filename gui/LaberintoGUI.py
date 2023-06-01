@@ -21,6 +21,10 @@ class LaberintoGUI():
         self.bichosP = {}
         self.bananasP = None
         self.armariosP = None
+        self.rectAbrir = None
+        self.rectCerrar = None
+        self.textoAbrir = None
+        self.botonAbrir = None
         pygame.init()
         self.ventana = pygame.display.set_mode((self.largoV,self.anchoV))
         pygame.display.set_caption("No banana, no monkey")
@@ -84,7 +88,7 @@ class LaberintoGUI():
     def dibujarLaberinto(self):
         if self.juego is not None:
             monkeyIm=pygame.transform.scale(pygame.image.load("gui/img/monkey.png"),(self.anchoV/12,self.anchoV/12))
-            colorFondo=(61,76,64)
+            colorFondo=(61,76,74)
             bichoA=pygame.transform.scale(pygame.image.load("gui/img/agresivo.png"),(self.anchoV/13,self.anchoV/13))
             bichoP=pygame.transform.scale(pygame.image.load("gui/img/perezoso.png"),(self.anchoV/13,self.anchoV/13))
             banana=pygame.transform.scale(pygame.image.load("gui/img/banana.png"),(self.anchoV/15,self.anchoV/15))
@@ -92,6 +96,7 @@ class LaberintoGUI():
             running = True
             self.ventana.fill((0,0,0))
             self.capaLaberinto = pygame.Surface((self.anchoV,self.largoV))
+            self.botonAbrir = pygame.Surface((200,50))
             self.capaLaberinto.fill(colorFondo)
             self.juego.laberinto.aceptar(self)
             self.mostrarPersonaje()
@@ -100,9 +105,7 @@ class LaberintoGUI():
                 bicho.suscribirPosicion(self)
                 bicho.suscribirVida(self)
                 self.mostrarBicho(bicho)
-            #self.mostrarAbrirPuertas()
             #self.mostrarLanzarBichos()
-            #self.mostrarCerrarPuertas()
             while not self.juego.fase.esFinal() and running:
                 keys = pygame.key.get_pressed()
                 for event in pygame.event.get():
@@ -134,9 +137,17 @@ class LaberintoGUI():
                         com = self.personaje.obtenerComandos()
                         for i in com:
                             print(i)
-                
+
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        pos = pygame.mouse.get_pos()
+                        if self.rectAbrir.collidepoint(pos):
+                            self.juego.abrirPuertas()
+                        if self.rectCerrar.collidepoint(pos):
+                            self.juego.cerrarPuertas()
+
+                self.ventana.fill((0,0,0))
                 self.ventana.blit(self.capaLaberinto,(0,0))
-                self.ventana.blit(self.vidasP,(self.largoV-400,20))
+                self.ventana.blit(self.vidasP,(self.largoV-450,20))
                 for bicho in self.bichosP.values():
                     if bicho[0] == '-Agresivo:':
                         self.ventana.blit(bichoA,bicho[1])
@@ -145,6 +156,8 @@ class LaberintoGUI():
                 self.ventana.blit(monkeyIm, self.personajeM)
                 self.ventana.blit(armario,self.armariosP)
                 self.ventana.blit(banana,self.bananasP)
+                self.mostrarAbrirPuertas()
+                self.mostrarCerrarPuertas()
                 pygame.display.update()
 
     def agregarPersonaje(self,nombre):
@@ -155,6 +168,22 @@ class LaberintoGUI():
         self.juego.agregarPersonaje(personaje)
         self.personaje = self.juego.personaje
     
+    def mostrarAbrirPuertas(self):
+        anch = 170 
+        alt = 50
+        color = (255, 255, 0)
+        colorT = (0,0,0)
+        self.rectAbrir = pygame.draw.rect(self.ventana, color, (900, 80, anch, alt))
+        self.ventana.blit(pygame.font.Font(None, 32).render("Abrir Puertas", True, colorT),(910,90))
+        
+    def mostrarCerrarPuertas(self):
+        anch = 180 
+        alt = 50
+        color = (255, 255, 0)
+        colorT = (0,0,0)
+        self.rectCerrar = pygame.draw.rect(self.ventana, color, (1080, 80, anch, alt))
+        self.ventana.blit(pygame.font.Font(None, 32).render("Cerrar Puertas", True, colorT),(1090,90))
+        
     def mostrarPersonaje(self):
         if self.personaje is None:
             return self

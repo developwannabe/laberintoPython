@@ -15,6 +15,9 @@ class ElementoMapa(ABC):
         pass
 
     def agregarComando(self,comando):
+        for comandoP in self.comandos:
+            if comandoP.equals(comando):
+                return
         self.comandos.append(comando)
 
     def obtenerComandos(self,ente):

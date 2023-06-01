@@ -99,6 +99,11 @@ class Juego():
         funcl = lambda x: x.abrir() if x.esPuerta() else None
         self.laberinto.recorrer(funcl)
 
+    def cerrarPuertas(self):
+        funcl = lambda x: x.cerrar() if x.esPuerta() else None
+        self.laberinto.recorrer(funcl)
+    
+
     def cerrarPuerta(self,hab1,hab2):
         funcl = lambda x: x.cerrar() if x.esPuerta() and (x.lado1.num is hab1 or x.lado2.num is hab1) and (x.lado1.num is hab2 or x.lado2.num is hab2) else None
         self.laberinto.recorrer(funcl)

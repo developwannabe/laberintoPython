@@ -10,3 +10,8 @@ class Abrir(Comando):
     
     def __str__(self):
         return "Abrir " + str(self.receptor)
+    
+    def equals(self,comando):
+        if comando.esAbrir():
+            return True
+        return False

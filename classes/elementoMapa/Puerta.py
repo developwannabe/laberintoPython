@@ -38,14 +38,13 @@ class Puerta(ElementoMapa):
 
     def abrir(self,ente = None):#Al no existir la sobrecarga de métodos en python, usamos argumentos adicionales
         self.abierta = True
-        if ente is not None:
-            self.quitarAbrir()
-            com1 = Entrar()
-            com2 = Cerrar()
-            com1.receptor = self
-            com2.receptor = self
-            self.agregarComando(com1)
-            self.agregarComando(com2)
+        self.quitarAbrir()
+        com1 = Entrar()
+        com2 = Cerrar()
+        com1.receptor = self
+        com2.receptor = self
+        self.agregarComando(com1)
+        self.agregarComando(com2)
     
     def quitarAbrir(self):
         for com in self.comandos:
@@ -55,12 +54,11 @@ class Puerta(ElementoMapa):
 
     def cerrar(self,ente = None):
         self.abierta = False
-        if ente is not None:
-            self.quitarCerrar()
-            self.quitarEntrar()
-            com = Abrir()
-            com.receptor = self
-            self.agregarComando(com)
+        self.quitarCerrar()
+        self.quitarEntrar()
+        com = Abrir()
+        com.receptor = self
+        self.agregarComando(com)
 
     def quitarCerrar(self):
         for com in self.comandos:

@@ -17,3 +17,7 @@ class Comando(ABC):
     def esEntrar(self):
         return False
     
+    @abstractmethod
+    def equals(self,com):
+        pass
+    
