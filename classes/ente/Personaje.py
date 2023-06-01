@@ -5,6 +5,7 @@ class Personaje(Ente):
     def __init__(self):
         super().__init__()
         self.nick=None
+        self.bolsa=None
 
     def setPosicion(self, pos):
         self.posicion= pos

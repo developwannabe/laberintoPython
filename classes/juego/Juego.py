@@ -15,6 +15,7 @@ from classes.modo.Agresivo import Agresivo
 from classes.modo.Perezoso import Perezoso
 from classes.fase.Inicio import Inicio
 from classes.fase.Final import Final
+from classes.elementoMapa.objeto.Bolsa import Bolsa
 import threading
 import copy
 
@@ -43,6 +44,7 @@ class Juego():
     def puedeAgregarPersonaje(self,personaje):
         personaje.juego = self
         self.laberinto.entrar(personaje)
+        personaje.bolsa = Bolsa()
         self.personaje = personaje
 
     #Métodos Prototype

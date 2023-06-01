@@ -7,6 +7,12 @@ class Bolsa(Objeto):
         self.capacidad = 9
         self.hijos = []
 
+    def entrar(self,ente):
+        pass#TODO:Mostrar bolsa
+
+    def usar(self,ente):
+        pass#TODO:Mostrar bolsa
+
     def agregarObjeto(self,obj):
         if self.hijos < self.capacidad:
             self.hijos.append(obj)

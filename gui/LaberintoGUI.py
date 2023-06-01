@@ -169,20 +169,12 @@ class LaberintoGUI():
         self.personaje = self.juego.personaje
     
     def mostrarAbrirPuertas(self):
-        anch = 170 
-        alt = 50
-        color = (255, 255, 0)
-        colorT = (0,0,0)
-        self.rectAbrir = pygame.draw.rect(self.ventana, color, (900, 80, anch, alt))
-        self.ventana.blit(pygame.font.Font(None, 32).render("Abrir Puertas", True, colorT),(910,90))
+        self.rectAbrir = pygame.draw.rect(self.ventana, (255, 255, 0), (900, 80, 170, 50))
+        self.ventana.blit(pygame.font.Font(None, 32).render("Abrir Puertas", True, (0,0,0)),(910,90))
         
     def mostrarCerrarPuertas(self):
-        anch = 180 
-        alt = 50
-        color = (255, 255, 0)
-        colorT = (0,0,0)
-        self.rectCerrar = pygame.draw.rect(self.ventana, color, (1080, 80, anch, alt))
-        self.ventana.blit(pygame.font.Font(None, 32).render("Cerrar Puertas", True, colorT),(1090,90))
+        self.rectCerrar = pygame.draw.rect(self.ventana, (255, 255, 0), (1080, 80, 180, 50))
+        self.ventana.blit(pygame.font.Font(None, 32).render("Cerrar Puertas", True, (0,0,0)),(1090,90))
         
     def mostrarPersonaje(self):
         if self.personaje is None:
