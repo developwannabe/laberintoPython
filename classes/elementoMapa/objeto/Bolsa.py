@@ -6,6 +6,7 @@ class Bolsa(Objeto):
         super().__init__()
         self.capacidad = 9
         self.hijos = []
+        self.observadoresBolsa = []
 
     def entrar(self,ente):
         pass#TODO:Mostrar bolsa
@@ -16,11 +17,19 @@ class Bolsa(Objeto):
     def agregarObjeto(self,obj):
         if len(self.hijos) < self.capacidad:
             self.hijos.append(obj)
+            for obs in self.observadoresBolsa:
+                obs.mostrarBolsa(self)
         else:
             print("No caben más objetos en la bolsa.")
 
+    def observarBolsa(self,obs):
+        self.observadoresBolsa.append(obs)
+
+
     def soltarObjeto(self,obj):
         self.hijos.remove(obj)
+        for obs in self.observadoresBolsa:
+                obs.mostrarBolsa()
 
     def recorrer(self,func):
         func(self)

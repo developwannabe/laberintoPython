@@ -27,6 +27,7 @@ class LaberintoGUI():
         self.rectIniciar = None
         self.rectCom = []
         self.puertasP = {}
+        self.bolsa = {}
         pygame.init()
         self.ventana = pygame.display.set_mode((self.largoV,self.anchoV))
         pygame.display.set_caption("No banana, no monkey")
@@ -104,6 +105,8 @@ class LaberintoGUI():
             self.juego.laberinto.aceptar(self)
             self.mostrarPersonaje()
             self.mostrarVidasPersonaje()
+            self.personaje.bolsa.observarBolsa(self)
+            self.mostrarBolsa(self.personaje.bolsa)
             for bicho in self.juego.bichos:
                 bicho.suscribirPosicion(self)
                 bicho.suscribirVida(self)
@@ -170,10 +173,14 @@ class LaberintoGUI():
                         self.ventana.blit(armarioA,armario[1])
                     if armario[0] == 'cerrado':
                         self.ventana.blit(armarioC,armario[1])
+                for obj in self.bolsa.values():
+                    if obj[0] == "Banana":
+                        self.ventana.blit(banana,obj[1])
                 self.mostrarAbrirPuertas()
                 self.mostrarCerrarPuertas()
                 self.mostrarIniciarJuego()
                 self.mostrarComandos()
+                self.mostrarAbrirInventario()
                 self.ventana.blit(monkeyIm, self.personajeM)
                 pygame.display.update()
 
@@ -198,6 +205,11 @@ class LaberintoGUI():
     def mostrarIniciarJuego(self):
         self.rectIniciar = pygame.draw.rect(self.ventana, (255, 255, 0), (1280, 80, 160, 50))
         self.ventana.blit(pygame.font.Font(None, 32).render("Iniciar Juego", True, (0,0,0)),(1290,90))
+
+    def mostrarAbrirInventario(self):
+        self.rectIniciar = pygame.draw.rect(self.ventana, (255, 255, 0), (1040, 750, 80, 50))
+        self.ventana.blit(pygame.font.Font(None, 32).render("Inventario", True, (255,255,255)),(910,760))
+        self.ventana.blit(pygame.font.Font(None, 32).render("Abrir", True, (0,0,0)),(1050,760))
         
     def mostrarComandos(self):
         i = 0
@@ -284,6 +296,13 @@ class LaberintoGUI():
             self.puertasP[str(puerta)] = ((a,b),"abierta")
         else:
             self.puertasP[str(puerta)] = ((a,b),"cerrada")
+    
+    def mostrarBolsa(self,bolsa):
+        a = 910
+        b = 800
+        for obj in bolsa.hijos:
+            self.bolsa [str(obj)] = (type(obj).__name__,(a,b))
+            b += 30
 
 
     def visitarBaul(self,baul):
