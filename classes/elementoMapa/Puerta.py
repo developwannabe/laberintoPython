@@ -79,7 +79,7 @@ class Puerta(ElementoMapa):
         return self.abierta
 
     def __str__(self):
-        return "Puerta: Lado 1 es Hab " + str(self.lado1.num) +", Lado 2 es hab " + str(self.lado2.num) + '. Abierta: ' +str(self.abierta)
+        return "Puerta: " + (type(self.lado1).__name__) + str(self.lado1.num) + " - " + (type(self.lado2).__name__) + str(self.lado2.num)
     
-    def __repr__(self):
-        return "Puerta: Lado 1 es Hab " + str(self.lado1.num) +", Lado 2 es hab " + str(self.lado2.num) + '. Abierta: ' +str(self.abierta)
+    def __str__(self):
+        return "Puerta: " + (type(self.lado1).__name__) + str(self.lado1.num) + " - " + (type(self.lado2).__name__) + str(self.lado2.num)

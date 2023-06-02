@@ -26,6 +26,7 @@ class LaberintoGUI():
         self.textoAbrir = None
         self.botonAbrir = None
         self.rectIniciar = None
+        self.rectCom = []
         pygame.init()
         self.ventana = pygame.display.set_mode((self.largoV,self.anchoV))
         pygame.display.set_caption("No banana, no monkey")
@@ -148,6 +149,9 @@ class LaberintoGUI():
                             self.juego.cerrarPuertas()
                         if self.rectIniciar.collidepoint(pos):
                             self.juego.lanzarBichos()
+                        for com in self.rectCom:
+                            if com[0].collidepoint(pos):
+                                com[1].ejecutar(self.personaje)
 
                 self.ventana.fill((0,0,0))
                 self.ventana.blit(self.capaLaberinto,(0,0))
@@ -167,7 +171,9 @@ class LaberintoGUI():
                 self.mostrarAbrirPuertas()
                 self.mostrarCerrarPuertas()
                 self.mostrarIniciarJuego()
+                self.mostrarComandos()
                 pygame.display.update()
+            self.juego.terminarBichos()#Por si se cierra la ventana
 
     def agregarPersonaje(self,nombre):
         personaje = Personaje()
@@ -189,6 +195,18 @@ class LaberintoGUI():
         self.rectIniciar = pygame.draw.rect(self.ventana, (255, 255, 0), (1280, 80, 160, 50))
         self.ventana.blit(pygame.font.Font(None, 32).render("Iniciar Juego", True, (0,0,0)),(1290,90))
         
+    def mostrarComandos(self):
+        i = 0
+        a = 910
+        b = 150
+        self.rectCom = []
+        for com in self.personaje.obtenerComandos():
+            ex = len(str(com))*12
+            self.rectCom.append((pygame.draw.rect(self.ventana, (255, 255, 0), (a, b, ex, 50)),com))
+            self.ventana.blit(pygame.font.Font(None, 32).render(str(com), True, (0,0,0)),(a + 10,b + 10))
+            b += 60
+            i += 1
+
     def mostrarPersonaje(self):
         if self.personaje is None:
             return self
