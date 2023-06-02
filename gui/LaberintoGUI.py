@@ -25,6 +25,7 @@ class LaberintoGUI():
         self.rectCerrar = None
         self.textoAbrir = None
         self.botonAbrir = None
+        self.rectIniciar = None
         pygame.init()
         self.ventana = pygame.display.set_mode((self.largoV,self.anchoV))
         pygame.display.set_caption("No banana, no monkey")
@@ -144,6 +145,8 @@ class LaberintoGUI():
                             self.juego.abrirPuertas()
                         if self.rectCerrar.collidepoint(pos):
                             self.juego.cerrarPuertas()
+                        if self.rectIniciar.collidepoint(pos):
+                            self.juego.lanzarBichos()
 
                 self.ventana.fill((0,0,0))
                 self.ventana.blit(self.capaLaberinto,(0,0))
@@ -158,6 +161,7 @@ class LaberintoGUI():
                 self.ventana.blit(banana,self.bananasP)
                 self.mostrarAbrirPuertas()
                 self.mostrarCerrarPuertas()
+                self.mostrarIniciarJuego()
                 pygame.display.update()
 
     def agregarPersonaje(self,nombre):
@@ -169,12 +173,16 @@ class LaberintoGUI():
         self.personaje = self.juego.personaje
     
     def mostrarAbrirPuertas(self):
-        self.rectAbrir = pygame.draw.rect(self.ventana, (255, 255, 0), (900, 80, 170, 50))
-        self.ventana.blit(pygame.font.Font(None, 32).render("Abrir Puertas", True, (0,0,0)),(910,90))
+        self.rectAbrir = pygame.draw.rect(self.ventana, (255, 255, 0), (910, 80, 170, 50))
+        self.ventana.blit(pygame.font.Font(None, 32).render("Abrir Puertas", True, (0,0,0)),(920,90))
         
     def mostrarCerrarPuertas(self):
-        self.rectCerrar = pygame.draw.rect(self.ventana, (255, 255, 0), (1080, 80, 180, 50))
-        self.ventana.blit(pygame.font.Font(None, 32).render("Cerrar Puertas", True, (0,0,0)),(1090,90))
+        self.rectCerrar = pygame.draw.rect(self.ventana, (255, 255, 0), (1090, 80, 180, 50))
+        self.ventana.blit(pygame.font.Font(None, 32).render("Cerrar Puertas", True, (0,0,0)),(1100,90))
+
+    def mostrarIniciarJuego(self):
+        self.rectIniciar = pygame.draw.rect(self.ventana, (255, 255, 0), (1280, 80, 160, 50))
+        self.ventana.blit(pygame.font.Font(None, 32).render("Iniciar Juego", True, (0,0,0)),(1290,90))
         
     def mostrarPersonaje(self):
         if self.personaje is None:
@@ -223,7 +231,7 @@ class LaberintoGUI():
         b = unCont.getPunto()[1] -400
         arm.setExtent((0,0))
         arm.setPunto((a,b))
-        self.armariosP = (a,b)
+        self.armariosP = ((a,b),"")
     
     def visitarBaul(self,baul):
         self.dibujarBaul(baul)
