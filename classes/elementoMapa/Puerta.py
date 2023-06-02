@@ -51,6 +51,11 @@ class Puerta(ElementoMapa):
         self.agregarComando(com2)
         self.lado1.notificarSuscriptoresAbierto()
         self.lado2.notificarSuscriptoresAbierto()
+        self.notificarSuscriptoresAbierto()
+
+    def notificarSuscriptoresAbierto(self):
+        for obs in self.observadoresAbierto:
+            obs.mostrarPuerta(self)
 
     def quitarAbrir(self):
         for com in self.comandos:
@@ -67,6 +72,7 @@ class Puerta(ElementoMapa):
         self.agregarComando(com)
         self.lado1.notificarSuscriptoresAbierto()
         self.lado2.notificarSuscriptoresAbierto()
+        self.notificarSuscriptoresAbierto()
 
     def quitarCerrar(self):
         for com in self.comandos:

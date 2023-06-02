@@ -45,7 +45,7 @@ class Armario(Contenedor):
         return listaComandos
     
     def entrar(self,ente):
-        ente.posicion = self 
+        ente.setPosicion(self)
 
     def esArmario(self):
         return True

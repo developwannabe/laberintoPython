@@ -23,10 +23,10 @@ class LaberintoGUI():
         self.armariosP = {}
         self.rectAbrir = None
         self.rectCerrar = None
-        self.textoAbrir = None
         self.botonAbrir = None
         self.rectIniciar = None
         self.rectCom = []
+        self.puertasP = {}
         pygame.init()
         self.ventana = pygame.display.set_mode((self.largoV,self.anchoV))
         pygame.display.set_caption("No banana, no monkey")
@@ -94,8 +94,8 @@ class LaberintoGUI():
             bichoA=pygame.transform.scale(pygame.image.load("gui/img/agresivo.png"),(self.anchoV/13,self.anchoV/13))
             bichoP=pygame.transform.scale(pygame.image.load("gui/img/perezoso.png"),(self.anchoV/13,self.anchoV/13))
             banana=pygame.transform.scale(pygame.image.load("gui/img/banana.png"),(self.anchoV/15,self.anchoV/15))
-            armarioC=pygame.transform.scale(pygame.image.load("gui/img/closedwardrobe.png"),(self.anchoV/15,self.anchoV/15))
-            armarioA=pygame.transform.scale(pygame.image.load("gui/img/openwardrobe.png"),(self.anchoV/15,self.anchoV/15))
+            armarioC=pygame.transform.scale(pygame.image.load("gui/img/closedwardrobe.png"),(self.anchoV/12,self.anchoV/12))
+            armarioA=pygame.transform.scale(pygame.image.load("gui/img/openwardrobe.png"),(self.anchoV/12,self.anchoV/12))
             running = True
             self.ventana.fill((0,0,0))
             self.capaLaberinto = pygame.Surface((self.anchoV,self.largoV))
@@ -155,13 +155,15 @@ class LaberintoGUI():
 
                 self.ventana.fill((0,0,0))
                 self.ventana.blit(self.capaLaberinto,(0,0))
+                for puerta in self.puertasP.values():
+                    if puerta[1] == "abierta":
+                        pygame.draw.rect(self.ventana, colorFondo, (puerta[0][0]-10, puerta[0][1]-10, 60, 60))
                 self.ventana.blit(self.vidasP,(self.largoV-450,20))
                 for bicho in self.bichosP.values():
                     if bicho[0] == '-Agresivo:':
                         self.ventana.blit(bichoA,bicho[1])
                     if bicho[0] == '-Perezoso:':
                         self.ventana.blit(bichoP,bicho[1])
-                self.ventana.blit(monkeyIm, self.personajeM)
                 self.ventana.blit(banana,self.bananasP)
                 for armario in self.armariosP.values():
                     if armario[0] == 'abierto':
@@ -172,7 +174,9 @@ class LaberintoGUI():
                 self.mostrarCerrarPuertas()
                 self.mostrarIniciarJuego()
                 self.mostrarComandos()
+                self.ventana.blit(monkeyIm, self.personajeM)
                 pygame.display.update()
+
             self.juego.terminarBichos()#Por si se cierra la ventana
 
     def agregarPersonaje(self,nombre):
@@ -215,6 +219,9 @@ class LaberintoGUI():
         al = unCont.getExtent()[1]
         a = unCont.getPunto()[0] + (an / 2) -30
         b = unCont.getPunto()[1] + (al/2) -50
+        if unCont.esArmario():
+            a += 30
+            b+=50
         self.personajeM = (a,b)
 
     def mostrarBicho(self,bicho):
@@ -258,6 +265,27 @@ class LaberintoGUI():
         else:
             self.armariosP[arm.num] = ("cerrado",(a,b))
     
+    def mostrarPuerta(self,puerta):
+        self.puertasP[str(puerta)] = ()
+        if puerta.lado1.getPunto()[0] > puerta.lado2.getPunto()[0]:
+            a = puerta.lado1.getPunto() [0]
+            b = puerta.lado1.getPunto()[1] + puerta.lado1.getExtent()[1]/2
+        elif puerta.lado2.getPunto()[0] > puerta.lado1.getPunto()[0]:
+            a = puerta.lado2.getPunto() [0] 
+            b = puerta.lado2.getPunto()[1] + puerta.lado2.getExtent()[1]/2
+        else:
+            if puerta.lado1.getPunto()[1] > puerta.lado2.getPunto()[1]:
+                a = puerta.lado1.getPunto()[0] + puerta.lado1.getExtent()[0] / 2
+                b = puerta.lado1.getPunto() [1]
+            else:
+                a = puerta.lado2.getPunto()[0] + puerta.lado2.getExtent()[0]/2
+                b = puerta.lado2.getPunto() [1]
+        if puerta.estaAbierta():
+            self.puertasP[str(puerta)] = ((a,b),"abierta")
+        else:
+            self.puertasP[str(puerta)] = ((a,b),"cerrada")
+
+
     def visitarBaul(self,baul):
         self.dibujarBaul(baul)
 
@@ -275,10 +303,12 @@ class LaberintoGUI():
         pass#TODO:Dibujar Espada
 
     def visitarPared(self,pared):
-        pass
+        pass # Son dibujadas junto al contenedor rectangular
 
     def visitarPuerta(self,puerta):
-        pass#TODO:Dibujar puerta
+        if puerta.lado1.esHabitacion() and puerta.lado2.esHabitacion():
+            puerta.suscribirAbierto(self)
+            self.mostrarPuerta(puerta)
 
     def visitarTunel(self,tunel):
         pass#TODO:Dibujar tunel
