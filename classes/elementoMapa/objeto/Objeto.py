@@ -8,8 +8,8 @@ class Objeto(ElementoMapa,ABC):
         self.num = None
         
     def entrar(self,ente):
-        self.padre = ente.bolsa
-        
+        ente.bolsa.agregarObjeto(self)
+
     @abstractmethod
     def usar(self,ente):
         pass

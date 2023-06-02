@@ -14,7 +14,7 @@ class Bolsa(Objeto):
         pass#TODO:Mostrar bolsa
 
     def agregarObjeto(self,obj):
-        if self.hijos < self.capacidad:
+        if len(self.hijos) < self.capacidad:
             self.hijos.append(obj)
         else:
             print("No caben más objetos en la bolsa.")

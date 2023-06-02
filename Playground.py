@@ -16,7 +16,7 @@ juego.personaje = personaje
 while not juego.fase.esFinal():
     print("¿Qué deseas hacer?\n    A. Atacar\n    1. Mover al norte\n    2. Mover al este\n    3. Mover al oeste\n    4. Mover al sur\n",
           "   5. Abrir Puertas\n    6. Lanzar bichos\n    H. Obtener hijos de la posición del personaje\n",
-          "   C. Obtener Comandos")
+          "   C. Obtener Comandos\n    I. Mostrar inventario")
     eleccion=input()
     if eleccion == "1":
         personaje.irAlNorte()
@@ -32,6 +32,12 @@ while not juego.fase.esFinal():
         juego.lanzarBichos()
     if eleccion == "a" or eleccion == "A":
         personaje.atacar()
+
+    if eleccion == "i" or eleccion == "I":
+        i = 0
+        for obj in personaje.bolsa.hijos:
+            print("    ",i,". ",obj)
+    
     if eleccion == "h" or eleccion == "H":
         hijos = juego.obtenerHijosPosicion()
         if len(hijos) > 0:
