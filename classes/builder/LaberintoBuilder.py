@@ -50,8 +50,10 @@ class LaberintoBuilder():
     def fabricarBicho(self):
         return Bicho()
     
-    def fabricarBanana(self):
-        return Banana()
+    def fabricarBanana(self,num):
+        banana = Banana()
+        banana.num = num
+        return banana
     
     def fabricarForma(self):
         return Cuadrado()
@@ -188,8 +190,8 @@ class LaberintoBuilder():
         lado1.ponerElementoEn(ori1,puerta)
         lado2.ponerElementoEn(ori2,puerta)
 
-    def fabricarBananaEn(self,padre):
-        padre.agregarHijo(self.fabricarBanana())
+    def fabricarBananaEn(self,padre,num):
+        padre.agregarHijo(self.fabricarBanana(num))
 
     def fabricarPared(self):
         return Pared()

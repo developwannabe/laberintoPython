@@ -8,4 +8,5 @@ class Decorator (Hoja):
 
     def recorrer(self, funcion):
         funcion(self)
-        self.component.recorrer(funcion)
+        if self.component is not None:
+            self.component.recorrer(funcion)

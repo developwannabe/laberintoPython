@@ -17,3 +17,9 @@ class Banana(Objeto):
 
     def usar(self,ente):
         ente.vidas += self.vida
+
+    def __str__(self):
+        return "Banana " + str(self.num)
+    
+    def __repr__(self):
+        return "Banana " + str(self.num)

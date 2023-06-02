@@ -12,6 +12,11 @@ class Armario(Contenedor):
             hijo.aceptar(visitor)
         self.forma.aceptar(visitor)
 
+    def abrir(self,ente):
+        for ori in self.forma.orientaciones:
+            if (pu:=ori.obtenerElementoEn(self.forma)).esPuerta():
+                pu.abrir()
+        
     def obtenerComandos(self,ente):
         listaComandos = []
         listaComandos.extend(self.comandos)
@@ -22,7 +27,7 @@ class Armario(Contenedor):
         return listaComandos
     
     def entrar(self,ente):
-        print("Estás en un armario")
+        ente.posicion = self 
 
     def esArmario(self):
         return True

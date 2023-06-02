@@ -50,7 +50,7 @@ class Director():
 
         #Objetos
         if unDic['tipo'] == 'banana':
-            pad = self.builder.fabricarBananaEn(padre)
+            pad = self.builder.fabricarBananaEn(padre,unDic['num'])
         
         #Hijos
         hijos = unDic.get('hijos',[])

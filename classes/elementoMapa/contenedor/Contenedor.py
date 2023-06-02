@@ -12,7 +12,8 @@ class Contenedor (ElementoMapa):
 
     def recorrer(self,func):
         func(self)
-        map(func,self.hijos)
+        for hijo in self.hijos:
+            hijo.recorrer(func)
         self.forma.recorrer(func)
 
     def calcularPosicion(self):
