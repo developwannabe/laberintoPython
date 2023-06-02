@@ -19,8 +19,8 @@ class LaberintoGUI():
         self.surface = None
         self.vidasP = None
         self.bichosP = {}
-        self.bananasP = None
-        self.armariosP = None
+        self.bananasP = (-100,-100)
+        self.armariosP = {}
         self.rectAbrir = None
         self.rectCerrar = None
         self.textoAbrir = None
@@ -93,7 +93,8 @@ class LaberintoGUI():
             bichoA=pygame.transform.scale(pygame.image.load("gui/img/agresivo.png"),(self.anchoV/13,self.anchoV/13))
             bichoP=pygame.transform.scale(pygame.image.load("gui/img/perezoso.png"),(self.anchoV/13,self.anchoV/13))
             banana=pygame.transform.scale(pygame.image.load("gui/img/banana.png"),(self.anchoV/15,self.anchoV/15))
-            armario=pygame.transform.scale(pygame.image.load("gui/img/closedwardrobe.png"),(self.anchoV/15,self.anchoV/15))
+            armarioC=pygame.transform.scale(pygame.image.load("gui/img/closedwardrobe.png"),(self.anchoV/15,self.anchoV/15))
+            armarioA=pygame.transform.scale(pygame.image.load("gui/img/openwardrobe.png"),(self.anchoV/15,self.anchoV/15))
             running = True
             self.ventana.fill((0,0,0))
             self.capaLaberinto = pygame.Surface((self.anchoV,self.largoV))
@@ -157,8 +158,12 @@ class LaberintoGUI():
                     if bicho[0] == '-Perezoso:':
                         self.ventana.blit(bichoP,bicho[1])
                 self.ventana.blit(monkeyIm, self.personajeM)
-                self.ventana.blit(armario,self.armariosP)
                 self.ventana.blit(banana,self.bananasP)
+                for armario in self.armariosP.values():
+                    if armario[0] == 'abierto':
+                        self.ventana.blit(armarioA,armario[1])
+                    if armario[0] == 'cerrado':
+                        self.ventana.blit(armarioC,armario[1])
                 self.mostrarAbrirPuertas()
                 self.mostrarCerrarPuertas()
                 self.mostrarIniciarJuego()
@@ -204,11 +209,8 @@ class LaberintoGUI():
         self.bichosP[bicho.num]=(str(bicho.modo),(a,b))
     
     def mostrarBanana(self,banana):
-        unCont = banana.padre
-        an = unCont.getExtent()[0]
-        al = unCont.getExtent()[1]
-        a = unCont.getPunto()[0] + (an / 2) +20
-        b = unCont.getPunto()[1] + (al/2) +20
+        a = 1200
+        b = 800
         self.bananasP = (a,b)
 
     def vidasBicho(self,bicho):
@@ -226,12 +228,16 @@ class LaberintoGUI():
         self.mostrarArmario(arm)
 
     def mostrarArmario(self,arm):
+        self.armariosP[arm.num] = ()
         unCont = arm.padre
-        a = unCont.getPunto()[0] -100
-        b = unCont.getPunto()[1] -400
+        a = unCont.getPunto()[0]  + 20
+        b = unCont.getPunto()[1] + 10
         arm.setExtent((0,0))
         arm.setPunto((a,b))
-        self.armariosP = ((a,b),"")
+        if arm.estaAbierto():
+            self.armariosP[arm.num] = ("abierto",(a,b))
+        else:
+            self.armariosP[arm.num] = ("cerrado",(a,b))
     
     def visitarBaul(self,baul):
         self.dibujarBaul(baul)
@@ -240,7 +246,8 @@ class LaberintoGUI():
         pass#TODO:Dibujar Bomba
 
     def visitarBanana(self,banana):
-        self.mostrarBanana(banana)
+        if banana.padre.esBolsa():
+            self.mostrarBanana(banana)
 
     def visitarFuego(self,fuego):
         pass#TODO:Dibujar Fuego

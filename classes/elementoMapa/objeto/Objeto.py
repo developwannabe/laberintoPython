@@ -7,6 +7,9 @@ class Objeto(ElementoMapa,ABC):
         super().__init__()
         self.num = None
         
+    def entrar(self,ente):
+        self.padre = ente.bolsa
+        
     @abstractmethod
     def usar(self,ente):
         pass

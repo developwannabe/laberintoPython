@@ -16,6 +16,11 @@ class Armario(Contenedor):
         for ori in self.forma.orientaciones:
             if (pu:=ori.obtenerElementoEn(self.forma)).esPuerta():
                 pu.abrir()
+    
+    def estaAbierto(self):
+        for ori in self.forma.orientaciones:
+            if (pu:=ori.obtenerElementoEn(self.forma)).esPuerta():
+                return pu.estaAbierta()
         
     def obtenerComandos(self,ente):
         listaComandos = []
@@ -36,4 +41,4 @@ class Armario(Contenedor):
         return "Armario " + str(self.num)
     
     def __repr__(self):
-        return "Armario" + str(self.num)
+        return "Armario " + str(self.num)
