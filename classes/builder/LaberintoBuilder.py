@@ -20,6 +20,7 @@ from classes.forma.Cuadrado import Cuadrado
 from classes.elementoMapa.hoja.Tunel import Tunel
 from classes.comando.Abrir import Abrir
 from classes.elementoMapa.objeto.Banana import Banana
+from classes.comando.Coger import Coger
 
 class LaberintoBuilder():
     
@@ -53,6 +54,9 @@ class LaberintoBuilder():
     def fabricarBanana(self,num):
         banana = Banana()
         banana.num = num
+        com = self.fabricarCoger()
+        com.receptor=banana
+        banana.agregarComando(com)
         return banana
     
     def fabricarForma(self):
@@ -150,6 +154,9 @@ class LaberintoBuilder():
     def fabricarAbrir(self):
         return Abrir()
 
+    def fabricarCoger(self):
+        return Coger()
+    
     def fabricarHabitacion(self,num):
         hab = Habitacion(num)
 

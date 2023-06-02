@@ -19,6 +19,9 @@ class Bolsa(Objeto):
         else:
             print("No caben más objetos en la bolsa.")
 
+    def soltarObjeto(self,obj):
+        self.hijos.remove(obj)
+
     def recorrer(self,func):
         func(self)
         map(func,self.hijos)

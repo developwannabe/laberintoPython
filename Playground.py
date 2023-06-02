@@ -36,7 +36,17 @@ while not juego.fase.esFinal():
     if eleccion == "i" or eleccion == "I":
         i = 0
         for obj in personaje.bolsa.hijos:
-            print("    ",i,". ",obj)
+            print("    ",i,". ",obj,"\n")
+            i+=1
+        el = input()
+        el = int(el)
+        i = 0
+        for com in personaje.bolsa.hijos[el].obtenerComandos(personaje):
+            print("    ",i,". ",com,"\n")
+        el = input()
+        el = int(el)
+        personaje.bolsa.hijos[el].obtenerComandos(personaje)[el].ejecutar(personaje)
+
     
     if eleccion == "h" or eleccion == "H":
         hijos = juego.obtenerHijosPosicion()

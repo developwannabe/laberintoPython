@@ -18,6 +18,7 @@ class ElementoMapa(ABC):
         for comandoP in self.comandos:
             if comandoP.equals(comando):
                 return
+        comando.receptor = self
         self.comandos.append(comando)
 
     def obtenerComandos(self,ente):
