@@ -45,6 +45,9 @@ class Contenedor (ElementoMapa):
 
     def ponerElementoEn(self,ori,em):
         self.forma.ponerElementoEn(ori,em)
+    
+    def notificarSuscriptoresAbierto(self):
+        pass
 
     def agregarOrientacion(self, ori):
         self.forma.agregarOrientacion(ori)

@@ -73,7 +73,7 @@ class LaberintoBuilder():
         
         p1= self.fabricarPuerta()
         com = Abrir()
-        com.receptor=armario
+        com.receptor=p1
         p1.agregarComando(com)
 
 

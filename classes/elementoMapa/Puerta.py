@@ -11,6 +11,7 @@ class Puerta(ElementoMapa):
         self.lado1 = None
         self.lado2 = None
         self.visitada = False
+        self.observadoresAbierto = []
 
     def entrar(self,ente):
         if self.abierta:
@@ -20,6 +21,9 @@ class Puerta(ElementoMapa):
                 self.lado1.entrar(ente)
         else:
             print(str(ente)," ha chocado con una puerta cerrada.")
+
+    def suscribirAbierto(self,observer):
+        self.observadoresAbierto.append(observer)
 
     def calcularPosicionDesde(self,forma,unPunto):
         if self.visitada:
@@ -45,7 +49,9 @@ class Puerta(ElementoMapa):
         com2.receptor = self
         self.agregarComando(com1)
         self.agregarComando(com2)
-    
+        self.lado1.notificarSuscriptoresAbierto()
+        self.lado2.notificarSuscriptoresAbierto()
+
     def quitarAbrir(self):
         for com in self.comandos:
             if com.esAbrir():
@@ -59,6 +65,8 @@ class Puerta(ElementoMapa):
         com = Abrir()
         com.receptor = self
         self.agregarComando(com)
+        self.lado1.notificarSuscriptoresAbierto()
+        self.lado2.notificarSuscriptoresAbierto()
 
     def quitarCerrar(self):
         for com in self.comandos:
@@ -79,7 +87,7 @@ class Puerta(ElementoMapa):
         return self.abierta
 
     def __str__(self):
-        return "Puerta: " + (type(self.lado1).__name__) + str(self.lado1.num) + " - " + (type(self.lado2).__name__) + str(self.lado2.num)
+        return "Puerta: " + (type(self.lado1).__name__) + " " + str(self.lado1.num) + " - " + (type(self.lado2).__name__) + " " + str(self.lado2.num)
     
-    def __str__(self):
-        return "Puerta: " + (type(self.lado1).__name__) + str(self.lado1.num) + " - " + (type(self.lado2).__name__) + str(self.lado2.num)
+    def __repr__(self):
+        return "Puerta: " + (type(self.lado1).__name__) + " " + str(self.lado1.num) + " - " + (type(self.lado2).__name__) + " " + str(self.lado2.num)

@@ -4,6 +4,7 @@ class Armario(Contenedor):
     
     def __init__(self,num):
         super().__init__(num)
+        self.observadoresAbierto = []
 
     def aceptar(self,visitor):
         print("Visitar armario")
@@ -12,11 +13,23 @@ class Armario(Contenedor):
             hijo.aceptar(visitor)
         self.forma.aceptar(visitor)
 
+    def suscribirAbierto(self,observer):
+        self.observadoresAbierto.append(observer)
+
+    def notificarSuscriptoresAbierto(self):
+        for obs in self.observadoresAbierto:
+            obs.mostrarArmario(self)
+
     def abrir(self,ente):
         for ori in self.forma.orientaciones:
             if (pu:=ori.obtenerElementoEn(self.forma)).esPuerta():
                 pu.abrir()
     
+    def cerrar(self,ente):
+        for ori in self.forma.orientaciones:
+            if (pu:=ori.obtenerElementoEn(self.forma)).esPuerta():
+                pu.cerrar()
+
     def estaAbierto(self):
         for ori in self.forma.orientaciones:
             if (pu:=ori.obtenerElementoEn(self.forma)).esPuerta():

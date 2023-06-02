@@ -9,8 +9,8 @@ class Banana(Objeto):
     def esBanana(self):
         return True
     
-    
     def aceptar(self,visitor):
+        print("Visitar banana")
         visitor.visitarBanana(self)
 
     def usar(self,ente):

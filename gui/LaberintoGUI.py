@@ -243,6 +243,7 @@ class LaberintoGUI():
         self.dibujarContenedorRectangular(hab.forma,1)
     
     def visitarArmario(self,arm):
+        arm.suscribirAbierto(self)
         self.mostrarArmario(arm)
 
     def mostrarArmario(self,arm):
