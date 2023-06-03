@@ -20,6 +20,12 @@ class Comando(ABC):
     def esCoger(self):
         return False
     
+    def esUsar(self):
+        return False
+    
+    def esSoltar(self):
+        return False
+    
     @abstractmethod
     def equals(self,com):
         pass

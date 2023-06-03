@@ -1,6 +1,7 @@
 from classes.elementoMapa.ElementoMapa import ElementoMapa
 from classes.comando.Soltar import Soltar
 from classes.comando.Coger import Coger
+from classes.comando.Usar import Usar
 from abc import ABC,abstractmethod
 
 class Objeto(ElementoMapa,ABC):
@@ -17,6 +18,7 @@ class Objeto(ElementoMapa,ABC):
             if com.esCoger():
                 self.quitarComando(com)
         self.agregarComando(Soltar())
+        self.agregarComando(Usar())
         for obs in self.observadoresPosicion:
             obs.mostrarObjeto(self)
 
@@ -25,6 +27,9 @@ class Objeto(ElementoMapa,ABC):
         ente.bolsa.soltarObjeto(self)
         for com in self.comandos:
             if com.esSoltar():
+                self.quitarComando(com)
+        for com in self.comandos:
+            if com.esUsar():
                 self.quitarComando(com)
         self.agregarComando(Coger())
         for obs in self.observadoresPosicion:

@@ -14,7 +14,8 @@ class Banana(Objeto):
         visitor.visitarBanana(self)
 
     def usar(self,ente):
-        ente.vidas += self.vida
+        ente.setVidas(ente.vidas + self.vida)
+        self.padre.usado(self)
 
     def __str__(self):
         return "Banana " + str(self.num)

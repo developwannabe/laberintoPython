@@ -66,7 +66,7 @@ while not juego.fase.esFinal():
             print("No hay hijos disponibles.")
 
     if eleccion == "c" or eleccion == "C":
-        coms = personaje.obtenerComandos()
+        coms = personaje.obtenerComandos(personaje)
         if len(coms) > 0:
             print("Selecciona comando: ")
             i = 0

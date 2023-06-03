@@ -23,6 +23,13 @@ class Bolsa(Objeto):
         else:
             print("No caben más objetos en la bolsa.")
 
+    def usado(self,hijo):
+        self.hijos.remove(hijo)
+        hijo.padre = None
+        for obs in self.observadoresBolsa:
+                obs.mostrarBolsa(self)
+
+
     def obtenerComandos(self,ente):
         listaComandos = []
         listaComandos.extend(self.comandos)
