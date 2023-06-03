@@ -51,6 +51,8 @@ class Director():
         #Objetos
         if unDic['tipo'] == 'banana':
             pad = self.builder.fabricarBananaEn(padre,unDic['num'])
+        if unDic['tipo'] == 'espada':
+            pad = self.builder.fabricarEspadaEn(padre,unDic['num'])
         
         #Hijos
         hijos = unDic.get('hijos',[])

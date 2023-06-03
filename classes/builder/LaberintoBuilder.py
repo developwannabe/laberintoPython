@@ -9,7 +9,7 @@ from classes.orientacion.Sur import Sur
 from classes.elementoMapa.hoja.decorator.Bomba import Bomba
 from classes.elementoMapa.contenedor.Baul import Baul
 from classes.elementoMapa.hoja.decorator.Fuego import Fuego
-from classes.elementoMapa.hoja.decorator.Espada import Espada
+from classes.elementoMapa.objeto.Espada import Espada
 from classes.ente.Bicho import Bicho
 from classes.ente.Personaje import Personaje
 from classes.modo.Agresivo import Agresivo
@@ -105,7 +105,14 @@ class LaberintoBuilder():
         bomba = self.fabricarBomba()
         padre.agregarHijo(bomba)
         
-    
+    def fabricarEspadaEn(self,padre,num):
+        espada = Espada()
+        espada.num = num
+        padre.agregarHijo(espada)
+        com = Coger()
+        espada.agregarComando(com)
+        return espada
+
     def fabricarBichoAgresivo(self,posicion):
         bicho = self.fabricarBicho()
         bicho.posicion = posicion

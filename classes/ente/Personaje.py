@@ -1,4 +1,5 @@
 from classes.ente.Ente import Ente
+from classes.cuerpo.Cuerpo import Cuerpo
 
 class Personaje(Ente):
     
@@ -6,6 +7,19 @@ class Personaje(Ente):
         super().__init__()
         self.nick=None
         self.bolsa=None
+        self.cuerpo = Cuerpo()
+
+    def obtenermIzquierda(self):
+        return self.cuerpo.obtenermIzquierda()
+    
+    def obtenermDerecha(self):
+        return self.cuerpo.obtenermDerecha()
+    
+    def setmIzquierda(self,obj):
+        self.cuerpo.setmIzquierda(obj)
+
+    def setmDerecha(self,obj):
+        self.cuerpo.setmDerecha(obj)
 
     def setPosicion(self, pos):
         self.posicion= pos

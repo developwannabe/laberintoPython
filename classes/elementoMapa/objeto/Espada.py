@@ -1,18 +1,21 @@
-from classes.elementoMapa.hoja.decorator.Decorator import Decorator
+from classes.elementoMapa.objeto.Objeto import Objeto
 
-class Espada (Decorator):
+class Espada (Objeto):
 
     def __init__(self):
         super().__init__()
         self.poder = 10
         self.usos = 5
-    
-    def entrar(self,ente):
-        print("Espada")
 
     def aceptar(self,visitor):
         print("Visitar espada")
         visitor.visitarEspada(self)
+    
+    def usar(self,ente):
+        obj = ente.obtenerMDerecha()
+        ente.setMDerecha()
+        ente.bolsa.borrarDeBolsa(self)
+        ente.bolsa.agregarObjeto(obj)
 
     def __str__(self):
         return "Espada"

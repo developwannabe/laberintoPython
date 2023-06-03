@@ -219,7 +219,7 @@ class LaberintoGUI():
         self.ventana.blit(pygame.font.Font(None, 32).render("Inventario", True, (255,255,255)),(910,760))
         self.ventana.blit(pygame.font.Font(None, 32).render(texto, True, (0,0,0)),(1050,760))
         
-    def mostrarComandos(self,cont=None):#TODO: Hacer pero con observer
+    def mostrarComandos(self,cont=None):
         i = 0
         a = 910
         b = 150
@@ -341,7 +341,11 @@ class LaberintoGUI():
         pass#TODO:Dibujar Fuego
 
     def visitarEspada(self,espada):
-        pass#TODO:Dibujar Espada
+        espada.agregarObservadorPosicion(self)
+        self.mostrarEspada(espada)
+    
+    def mostrarEspada(self,espada):
+        pass #TODO: Mostrar espada
 
     def visitarPared(self,pared):
         pass # Son dibujadas junto al contenedor rectangular

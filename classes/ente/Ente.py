@@ -3,6 +3,11 @@ from classes.orientacion.Norte import Norte
 from classes.orientacion.Este import Este
 from classes.orientacion.Oeste import Oeste
 from classes.orientacion.Sur import Sur
+from classes.estado.Vivo import Vivo
+from classes.orientacion.Noreste import Noreste
+from classes.orientacion.Noroeste import Noroeste
+from classes.orientacion.Sureste import Sureste
+from classes.orientacion.Suroeste import Suroeste
 from abc import ABC,abstractmethod
 class Ente(ABC):
 
@@ -75,7 +80,17 @@ class Ente(ABC):
     def irAlSur(self):
         self.irA(Sur.obtenerInstancia())
 
-    #TODO: Implementar irAlNoreste, irAlNoroeste...
+    def irAlNoreste(self):
+        self.irA(Noreste.obtenerInstancia())
+
+    def irAlNoroeste(self):
+        self.irA(Noroeste.obtenerInstancia())
+
+    def irAlSureste(self):
+        self.irA(Sureste.obtenerInstancia())
+
+    def irAlSuroeste(self):
+        self.irA(Suroeste.obtenerInstancia())
 
     @abstractmethod
     def enteMuere():
