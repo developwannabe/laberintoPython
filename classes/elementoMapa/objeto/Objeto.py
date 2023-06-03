@@ -8,14 +8,17 @@ class Objeto(ElementoMapa,ABC):
     def __init__(self):
         super().__init__()
         self.num = None
+        self.observadoresPosicion = []
         
     def entrar(self,ente):
-        ente.bolsa.agregarObjeto(self)
         self.padre.hijos.remove(self)
+        ente.bolsa.agregarObjeto(self)
         for com in self.comandos:
             if com.esCoger():
                 self.quitarComando(com)
         self.agregarComando(Soltar())
+        for obs in self.observadoresPosicion:
+            obs.mostrarObjeto(self)
 
     def soltar(self,ente):
         ente.posicion.agregarHijo(self)
@@ -24,6 +27,11 @@ class Objeto(ElementoMapa,ABC):
             if com.esSoltar():
                 self.quitarComando(com)
         self.agregarComando(Coger())
+        for obs in self.observadoresPosicion:
+            obs.mostrarObjeto(self)
+
+    def agregarObservadorPosicion(self,obs):
+        self.observadoresPosicion.append(obs)
 
     @abstractmethod
     def usar(self,ente):

@@ -16,6 +16,7 @@ class Bolsa(Objeto):
 
     def agregarObjeto(self,obj):
         if len(self.hijos) < self.capacidad:
+            obj.padre = self
             self.hijos.append(obj)
             for obs in self.observadoresBolsa:
                 obs.mostrarBolsa(self)

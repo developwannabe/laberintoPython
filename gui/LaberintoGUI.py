@@ -19,7 +19,7 @@ class LaberintoGUI():
         self.surface = None
         self.vidasP = None
         self.bichosP = {}
-        self.bananasP = (-100,-100)
+        self.bananasP = {}
         self.armariosP = {}
         self.rectAbrir = None
         self.rectCerrar = None
@@ -170,7 +170,6 @@ class LaberintoGUI():
                         self.ventana.blit(bichoA,bicho[1])
                     if bicho[0] == '-Perezoso:':
                         self.ventana.blit(bichoP,bicho[1])
-                self.ventana.blit(banana,self.bananasP)
                 for armario in self.armariosP.values():
                     if armario[0] == 'abierto':
                         self.ventana.blit(armarioA,armario[1])
@@ -179,6 +178,8 @@ class LaberintoGUI():
                 for obj in self.bolsa.values():
                     if obj[0] == "Banana":
                         self.ventana.blit(banana,obj[1])
+                for bananas in self.bananasP.values():
+                    self.ventana.blit(banana,bananas)
                 self.mostrarAbrirPuertas()
                 self.mostrarCerrarPuertas()
                 self.mostrarIniciarJuego()
@@ -257,9 +258,14 @@ class LaberintoGUI():
         self.bichosP[bicho.num]=(str(bicho.modo),(a,b))
     
     def mostrarBanana(self,banana):
-        a = 1200
-        b = 800
-        self.bananasP = (a,b)
+        self.bananasP[str(banana)] = ((-100,-100))
+        if banana.padre.esHabitacion():
+            unCont = banana.padre
+            an = unCont.getExtent()[0]
+            al = unCont.getExtent()[1]
+            a = unCont.getPunto()[0] + an - 100
+            b = unCont.getPunto()[1] + an - 100
+            self.bananasP[str(banana)]=((a,b))
 
     def vidasBicho(self,bicho):
         if bicho.vidas == 0:
@@ -316,6 +322,9 @@ class LaberintoGUI():
             self.bolsa [str(obj)] = (type(obj).__name__,(a,b))
             b += 30
 
+    def mostrarObjeto(self,obj):
+        if type(obj).__name__ == "Banana":
+            self.mostrarBanana(obj)
 
     def visitarBaul(self,baul):
         self.dibujarBaul(baul)
@@ -324,6 +333,7 @@ class LaberintoGUI():
         pass#TODO:Dibujar Bomba
 
     def visitarBanana(self,banana):
+        banana.agregarObservadorPosicion(self)
         if banana.padre.esBolsa():
             self.mostrarBanana(banana)
 
