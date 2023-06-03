@@ -25,6 +25,7 @@ class LaberintoGUI():
         self.rectCerrar = None
         self.botonAbrir = None
         self.rectIniciar = None
+        self.rectBIn = None
         self.rectCom = []
         self.puertasP = {}
         self.bolsa = {}
@@ -97,6 +98,7 @@ class LaberintoGUI():
             banana=pygame.transform.scale(pygame.image.load("gui/img/banana.png"),(self.anchoV/15,self.anchoV/15))
             armarioC=pygame.transform.scale(pygame.image.load("gui/img/closedwardrobe.png"),(self.anchoV/12,self.anchoV/12))
             armarioA=pygame.transform.scale(pygame.image.load("gui/img/openwardrobe.png"),(self.anchoV/12,self.anchoV/12))
+            mostrarInventario = False
             running = True
             self.ventana.fill((0,0,0))
             self.capaLaberinto = pygame.Surface((self.anchoV,self.largoV))
@@ -111,7 +113,6 @@ class LaberintoGUI():
                 bicho.suscribirPosicion(self)
                 bicho.suscribirVida(self)
                 self.mostrarBicho(bicho)
-            #self.mostrarLanzarBichos()
             while not self.juego.fase.esFinal() and running:
                 keys = pygame.key.get_pressed()
                 for event in pygame.event.get():
@@ -152,6 +153,8 @@ class LaberintoGUI():
                             self.juego.cerrarPuertas()
                         if self.rectIniciar.collidepoint(pos):
                             self.juego.lanzarBichos()
+                        if self.rectBIn.collidepoint(pos):
+                            mostrarInventario = not mostrarInventario
                         for com in self.rectCom:
                             if com[0].collidepoint(pos):
                                 com[1].ejecutar(self.personaje)
@@ -179,8 +182,12 @@ class LaberintoGUI():
                 self.mostrarAbrirPuertas()
                 self.mostrarCerrarPuertas()
                 self.mostrarIniciarJuego()
-                self.mostrarComandos()
-                self.mostrarAbrirInventario()
+                if mostrarInventario:
+                    self.mostrarComandos(self.personaje.bolsa)
+                    self.mostrarBInventario("Cerrar")
+                else:
+                    self.mostrarComandos()
+                    self.mostrarBInventario("Abrir")
                 self.ventana.blit(monkeyIm, self.personajeM)
                 pygame.display.update()
 
@@ -206,17 +213,21 @@ class LaberintoGUI():
         self.rectIniciar = pygame.draw.rect(self.ventana, (255, 255, 0), (1280, 80, 160, 50))
         self.ventana.blit(pygame.font.Font(None, 32).render("Iniciar Juego", True, (0,0,0)),(1290,90))
 
-    def mostrarAbrirInventario(self):
-        self.rectIniciar = pygame.draw.rect(self.ventana, (255, 255, 0), (1040, 750, 80, 50))
+    def mostrarBInventario(self,texto):
+        self.rectBIn = pygame.draw.rect(self.ventana, (255, 255, 0), (1040, 750, 80, 50))
         self.ventana.blit(pygame.font.Font(None, 32).render("Inventario", True, (255,255,255)),(910,760))
-        self.ventana.blit(pygame.font.Font(None, 32).render("Abrir", True, (0,0,0)),(1050,760))
+        self.ventana.blit(pygame.font.Font(None, 32).render(texto, True, (0,0,0)),(1050,760))
         
-    def mostrarComandos(self):
+    def mostrarComandos(self,cont=None):#TODO: Hacer pero con observer
         i = 0
         a = 910
         b = 150
         self.rectCom = []
-        for com in self.personaje.obtenerComandos():
+        if cont is None:
+            obtenerDe = self.personaje
+        else:
+            obtenerDe = cont
+        for com in obtenerDe.obtenerComandos(self.personaje):
             ex = len(str(com))*12
             self.rectCom.append((pygame.draw.rect(self.ventana, (255, 255, 0), (a, b, ex, 50)),com))
             self.ventana.blit(pygame.font.Font(None, 32).render(str(com), True, (0,0,0)),(a + 10,b + 10))
@@ -298,6 +309,7 @@ class LaberintoGUI():
             self.puertasP[str(puerta)] = ((a,b),"cerrada")
     
     def mostrarBolsa(self,bolsa):
+        self.bolsa = {}
         a = 910
         b = 800
         for obj in bolsa.hijos:

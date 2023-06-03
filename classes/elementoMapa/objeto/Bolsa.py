@@ -22,6 +22,13 @@ class Bolsa(Objeto):
         else:
             print("No caben más objetos en la bolsa.")
 
+    def obtenerComandos(self,ente):
+        listaComandos = []
+        listaComandos.extend(self.comandos)
+        for hijo in self.hijos:
+            listaComandos.extend(hijo.obtenerComandos(ente))
+        return listaComandos
+    
     def observarBolsa(self,obs):
         self.observadoresBolsa.append(obs)
 
@@ -29,7 +36,7 @@ class Bolsa(Objeto):
     def soltarObjeto(self,obj):
         self.hijos.remove(obj)
         for obs in self.observadoresBolsa:
-                obs.mostrarBolsa()
+            obs.mostrarBolsa(self)
 
     def recorrer(self,func):
         func(self)
@@ -38,11 +45,11 @@ class Bolsa(Objeto):
     def aceptar(self,visitor):
         visitor.visitarBolsa(self)
 
-    def obtenerComandos(self):
+    def obtenerComandos(self,ente):
         listaComandos = []
         listaComandos.extend(self.comandos)
         for hijo in self.hijos:
-            listaComandos.extend(hijo.obtenerComandos())
+            listaComandos.extend(hijo.obtenerComandos(ente))
         return listaComandos
     
     def esBolsa(self):
