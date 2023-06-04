@@ -345,7 +345,7 @@ class LaberintoGUI():
         self.mostrarEspada(espada)
     
     def mostrarEspada(self,espada):
-        pass #TODO: Mostrar espada
+        pass #TODO:Mostrar espada dependiendo de su material
 
     def visitarPared(self,pared):
         pass # Son dibujadas junto al contenedor rectangular
