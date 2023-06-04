@@ -114,6 +114,7 @@ class LaberintoGUI():
             self.personaje.bolsa.observarBolsa(self)
             self.mostrarBolsa(self.personaje.bolsa)
             for bicho in self.juego.bichos:
+                print(bicho.vidas)
                 bicho.suscribirPosicion(self)
                 bicho.suscribirVida(self)
                 self.mostrarBicho(bicho)

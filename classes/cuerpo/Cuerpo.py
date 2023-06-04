@@ -18,6 +18,6 @@ class Cuerpo():
             obs.mostrarCuerpo()
 
     def setmDerecha(self,obj):
-        self.mIzquierda = obj
+        self.mDerecha = obj
         for obs in self.observadoresCuerpo:
             obs.mostrarCuerpo()

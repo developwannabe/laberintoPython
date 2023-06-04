@@ -40,6 +40,9 @@ class Personaje(Ente):
     def obtenerComandos(self,ente):
         return self.posicion.obtenerComandos(self)
     
+    def esPersonaje(self):
+        return True
+    
     def __str__(self):
         return "Personaje " + str(self.nick)
     

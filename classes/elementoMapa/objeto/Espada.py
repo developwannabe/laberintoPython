@@ -1,4 +1,5 @@
 from classes.elementoMapa.objeto.Objeto import Objeto
+from classes.comando.Desequipar import Desequipar
 
 class Espada (Objeto):
 
@@ -10,11 +11,18 @@ class Espada (Objeto):
         print("Visitar espada")
         visitor.visitarEspada(self)
     
+    def obtenerPoder(self):
+        return self.material.poder
+    
     def usar(self,ente):
-        obj = ente.obtenerMDerecha()
-        ente.setMDerecha()
+        obj = ente.obtenermDerecha()
+        ente.setmDerecha(self)
         ente.bolsa.borrarDeBolsa(self)
-        ente.bolsa.agregarObjeto(obj)
+        if obj is not None:
+            ente.bolsa.agregarObjeto(obj)
+        com = Desequipar()
+        com.receptor = self
+        self.agregarComando(Desequipar())
 
     def __str__(self):
         return "Espada " +str(self.num) + " de "+ str(self.material)

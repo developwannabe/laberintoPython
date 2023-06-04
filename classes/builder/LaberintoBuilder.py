@@ -135,16 +135,16 @@ class LaberintoBuilder():
         bicho = self.fabricarBicho()
         bicho.posicion = posicion
         bicho.modo = self.fabricarModoAgresivo()
-        bicho.vidas = 10
-        bicho.poder = 3
+        bicho.vidas = 120
+        bicho.poder = 20
         return bicho
     
     def fabricarBichoPerezoso(self,posicion):
         bicho = self.fabricarBicho()
         bicho.posicion = posicion
         bicho.modo = self.fabricarModoPerezoso()
-        bicho.vidas = 10
-        bicho.poder = 1
+        bicho.vidas = 60
+        bicho.poder = 10
         return bicho
 
     def fabricarBichoL(self,modo,posicion):

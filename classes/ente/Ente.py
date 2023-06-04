@@ -13,7 +13,7 @@ class Ente(ABC):
 
     def __init__(self):
         self.vidas = 100
-        self.poder = 1
+        self.poder = 10
         self.estado = Vivo()
         self.posicion= None
         self.juego = None
@@ -47,7 +47,12 @@ class Ente(ABC):
             self.enteMuere()
 
     def recalcularVidas(self,unEnte):
-        self.setVidas(self.vidas - unEnte.vidas)
+        poder = 0
+        if unEnte.esPersonaje():
+            arma = unEnte.obtenermDerecha()
+            if arma is not None:
+                poder += arma.obtenerPoder()
+        self.setVidas(self.vidas - (unEnte.poder + poder))
         if self.vidas < 0:
             self.setVidas(0)
         print(str(self)," vidas: "+str(self.vidas))
@@ -92,6 +97,12 @@ class Ente(ABC):
     def irAlSuroeste(self):
         self.irA(Suroeste.obtenerInstancia())
 
+    def esPersonaje(self):
+        return False
+    
+    def esBicho(self):
+        return False
+    
     @abstractmethod
     def enteMuere():
         pass

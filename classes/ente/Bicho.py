@@ -44,6 +44,9 @@ class Bicho(Ente):
         print(str(self), " muere.")
         self.vidas = 0
         self.estado=Muerto()
+
+    def esBicho(self):
+        return True
     
     def __str__(self):
         return "Bicho" + str(self.modo) + " "+str(self.num)

@@ -26,6 +26,9 @@ class Comando(ABC):
     def esSoltar(self):
         return False
     
+    def esDesequipar(self):
+        return False
+    
     @abstractmethod
     def equals(self,com):
         pass
