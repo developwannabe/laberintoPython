@@ -1,5 +1,7 @@
 from classes.elementoMapa.objeto.Objeto import Objeto
 from classes.comando.Desequipar import Desequipar
+from classes.comando.Usar import Usar
+
 
 class Espada (Objeto):
 
@@ -17,12 +19,24 @@ class Espada (Objeto):
     def usar(self,ente):
         obj = ente.obtenermDerecha()
         ente.setmDerecha(self)
-        ente.bolsa.borrarDeBolsa(self)
+        ente.bolsa.usado(self)
         if obj is not None:
-            ente.bolsa.agregarObjeto(obj)
+            obj.desequipar(ente)
         com = Desequipar()
         com.receptor = self
         self.agregarComando(Desequipar())
+        for com in self.comandos:
+            if com.esAbrir():
+                self.quitarComando(com)
+            if com.esUsar():
+                self.quitarComando(com)
+    
+    def desequipar(self,ente):
+        ente.bolsa.agregarObjeto(self)
+        self.agregarComando(Usar())
+        for com in self.comandos:
+            if com.esDesequipar():
+                self.quitarComando(com)
 
     def __str__(self):
         return "Espada " +str(self.num) + " de "+ str(self.material)

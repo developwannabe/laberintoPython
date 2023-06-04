@@ -12,6 +12,7 @@
             {"tipo":"bomba"}
         ]},
         {"tipo":"habitacion","num":3,"hijos":[
+            {"tipo":"espada","num":1,"material":"diamante"},
             {"tipo":"armario","num":3,"hijos":[]},
             {"tipo":"bomba"}
         ]},
