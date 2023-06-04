@@ -173,8 +173,6 @@ class LaberintoGUI():
                 for armario in self.armariosP.values():
                     if armario[0] == 'abierto':
                         self.ventana.blit(armarioA,armario[1])
-                    if armario[0] == 'cerrado':
-                        self.ventana.blit(armarioC,armario[1])
                 for obj in self.bolsa.values():
                     if obj[0] == "Banana":
                         self.ventana.blit(banana,obj[1])
@@ -190,6 +188,9 @@ class LaberintoGUI():
                     self.mostrarComandos()
                     self.mostrarBInventario("Abrir")
                 self.ventana.blit(monkeyIm, self.personajeM)
+                for armario in self.armariosP.values():
+                    if armario[0] == 'cerrado':
+                        self.ventana.blit(armarioC,armario[1])
                 pygame.display.update()
 
             self.juego.terminarBichos()#Por si se cierra la ventana
