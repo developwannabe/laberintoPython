@@ -4,7 +4,6 @@ class Metal(Material):
 
     def __init__(self):
         self.poder = 20
-        self.usos = 5
 
     def esMetal(self):
         return True

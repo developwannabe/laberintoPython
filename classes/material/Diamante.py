@@ -4,7 +4,6 @@ class Diamante(Material):
 
     def __init__(self):
         self.poder = 30
-        self.usos = 10
 
     def esDiamante(self):
         return True

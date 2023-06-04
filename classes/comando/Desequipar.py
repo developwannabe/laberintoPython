@@ -11,6 +11,9 @@ class Desequipar(Comando):
     def __str__(self):
         return "Desequipar " + str(self.receptor)
     
+    def __repr__(self):
+        return "Desequipar " + str(self.receptor)
+    
     def equals(self,comando):
         if comando.esDesequipar():
             return True

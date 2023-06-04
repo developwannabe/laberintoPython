@@ -4,7 +4,6 @@ class Madera(Material):
 
     def __init__(self):
         self.poder = 10
-        self.usos = 2
 
     def esMadera(self):
         return True

@@ -11,6 +11,9 @@ class Entrar(Comando):
     def __str__(self):
         return "Entrar en " + str(self.receptor)
     
+    def __repr__(self):
+        return "Entrar en " + str(self.receptor)
+    
     def equals(self,comando):
         if comando.esEntrar():
             return True

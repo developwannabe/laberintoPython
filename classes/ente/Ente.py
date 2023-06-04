@@ -48,11 +48,20 @@ class Ente(ABC):
 
     def recalcularVidas(self,unEnte):
         poder = 0
+        defensa = 0
         if unEnte.esPersonaje():
             arma = unEnte.obtenermDerecha()
             if arma is not None:
                 poder += arma.obtenerPoder()
-        self.setVidas(self.vidas - (unEnte.poder + poder))
+        if self.esPersonaje():
+            defn = self.obtenermIzquierda()
+            if defn is not None:
+                defensa += defn.obtenerDefensa() 
+        calc = (self.vidas + defensa) - (unEnte.poder + poder)
+        if calc > self.vidas:
+            self.setVidas(self.vidas)
+        else:
+            self.setVidas(calc)
         if self.vidas < 0:
             self.setVidas(0)
         print(str(self)," vidas: "+str(self.vidas))

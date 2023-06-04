@@ -24,6 +24,7 @@ from classes.comando.Coger import Coger
 from classes.material.Madera import Madera
 from classes.material.Metal import Metal
 from classes.material.Diamante import Diamante
+from classes.elementoMapa.objeto.Escudo import Escudo
 
 class LaberintoBuilder():
     
@@ -118,7 +119,7 @@ class LaberintoBuilder():
         return Diamante()
     
     def fabricarEspadaEn(self,padre,num,material):
-        espada = Espada()
+        espada = self.fabricarEspada()
         espada.num = num
         if material=="madera":
             espada.material = self.fabricarMadera()
@@ -130,6 +131,17 @@ class LaberintoBuilder():
         com = Coger()
         espada.agregarComando(com)
         return espada
+    
+    def fabricarEscudo(self):
+        return Escudo()
+    
+    def fabricarEscudoEn(self,padre,num):
+        escudo = self.fabricarEscudo()
+        escudo.num = num
+        padre.agregarHijo(escudo)
+        com = Coger()
+        escudo.agregarComando(com)
+        return escudo
 
     def fabricarBichoAgresivo(self,posicion):
         bicho = self.fabricarBicho()

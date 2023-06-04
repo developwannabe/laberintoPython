@@ -17,16 +17,19 @@ class LaberintoGUI():
         self.bichosP = {}
         self.bananasP = {}
         self.armariosP = {}
-        self.rectAbrir = None
+        self.rectAbrirC = None
         self.rectCerrar = None
         self.botonAbrir = None
         self.rectIniciar = None
         self.rectBIn = None
+        self.rectCuerpo = None
         self.rectCom = []
         self.puertasP = {}
         self.bolsa = {}
         self.espadasP = {}
         self.armaP = None
+        self.escudosP = {}
+        self.defensaP = None
         pygame.init()
         self.ventana = pygame.display.set_mode((self.largoV,self.anchoV))
         pygame.display.set_caption("No banana, no monkey")
@@ -97,9 +100,11 @@ class LaberintoGUI():
             espadaMa=pygame.transform.scale(pygame.image.load("gui/img/espadaMadera.png"),(self.anchoV/20,self.anchoV/20))
             espadaMe=pygame.transform.scale(pygame.image.load("gui/img/espadaHierro.png"),(self.anchoV/20,self.anchoV/20))
             espadaDi=pygame.transform.scale(pygame.image.load("gui/img/espadaDiamante.png"),(self.anchoV/20,self.anchoV/20))
+            escudo=pygame.transform.scale(pygame.image.load("gui/img/escudo.png"),(self.anchoV/26,self.anchoV/26))
             armarioC=pygame.transform.scale(pygame.image.load("gui/img/closedwardrobe.png"),(self.anchoV/12,self.anchoV/12))
             armarioA=pygame.transform.scale(pygame.image.load("gui/img/openwardrobe.png"),(self.anchoV/12,self.anchoV/12))
             mostrarInventario = False
+            mostrarCuerpo = False
             running = True
             self.ventana.fill((0,0,0))
             self.capaLaberinto = pygame.Surface((self.anchoV,self.largoV))
@@ -109,6 +114,7 @@ class LaberintoGUI():
             self.mostrarPersonaje()
             self.mostrarVidasPersonaje()
             self.personaje.bolsa.observarBolsa(self)
+            self.personaje.cuerpo.agregarObservadoresCuerpo(self)
             self.mostrarBolsa(self.personaje.bolsa)
             for bicho in self.juego.bichos:
                 print(bicho.vidas)
@@ -152,6 +158,10 @@ class LaberintoGUI():
                             self.juego.lanzarBichos()
                         if self.rectBIn.collidepoint(pos):
                             mostrarInventario = not mostrarInventario
+                            mostrarCuerpo = False
+                        if self.rectAbrirC.collidepoint(pos):
+                            mostrarCuerpo = not mostrarCuerpo
+                            mostrarInventario = False
                         for com in self.rectCom:
                             if com[0].collidepoint(pos):
                                 com[1].ejecutar(self.personaje)
@@ -180,6 +190,8 @@ class LaberintoGUI():
                             self.ventana.blit(espadaMe,obj[2])
                         if obj[1] == 'diamante':
                             self.ventana.blit(espadaDi,obj[2])
+                    if obj[0] == "Escudo":
+                        self.ventana.blit(escudo,obj[1])
                 for espada in self.espadasP.values():
                     if espada[0] == 'madera':
                         self.ventana.blit(espadaMa,espada[1])
@@ -189,15 +201,24 @@ class LaberintoGUI():
                         self.ventana.blit(espadaDi,espada[1])
                 for bananas in self.bananasP.values():
                     self.ventana.blit(banana,bananas)
+                for escudos in self.escudosP.values():
+                    self.ventana.blit(escudo,escudos)
                 self.mostrarAbrirPuertas()
                 self.mostrarCerrarPuertas()
                 self.mostrarIniciarJuego()
                 if mostrarInventario:
                     self.mostrarComandos(self.personaje.bolsa)
                     self.mostrarBInventario("Cerrar")
+                    self.mostrarAbrirCuerpo("Abrir")
+                elif mostrarCuerpo:
+                    self.mostrarBInventario("Abrir")
+                    self.mostrarAbrirCuerpo("Cerrar")
+                    self.mostrarComandos(self.personaje.cuerpo)
                 else:
                     self.mostrarComandos()
                     self.mostrarBInventario("Abrir")
+                    self.mostrarAbrirCuerpo("Abrir")
+                    
                 if self.armaP is not None:
                     if self.armaP[0] == "Espada":
                         if self.armaP[1] == 'Madera':
@@ -207,6 +228,9 @@ class LaberintoGUI():
                         if self.armaP[1] == 'Diamante':
                             self.ventana.blit(espadaDi,self.armaP[2])
                 self.ventana.blit(monkeyIm, self.personajeM)
+                if self.defensaP is not None:
+                    if self.defensaP[0] == "Escudo":
+                        self.ventana.blit(escudo,self.defensaP[1])
                 for armario in self.armariosP.values():
                     if armario[0] == 'cerrado':
                         self.ventana.blit(armarioC,armario[1])
@@ -238,6 +262,10 @@ class LaberintoGUI():
         self.rectBIn = pygame.draw.rect(self.ventana, (255, 255, 0), (1040, 750, 80, 50))
         self.ventana.blit(pygame.font.Font(None, 32).render("Inventario", True, (255,255,255)),(910,760))
         self.ventana.blit(pygame.font.Font(None, 32).render(texto, True, (0,0,0)),(1050,760))
+    
+    def mostrarAbrirCuerpo(self,texto):
+        self.rectAbrirC = pygame.draw.rect(self.ventana, (255, 255, 0), (1130, 750, 160, 50))
+        self.ventana.blit(pygame.font.Font(None, 32).render(texto+" Cuerpo", True, (0,0,0)),(1140,760))
         
     def mostrarComandos(self,cont=None):
         i = 0
@@ -267,7 +295,11 @@ class LaberintoGUI():
             a += 30
             b+=50
         self.personajeM = (a,b)
+        self.mostrarCuerpo()
+
+    def mostrarCuerpo(self):
         self.mostrarArma()
+        self.mostrarDefensa()
 
     def mostrarArma(self):
         self.armaP = None
@@ -276,6 +308,14 @@ class LaberintoGUI():
             b = self.personajeM[1] + 20
             if arma.esEspada():
                 self.armaP = ("Espada",str(arma.material),(a,b))
+    
+    def mostrarDefensa(self):
+        self.defensaP = None
+        if (defensa:=self.personaje.cuerpo.obtenermIzquierda()) is not None:
+            a = self.personajeM[0] + 10
+            b = self.personajeM[1] + 35
+            if defensa.esEscudo():
+                self.defensaP = ("Escudo",(a,b))
 
     def mostrarBicho(self,bicho):
         self.bichosP[bicho.num] = ()
@@ -357,6 +397,8 @@ class LaberintoGUI():
                     self.bolsa [str(obj)] = ("Espada","metal",(a,b))
                 if obj.material.esDiamante():
                     self.bolsa [str(obj)] = ("Espada","diamante",(a,b))
+            if obj.esEscudo():
+                self.bolsa [str(obj)] = ("Escudo",(a,b))
             a += 70
 
     def mostrarObjeto(self,obj):
@@ -364,9 +406,15 @@ class LaberintoGUI():
             self.mostrarBanana(obj)
         if obj.esEspada():
             self.mostrarEspada(obj)
+        if obj.esEscudo():
+            self.mostrarEscudo(obj)
 
     def visitarBaul(self,baul):
         self.dibujarBaul(baul)
+
+    def visitarEscudo(self,escudo):
+        escudo.agregarObservadorPosicion(self)
+        self.mostrarEscudo(escudo)
 
     def visitarBomba(self,bomba):
         pass#TODO:Dibujar Bomba
@@ -398,7 +446,13 @@ class LaberintoGUI():
                 a = espada.padre.getPunto()[0]  + 220
                 b = espada.padre.getPunto()[1] + espada.padre.getExtent()[0] -100
                 self.espadasP[str(espada)] = ("diamante",(a,b))
-        
+    
+    def mostrarEscudo(self,escudo):
+        self.escudosP[str(escudo)] = ((-100,-100))
+        if escudo.padre.esHabitacion():
+            a = escudo.padre.getPunto()[0] + 40
+            b = escudo.padre.getPunto()[1] + escudo.padre.getExtent()[0] -300
+            self.escudosP[str(escudo)] = (a,b)
 
     def visitarPared(self,pared):
         pass # Son dibujadas junto al contenedor rectangular
@@ -409,7 +463,7 @@ class LaberintoGUI():
             self.mostrarPuerta(puerta)
 
     def visitarTunel(self,tunel):
-        pass#TODO:Dibujar tunel
+        pass#No se dibujará, solo será jugado por consola.
 
     def dibujarContenedorRectangular(self,forma,escala):
         unPunto = forma.punto

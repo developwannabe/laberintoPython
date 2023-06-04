@@ -5,6 +5,8 @@ class Cuerpo():
         self.mDerecha = None #Espada (Ataque)
         self.observadoresCuerpo = []
 
+    def agregarObservadoresCuerpo(self,obs):
+        self.observadoresCuerpo.append(obs)
 
     def obtenermIzquierda(self):
         return self.mIzquierda
@@ -21,3 +23,11 @@ class Cuerpo():
         self.mDerecha = obj
         for obs in self.observadoresCuerpo:
             obs.mostrarCuerpo()
+
+    def obtenerComandos(self,ente): # Implementar en consola
+        comandos = []
+        if self.mIzquierda is not None:
+            comandos.extend(self.mIzquierda.obtenerComandos(ente))
+        if self.mDerecha is not None:
+            comandos.extend(self.mDerecha.obtenerComandos(ente))
+        return comandos

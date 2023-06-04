@@ -3,23 +3,22 @@ from classes.comando.Desequipar import Desequipar
 from classes.comando.Usar import Usar
 from classes.comando.Soltar import Soltar
 
-
-class Espada(Objeto):
+class Escudo(Objeto):
 
     def __init__(self):
         super().__init__()
-        self.material = None
+        self.defensa = 4
 
     def aceptar(self,visitor):
-        print("Visitar espada")
-        visitor.visitarEspada(self)
+        print("Visitar escudo")
+        visitor.visitarEscudo(self)
     
-    def obtenerPoder(self):
-        return self.material.poder
+    def obtenerDefensa(self):
+        return self.defensa
     
     def usar(self,ente):
-        obj = ente.obtenermDerecha()
-        ente.setmDerecha(self)
+        obj = ente.obtenermIzquierda()
+        ente.setmIzquierda(self)
         ente.bolsa.usado(self)
         if obj is not None:
             obj.desequipar(ente)
@@ -34,7 +33,7 @@ class Espada(Objeto):
                 self.quitarComando(coma)
     
     def desequipar(self,ente):
-        ente.setmDerecha(None)
+        ente.setmIzquierda(None)
         ente.bolsa.agregarObjeto(self)
         com1 = Usar()
         com1.receptor= self
@@ -47,10 +46,10 @@ class Espada(Objeto):
                 self.quitarComando(com)
 
     def __str__(self):
-        return "Espada " +str(self.num) + " de "+ str(self.material)
+        return "Escudo " +str(self.num)
     
     def __repr__(self):
-        return "Espada " +str(self.num) + " de "+ str(self.material)
+        return "Escudo " +str(self.num)
     
-    def esEspada(self):
+    def esEscudo(self):
         return True

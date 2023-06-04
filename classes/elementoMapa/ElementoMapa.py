@@ -62,3 +62,6 @@ class ElementoMapa(ABC):
     
     def esBanana(self):
         return False
+    
+    def esEscudo(self):
+        return False

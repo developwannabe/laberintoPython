@@ -3,6 +3,7 @@
     "laberinto":[
         {"tipo":"habitacion","num":1,"hijos":[
             {"tipo":"armario","num":1,"hijos":[{"tipo":"banana","num":1}]},
+            {"tipo":"escudo","num":1},
             {"tipo":"tunel"},
             {"tipo":"bomba"}
         ]},

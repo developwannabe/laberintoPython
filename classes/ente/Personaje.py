@@ -9,6 +9,9 @@ class Personaje(Ente):
         self.bolsa=None
         self.cuerpo = Cuerpo()
 
+    def obtenerComandosCuerpo(self):
+        return self.cuerpo.obtenerComandos()
+    
     def obtenermIzquierda(self):
         return self.cuerpo.obtenermIzquierda()
     

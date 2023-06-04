@@ -75,9 +75,10 @@ if opcion == "2":
             i = 0
             for com in personaje.bolsa.hijos[el].obtenerComandos(personaje):
                 print("    ",i,". ",com,"\n")
-            el = input()
-            el = int(el)
-            personaje.bolsa.hijos[el].obtenerComandos(personaje)[el].ejecutar(personaje)
+                i += 1
+            ele = input()
+            ele = int(ele)
+            personaje.bolsa.hijos[el].obtenerComandos(personaje)[ele].ejecutar(personaje)
 
 
         if eleccion == "h" or eleccion == "H":
