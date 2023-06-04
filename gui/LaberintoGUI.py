@@ -29,6 +29,7 @@ class LaberintoGUI():
         self.rectCom = []
         self.puertasP = {}
         self.bolsa = {}
+        self.espadasP = {}
         pygame.init()
         self.ventana = pygame.display.set_mode((self.largoV,self.anchoV))
         pygame.display.set_caption("No banana, no monkey")
@@ -96,6 +97,9 @@ class LaberintoGUI():
             bichoA=pygame.transform.scale(pygame.image.load("gui/img/agresivo.png"),(self.anchoV/13,self.anchoV/13))
             bichoP=pygame.transform.scale(pygame.image.load("gui/img/perezoso.png"),(self.anchoV/13,self.anchoV/13))
             banana=pygame.transform.scale(pygame.image.load("gui/img/banana.png"),(self.anchoV/15,self.anchoV/15))
+            espadaMa=pygame.transform.scale(pygame.image.load("gui/img/espadaMadera.png"),(self.anchoV/20,self.anchoV/20))
+            espadaMe=pygame.transform.scale(pygame.image.load("gui/img/espadaHierro.png"),(self.anchoV/20,self.anchoV/20))
+            espadaDi=pygame.transform.scale(pygame.image.load("gui/img/espadaDiamante.png"),(self.anchoV/20,self.anchoV/20))
             armarioC=pygame.transform.scale(pygame.image.load("gui/img/closedwardrobe.png"),(self.anchoV/12,self.anchoV/12))
             armarioA=pygame.transform.scale(pygame.image.load("gui/img/openwardrobe.png"),(self.anchoV/12,self.anchoV/12))
             mostrarInventario = False
@@ -140,11 +144,6 @@ class LaberintoGUI():
                     if keys[pygame.K_a]:
                         self.personaje.atacar()
 
-                    if keys[pygame.K_c]:
-                        com = self.personaje.obtenerComandos()
-                        for i in com:
-                            print(i)
-
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         pos = pygame.mouse.get_pos()
                         if self.rectAbrir.collidepoint(pos):
@@ -176,6 +175,20 @@ class LaberintoGUI():
                 for obj in self.bolsa.values():
                     if obj[0] == "Banana":
                         self.ventana.blit(banana,obj[1])
+                    if obj[0] == "Espada":
+                        if obj[1] == 'madera':
+                            self.ventana.blit(espadaMa,obj[2])
+                        if obj[1] == 'metal':
+                            self.ventana.blit(espadaMe,obj[2])
+                        if obj[1] == 'diamante':
+                            self.ventana.blit(espadaDi,obj[2])
+                for espada in self.espadasP.values():
+                    if espada[0] == 'madera':
+                        self.ventana.blit(espadaMa,espada[1])
+                    if espada[0] == 'metal':
+                        self.ventana.blit(espadaMe,espada[1])
+                    if espada[0] == 'diamante':
+                        self.ventana.blit(espadaDi,espada[1])
                 for bananas in self.bananasP.values():
                     self.ventana.blit(banana,bananas)
                 self.mostrarAbrirPuertas()
@@ -320,12 +333,22 @@ class LaberintoGUI():
         a = 910
         b = 800
         for obj in bolsa.hijos:
-            self.bolsa [str(obj)] = (type(obj).__name__,(a,b))
-            b += 30
+            if obj.esBanana():
+                self.bolsa [str(obj)] = ("Banana",(a,b))
+            if obj.esEspada():
+                if obj.material.esMadera():
+                    self.bolsa [str(obj)] = ("Espada","madera",(a,b))
+                if obj.material.esMetal():
+                    self.bolsa [str(obj)] = ("Espada","metal",(a,b))
+                if obj.material.esDiamante():
+                    self.bolsa [str(obj)] = ("Espada","diamante",(a,b))
+            a += 70
 
     def mostrarObjeto(self,obj):
-        if type(obj).__name__ == "Banana":
+        if obj.esBanana():
             self.mostrarBanana(obj)
+        if obj.esEspada():
+            self.mostrarEspada(obj)
 
     def visitarBaul(self,baul):
         self.dibujarBaul(baul)
@@ -346,7 +369,21 @@ class LaberintoGUI():
         self.mostrarEspada(espada)
     
     def mostrarEspada(self,espada):
-        pass #TODO:Mostrar espada dependiendo de su material
+        self.espadasP[str(espada)] = ((-100,-100))
+        if espada.padre.esHabitacion():
+            if espada.material.esMadera():
+                a = espada.padre.getPunto()[0]  + 20
+                b = espada.padre.getPunto()[1] + espada.padre.getExtent()[0] -100
+                self.espadasP[str(espada)] = ("madera",(a,b))
+            if espada.material.esMetal():
+                a = espada.padre.getPunto()[0]  + 120
+                b = espada.padre.getPunto()[1] + espada.padre.getExtent()[0] -100
+                self.espadasP[str(espada)] = ("metal",(a,b))
+            if espada.material.esDiamante():
+                a = espada.padre.getPunto()[0]  + 220
+                b = espada.padre.getPunto()[1] + espada.padre.getExtent()[0] -100
+                self.espadasP[str(espada)] = ("diamante",(a,b))
+        
 
     def visitarPared(self,pared):
         pass # Son dibujadas junto al contenedor rectangular
