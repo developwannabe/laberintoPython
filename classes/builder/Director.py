@@ -7,6 +7,7 @@ class Director():
     def __init__(self):
         self.builder = None
         self.dicc = None
+        self.forma = None
 
     def procesar(self,unArchivo):
         self.leerConfig(unArchivo)
@@ -24,8 +25,10 @@ class Director():
 
     def iniBuilder(self):
         if self.dicc['forma'] == "cuadrado":
+            self.forma = "Cuadrado"
             self.builder = LaberintoBuilder()
         if self.dicc['forma'] == "rombo":
+            self.forma = "Rombo"
             self.builder = LaberintoRomboBuilder()
 
     def crearLaberinto(self):

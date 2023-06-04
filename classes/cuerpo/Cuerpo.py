@@ -1,8 +1,8 @@
 class Cuerpo():
     
     def __init__(self):
-        mIzquierda = None #Escudos (Defensa)
-        mDerecha = None #Espada (Ataque)
+        self.mIzquierda = None #Escudos (Defensa)
+        self.mDerecha = None #Espada (Ataque)
         self.observadoresCuerpo = []
 
 

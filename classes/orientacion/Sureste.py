@@ -25,6 +25,9 @@ class Sureste(Orientacion):
 
     def obtenerComandosDe(self,forma,ente):
         return forma.sureste.obtenerComandos(ente)
+    
+    def calcularPosicionDesde(self,forma):
+        pass
 
     def recorrerEn(self,cont,func):
         cont.sureste.recorrer(func)
