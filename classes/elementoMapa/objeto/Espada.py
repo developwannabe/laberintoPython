@@ -4,8 +4,7 @@ class Espada (Objeto):
 
     def __init__(self):
         super().__init__()
-        self.poder = 10
-        self.usos = 5
+        self.material = None
 
     def aceptar(self,visitor):
         print("Visitar espada")
@@ -18,10 +17,10 @@ class Espada (Objeto):
         ente.bolsa.agregarObjeto(obj)
 
     def __str__(self):
-        return "Espada"
+        return "Espada " +str(self.num) + " de "+ str(self.material)
     
     def __repr__(self):
-        return "Espada"
+        return "Espada " +str(self.num) + " de "+ str(self.material)
     
     def esEspada(self):
         return True

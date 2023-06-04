@@ -21,6 +21,9 @@ from classes.elementoMapa.hoja.Tunel import Tunel
 from classes.comando.Abrir import Abrir
 from classes.elementoMapa.objeto.Banana import Banana
 from classes.comando.Coger import Coger
+from classes.material.Madera import Madera
+from classes.material.Metal import Metal
+from classes.material.Diamante import Diamante
 
 class LaberintoBuilder():
     
@@ -104,10 +107,25 @@ class LaberintoBuilder():
     def fabricarBombaEn(self,padre):
         bomba = self.fabricarBomba()
         padre.agregarHijo(bomba)
-        
-    def fabricarEspadaEn(self,padre,num):
+    
+    def fabricarMadera(self):
+        return Madera()
+    
+    def fabricarMetal(self):
+        return Metal()
+    
+    def fabricarDiamante(self):
+        return Diamante()
+    
+    def fabricarEspadaEn(self,padre,num,material):
         espada = Espada()
         espada.num = num
+        if material=="madera":
+            espada.material = self.fabricarMadera()
+        if material=="metal":
+            espada.material = self.fabricarMetal()
+        if material=="diamante":
+            espada.material = self.fabricarDiamante()
         padre.agregarHijo(espada)
         com = Coger()
         espada.agregarComando(com)
