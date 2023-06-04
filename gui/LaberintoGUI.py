@@ -1,7 +1,7 @@
 from classes.builder.Director import Director
 from classes.ente.Personaje import Personaje
 import pygame
-import time
+
 class LaberintoGUI():
     
     def __init__(self):
@@ -11,12 +11,8 @@ class LaberintoGUI():
         self.alto = None
         self.ventana = None
         self.juego = None
-        self.colorFondo = (255,255,255)
-        self.fps = 1
         self.personaje = None
         self.personajeM = None
-        self.capaPersonaje = None
-        self.surface = None
         self.vidasP = None
         self.bichosP = {}
         self.bananasP = {}
@@ -30,6 +26,7 @@ class LaberintoGUI():
         self.puertasP = {}
         self.bolsa = {}
         self.espadasP = {}
+        self.armaP = None
         pygame.init()
         self.ventana = pygame.display.set_mode((self.largoV,self.anchoV))
         pygame.display.set_caption("No banana, no monkey")
@@ -201,6 +198,14 @@ class LaberintoGUI():
                 else:
                     self.mostrarComandos()
                     self.mostrarBInventario("Abrir")
+                if self.armaP is not None:
+                    if self.armaP[0] == "Espada":
+                        if self.armaP[1] == 'Madera':
+                            self.ventana.blit(espadaMa,self.armaP[2])
+                        if self.armaP[1] == 'Metal':
+                            self.ventana.blit(espadaMe,self.armaP[2])
+                        if self.armaP[1] == 'Diamante':
+                            self.ventana.blit(espadaDi,self.armaP[2])
                 self.ventana.blit(monkeyIm, self.personajeM)
                 for armario in self.armariosP.values():
                     if armario[0] == 'cerrado':
@@ -262,6 +267,15 @@ class LaberintoGUI():
             a += 30
             b+=50
         self.personajeM = (a,b)
+        self.mostrarArma()
+
+    def mostrarArma(self):
+        self.armaP = None
+        if (arma:=self.personaje.cuerpo.obtenermDerecha()) is not None:
+            a = self.personajeM[0] + 30
+            b = self.personajeM[1] + 20
+            if arma.esEspada():
+                self.armaP = ("Espada",str(arma.material),(a,b))
 
     def mostrarBicho(self,bicho):
         self.bichosP[bicho.num] = ()
