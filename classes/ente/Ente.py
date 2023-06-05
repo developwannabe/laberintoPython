@@ -32,6 +32,7 @@ class Ente(ABC):
     
     def setVidas(self,vida):
         self.vidas = vida
+        print(str(self), " vidas: ",str(self.vidas))
 
     def atacar(self):
         unEnte = self.buscarEnemigo()
@@ -64,7 +65,6 @@ class Ente(ABC):
             self.setVidas(calc)
         if self.vidas < 0:
             self.setVidas(0)
-        print(str(self)," vidas: "+str(self.vidas))
     
     def comprobarEstado(self):
         if self.vidas == 0:

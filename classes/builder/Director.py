@@ -47,7 +47,7 @@ class Director():
             pad = self.builder.fabricarArmarioEn(padre,unDic['num'])
         #Hojas
         if unDic['tipo'] == 'bomba':
-            pad = self.builder.fabricarBombaEn(padre)
+            pad = self.builder.fabricarBombaEn(padre,unDic['num'])
         if unDic['tipo'] == 'tunel':
             pad = self.builder.fabricarTunelEn(padre)
 

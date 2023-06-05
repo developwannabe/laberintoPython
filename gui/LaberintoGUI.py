@@ -30,6 +30,7 @@ class LaberintoGUI():
         self.armaP = None
         self.escudosP = {}
         self.defensaP = None
+        self.bombasP = {}
         pygame.init()
         self.ventana = pygame.display.set_mode((self.largoV,self.anchoV))
         pygame.display.set_caption("No banana, no monkey")
@@ -100,6 +101,8 @@ class LaberintoGUI():
             espadaMa=pygame.transform.scale(pygame.image.load("gui/img/espadaMadera.png"),(self.anchoV/20,self.anchoV/20))
             espadaMe=pygame.transform.scale(pygame.image.load("gui/img/espadaHierro.png"),(self.anchoV/20,self.anchoV/20))
             espadaDi=pygame.transform.scale(pygame.image.load("gui/img/espadaDiamante.png"),(self.anchoV/20,self.anchoV/20))
+            bombaA=pygame.transform.scale(pygame.image.load("gui/img/bombaA.png"),(self.anchoV/20,self.anchoV/20))
+            bombaI=pygame.transform.scale(pygame.image.load("gui/img/bombaI.png"),(self.anchoV/20,self.anchoV/20))
             escudo=pygame.transform.scale(pygame.image.load("gui/img/escudo.png"),(self.anchoV/26,self.anchoV/26))
             armarioC=pygame.transform.scale(pygame.image.load("gui/img/closedwardrobe.png"),(self.anchoV/12,self.anchoV/12))
             armarioA=pygame.transform.scale(pygame.image.load("gui/img/openwardrobe.png"),(self.anchoV/12,self.anchoV/12))
@@ -192,6 +195,11 @@ class LaberintoGUI():
                             self.ventana.blit(espadaDi,obj[2])
                     if obj[0] == "Escudo":
                         self.ventana.blit(escudo,obj[1])
+                for bomba in self.bombasP.values():
+                    if bomba[0] == "Activa":
+                        self.ventana.blit(bombaA,bomba[1])
+                    if bomba[0] == "Inactiva":
+                        self.ventana.blit(bombaI,bomba[1])
                 for espada in self.espadasP.values():
                     if espada[0] == 'madera':
                         self.ventana.blit(espadaMa,espada[1])
@@ -414,7 +422,8 @@ class LaberintoGUI():
         self.mostrarEscudo(escudo)
 
     def visitarBomba(self,bomba):
-        pass#TODO:Dibujar Bomba
+        bomba.agregarObservadoresActiva(self)
+        self.mostrarBomba(bomba)
 
     def visitarBanana(self,banana):
         banana.agregarObservadorPosicion(self)
@@ -447,6 +456,18 @@ class LaberintoGUI():
             a = escudo.padre.getPunto()[0] + 40
             b = escudo.padre.getPunto()[1] + escudo.padre.getExtent()[0] -300
             self.escudosP[str(escudo)] = (a,b)
+
+    def mostrarBomba(self,bomba):
+        self.bombasP[str(bomba)] = ("",(-100,-100))
+        unCont = bomba.padre
+        an = unCont.getExtent()[0]
+        al = unCont.getExtent()[1]
+        a = unCont.getPunto()[0] + an - 200
+        b = unCont.getPunto()[1] + an - 100
+        if bomba.activa:
+            self.bombasP[str(bomba)]=("Activa",(a,b))
+        else:
+            self.bombasP[str(bomba)]=("Inactiva",(a,b))
 
     def visitarPared(self,pared):
         pass # Son dibujadas junto al contenedor rectangular

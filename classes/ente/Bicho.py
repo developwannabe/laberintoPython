@@ -17,6 +17,7 @@ class Bicho(Ente):
 
     def setVidas(self, vida):
         self.vidas = vida
+        print("Vidas de ",str(self),":",str(self.vidas))
         for obs in self.observadoresPosicion:
             obs.vidasBicho(self)
 

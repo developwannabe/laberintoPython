@@ -103,8 +103,9 @@ class LaberintoBuilder():
         padre.agregarHijo(armario)
         return armario
 
-    def fabricarBombaEn(self,padre):
+    def fabricarBombaEn(self,padre,num):
         bomba = self.fabricarBomba()
+        bomba.num = num
         padre.agregarHijo(bomba)
     
     def fabricarMadera(self):

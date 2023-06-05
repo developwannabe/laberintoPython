@@ -61,7 +61,7 @@ class Juego():
         else:
             pos = ente.posicion
             for bicho in self.bichos:
-                if bicho.posicion == pos and bicho.estaVivo() and bicho is not ente:
+                if bicho.posicion == pos and bicho.estaVivo() and bicho is not ente and bicho.modo.esPerezoso():
                     return bicho
         return None
     
