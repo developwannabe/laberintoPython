@@ -409,9 +409,6 @@ class LaberintoGUI():
         if obj.esEscudo():
             self.mostrarEscudo(obj)
 
-    def visitarBaul(self,baul):
-        self.dibujarBaul(baul)
-
     def visitarEscudo(self,escudo):
         escudo.agregarObservadorPosicion(self)
         self.mostrarEscudo(escudo)

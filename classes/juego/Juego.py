@@ -7,7 +7,6 @@ from classes.orientacion.Este import Este
 from classes.orientacion.Oeste import Oeste
 from classes.orientacion.Sur import Sur
 from classes.elementoMapa.hoja.decorator.Bomba import Bomba
-from classes.elementoMapa.contenedor.Baul import Baul
 from classes.elementoMapa.objeto.Espada import Espada
 from classes.ente.Bicho import Bicho
 from classes.modo.Agresivo import Agresivo
@@ -165,22 +164,6 @@ class Juego():
         bicho.vidas = 10
         bicho.poder = 1
         return bicho
-
-    
-    def fabricarBaul(self,num,hab):
-        baul = Baul(num)
-        
-        p1= self.fabricarPuerta()
-
-        p1.lado1= baul
-        p1.lado2 =hab
-
-        baul.ponerElementoEn(self.fabricarNorte(),p1)
-        baul.ponerElementoEn(self.fabricarEste(),self.fabricarPared())
-        baul.ponerElementoEn(self.fabricarOeste(),self.fabricarPared())
-        baul.ponerElementoEn(self.fabricarSur(),self.fabricarPared())
-
-        return baul
     
     def fabricarPuerta(self):
         return Puerta()
@@ -255,20 +238,11 @@ class Juego():
         p4.lado1 = hab3
         p4.lado2 = hab1
 
-        baul1 = AF.fabricarBaul(1,hab2)
-        baul2 = AF.fabricarBaul(2,hab3)
 
         bomba2 = AF.fabricarBomba()
 
-        baul1.agregarHijo(bomba2)
 
         espada = AF.fabricarEspada()
-
-        baul2.agregarHijo(espada)
-
-
-        hab2.agregarHijo(baul1)
-        hab3.agregarHijo(baul2)
 
         hab1.ponerElementoEn(AF.fabricarEste(),p1)
         hab1.ponerElementoEn(AF.fabricarSur(),p4)
@@ -322,19 +296,10 @@ class Juego():
         p4.lado1 = hab3
         p4.lado2 = hab1
 
-        baul1 = self.fabricarBaul(1,hab2)
-        baul2 = self.fabricarBaul(2,hab3)
 
         bomba2 = self.fabricarBomba()
 
-        baul1.agregarHijo(bomba2)
-
         espada = self.fabricarEspada()
-
-        baul2.agregarHijo(espada)
-
-        hab2.agregarHijo(baul1)
-        hab3.agregarHijo(baul2)
 
         hab1.ponerElementoEn(self.fabricarEste(),p1)
         hab1.ponerElementoEn(self.fabricarSur(),p4)

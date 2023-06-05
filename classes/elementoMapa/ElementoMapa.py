@@ -41,9 +41,7 @@ class ElementoMapa(ABC):
     
     def esPuerta(self):
         return False
-    
-    def esBaul(self):
-        return False
+
     
     def esEspada(self):
         return False

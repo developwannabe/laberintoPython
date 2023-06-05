@@ -7,7 +7,6 @@ from classes.orientacion.Este import Este
 from classes.orientacion.Oeste import Oeste
 from classes.orientacion.Sur import Sur
 from classes.elementoMapa.hoja.decorator.Bomba import Bomba
-from classes.elementoMapa.contenedor.Baul import Baul
 from classes.elementoMapa.objeto.Espada import Espada
 from classes.ente.Bicho import Bicho
 from classes.modo.Agresivo import Agresivo
@@ -43,22 +42,6 @@ class LaberintoFactory():
         bicho.poder = 1
         return bicho
 
-    
-    def fabricarBaul(self,num,hab):
-        baul = Baul(num)
-        
-        p1= self.fabricarPuerta()
-        baul.forma= self.fabricarForma()
-
-        p1.lado1= baul
-        p1.lado2 =hab
-
-        baul.ponerElementoEn(self.fabricarNorte(),p1)
-        baul.ponerElementoEn(self.fabricarEste(),self.fabricarPared())
-        baul.ponerElementoEn(self.fabricarOeste(),self.fabricarPared())
-        baul.ponerElementoEn(self.fabricarSur(),self.fabricarPared())
-
-        return baul
     
     def fabricarPuerta(self):
         return Puerta()
