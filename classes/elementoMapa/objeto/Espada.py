@@ -19,10 +19,10 @@ class Espada(Objeto):
     
     def usar(self,ente):
         obj = ente.obtenermDerecha()
-        ente.setmDerecha(self)
-        ente.bolsa.usado(self)
         if obj is not None:
             obj.desequipar(ente)
+        ente.setmDerecha(self)
+        ente.bolsa.usado(self)
         com = Desequipar()
         com.receptor = self
         self.agregarComando(com)

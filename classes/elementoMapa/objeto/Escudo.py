@@ -18,10 +18,10 @@ class Escudo(Objeto):
     
     def usar(self,ente):
         obj = ente.obtenermIzquierda()
-        ente.setmIzquierda(self)
-        ente.bolsa.usado(self)
         if obj is not None:
             obj.desequipar(ente)
+        ente.setmIzquierda(self)
+        ente.bolsa.usado(self)
         com = Desequipar()
         com.receptor = self
         self.agregarComando(com)
