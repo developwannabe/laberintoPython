@@ -48,8 +48,6 @@ class ElementoMapa(ABC):
     def esEspada(self):
         return False
     
-    def esFuego(self):
-        return False
 
     def esArmario(self):
         return False

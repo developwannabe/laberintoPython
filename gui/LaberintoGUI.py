@@ -424,9 +424,6 @@ class LaberintoGUI():
         if banana.padre.esBolsa():
             self.mostrarBanana(banana)
 
-    def visitarFuego(self,fuego):
-        pass#TODO:Dibujar Fuego
-
     def visitarEspada(self,espada):
         espada.agregarObservadorPosicion(self)
         self.mostrarEspada(espada)

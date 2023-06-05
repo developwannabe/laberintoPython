@@ -8,7 +8,6 @@ from classes.orientacion.Oeste import Oeste
 from classes.orientacion.Sur import Sur
 from classes.elementoMapa.hoja.decorator.Bomba import Bomba
 from classes.elementoMapa.contenedor.Baul import Baul
-from classes.elementoMapa.hoja.decorator.Fuego import Fuego
 from classes.elementoMapa.objeto.Espada import Espada
 from classes.ente.Bicho import Bicho
 from classes.modo.Agresivo import Agresivo
@@ -219,8 +218,6 @@ class Juego():
     def fabricarBomba(self):
         return Bomba()
     
-    def fabricarFuego(self):
-        return Fuego()
     
     def fabricarEspada(self):
         return Espada()
@@ -269,9 +266,7 @@ class Juego():
 
         baul2.agregarHijo(espada)
 
-        fuego = AF.fabricarFuego()
 
-        hab4.agregarHijo(fuego)
         hab2.agregarHijo(baul1)
         hab3.agregarHijo(baul2)
 
@@ -338,9 +333,6 @@ class Juego():
 
         baul2.agregarHijo(espada)
 
-        fuego = self.fabricarFuego()
-
-        hab4.agregarHijo(fuego)
         hab2.agregarHijo(baul1)
         hab3.agregarHijo(baul2)
 
