@@ -2,19 +2,21 @@ from classes.elementoMapa.ElementoMapa import ElementoMapa
 from classes.comando.Abrir import Abrir
 from classes.comando.Entrar import Entrar
 from classes.comando.Cerrar import Cerrar
+from classes.estado.Cerrada import Cerrada
+from classes.estado.Abierta import Abierta
 
 class Puerta(ElementoMapa):
 
     def __init__(self): 
         super().__init__()
-        self.abierta = False
+        self.estado = Cerrada()
         self.lado1 = None
         self.lado2 = None
         self.visitada = False
         self.observadoresAbierto = []
 
     def entrar(self,ente):
-        if self.abierta:
+        if self.estaAbierta():
             if ente.posicion == self.lado1:
                 self.lado2.entrar(ente)
             else:
@@ -40,8 +42,11 @@ class Puerta(ElementoMapa):
         print("Visitar puerta")
         visitor.visitarPuerta(self)
 
-    def abrir(self,ente = None):#Al no existir la sobrecarga de métodos en python, usamos argumentos adicionales
-        self.abierta = True
+    def abrir(self,ente = None):
+        self.estado.abrir(self)
+
+    def puedeAbrirse(self,ente = None):#Al no existir la sobrecarga de métodos en python, usamos argumentos adicionales
+        self.estado = Abierta()
         self.quitarAbrir()
         com1 = Entrar()
         com2 = Cerrar()
@@ -64,7 +69,7 @@ class Puerta(ElementoMapa):
                 return
 
     def cerrar(self,ente = None):
-        self.abierta = False
+        self.estado = Cerrada()
         self.quitarCerrar()
         self.quitarEntrar()
         com = Abrir()
@@ -90,7 +95,7 @@ class Puerta(ElementoMapa):
         return True
     
     def estaAbierta(self):
-        return self.abierta
+        return self.estado.estaAbierta()
 
     def __str__(self):
         return "Puerta: " + (type(self.lado1).__name__) + " " + str(self.lado1.num) + " - " + (type(self.lado2).__name__) + " " + str(self.lado2.num)

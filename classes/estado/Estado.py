@@ -1,14 +1,23 @@
-from abc import ABC,abstractmethod
+from abc import ABC
 class Estado(ABC):
     
-    @abstractmethod
     def actua(unBicho):
         pass
     
-    @abstractmethod
     def enteEsAtacadoPor(self,atacado,atacante):
         pass
     
-    @abstractmethod
     def estaVivo(self):
         pass
+
+    def esVivo(self):
+        return False
+    
+    def esMuerto(self):
+        return False
+    
+    def esAbierta(self):
+        return False
+    
+    def esCerrada(self):
+        return False

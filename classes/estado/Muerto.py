@@ -11,6 +11,9 @@ class Muerto(Estado):
     def estaVivo(self):
         return False
     
+    def esMuerto(self):
+        return True
+    
     def __str__(self):
         return "Muerto"
     

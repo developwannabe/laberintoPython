@@ -12,6 +12,9 @@ class Vivo(Estado):
     def estaVivo(self):
         return True
     
+    def esVivo(self):
+        return True
+    
     def __str__(self):
         return "Vivo"
     

@@ -31,5 +31,6 @@
   - Implementados comandos para los objetos. (Command)
   - El personaje ahora tiene un cuerpo, donde tendrá sus armas. (Bridge)
   - Si dos bichos perezosos se encuentrar en la misma habitación, tienen una probabilidad de cambiar su modo a agresivo. (Mediator y Template Method)
+  - Ahora las puertas tienen estado abierto y cerrado. (State)
 
 ![UML Laberinto](https://github.com/developwannabe/laberintoPython/blob/main/uml/UML.svg?raw=true)
