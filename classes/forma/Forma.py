@@ -32,3 +32,9 @@ class Forma():
     def recorrer(self,func):
         for ori in self.orientaciones:
             ori.recorrerEn(self,func)
+
+    def esCuadrado(self):
+        return False
+    
+    def esRombo(self):
+        return False

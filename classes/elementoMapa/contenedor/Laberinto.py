@@ -10,7 +10,6 @@ class Laberinto(Contenedor):
     def entrar(self,ente):
         hab1 = self.obtenerHabitacion(1)
         hab1.entrar(ente)
-        print(self)
 
     def obtenerHabitacion(self,num):
         return self.hijos[num-1]

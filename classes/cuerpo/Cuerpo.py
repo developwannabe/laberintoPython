@@ -31,3 +31,6 @@ class Cuerpo():
         if self.mDerecha is not None:
             comandos.extend(self.mDerecha.obtenerComandos(ente))
         return comandos
+    
+    def esCuerpo(self):
+        return True

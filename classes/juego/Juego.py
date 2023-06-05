@@ -207,6 +207,8 @@ class Juego():
     
     #Final de los métodos para el Factory Method
 
+    def esJuego(self):
+        return True
     #Fabricación de laberintos
 
     #Fabricación con AbstractFactory
