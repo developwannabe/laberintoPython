@@ -54,11 +54,17 @@ class Juego():
     
     #Métodos Mediator
 
-    def buscarBicho(self):
-        pos=self.personaje.posicion
-        for bicho in self.bichos:
-            if bicho.posicion == pos and bicho.estaVivo():
-                return bicho
+    def buscarBicho(self,ente = None):
+        if ente is None:
+            pos=self.personaje.posicion
+            for bicho in self.bichos:
+                if bicho.posicion == pos and bicho.estaVivo():
+                    return bicho
+        else:
+            pos = ente.posicion
+            for bicho in self.bichos:
+                if bicho.posicion == pos and bicho.estaVivo() and bicho is not ente:
+                    return bicho
         return None
     
     def buscarPersonaje(self,unBicho):

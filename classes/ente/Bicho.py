@@ -1,6 +1,7 @@
 from classes.ente.Ente import Ente
 from classes.estado.Muerto import Muerto
-import threading
+from classes.modo.Agresivo import Agresivo
+import random
 
 class Bicho(Ente):
 
@@ -44,6 +45,16 @@ class Bicho(Ente):
         print(str(self), " muere.")
         self.vidas = 0
         self.estado=Muerto()
+
+    def cambiarModo(self):
+        unEnte = self.juego.buscarBicho(self)
+        if unEnte is not None:
+            num = random.randint(1,10)
+            if num > 9:
+                self.modo = Agresivo()
+                for obs in self.observadoresPosicion:
+                    obs.mostrarBicho(self)
+
 
     def esBicho(self):
         return True

@@ -5,6 +5,7 @@ class Perezoso(Modo):
     
     def atacar(self,unBicho):
         unBicho.atacar()
+        unBicho.cambiarModo()
     
     def dormir(self):
         time.sleep(4)
