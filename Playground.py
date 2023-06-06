@@ -63,7 +63,7 @@ if opcion == "2":
         if eleccion == "6":
             juego.lanzarBichos()
         if eleccion == "a" or eleccion == "A":
-            personaje.atacar()
+            personaje.atacar()#TODO:Añadir inventario y cuerpo.
 
         if eleccion == "i" or eleccion == "I":
             i = 0

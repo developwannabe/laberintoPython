@@ -243,8 +243,23 @@ class LaberintoGUI():
                     if armario[0] == 'cerrado':
                         self.ventana.blit(armarioC,armario[1])
                 pygame.display.update()
-            #TODO:Hacer pantalla Game Over
             self.juego.terminarBichos()#Por si se cierra la ventana
+            monkeyIm=pygame.transform.scale(pygame.image.load("gui/img/monkey.png"),(self.anchoV/2,self.anchoV/2))
+            bichoA=pygame.transform.scale(pygame.image.load("gui/img/agresivo.png"),(self.anchoV/2,self.anchoV/2))
+            bichoP=pygame.transform.scale(pygame.image.load("gui/img/perezoso.png"),(self.anchoV/2,self.anchoV/2))
+            while self.juego.fase.esFinal() and running:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        running = False
+                self.ventana.fill(colorFondo)
+                if self.juego.ganaPersonaje:
+                    self.ventana.blit(monkeyIm,(100,100))
+                    self.ventana.blit(pygame.font.Font(None, 100).render("Has ganado", True, (255,255,255)),(800,500))
+                else:
+                    self.ventana.blit(bichoA,(100,300))
+                    self.ventana.blit(bichoP,(600,300))
+                    self.ventana.blit(pygame.font.Font(None, 100).render("Has perdido", True, (255,255,255)),(1020,90))
+                pygame.display.update()
 
     def agregarPersonaje(self,nombre):
         personaje = Personaje()
