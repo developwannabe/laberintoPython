@@ -33,4 +33,10 @@
   - Si dos bichos perezosos se encuentrar en la misma habitación, tienen una probabilidad de cambiar su modo a agresivo. (Mediator y Template Method)
   - Ahora las puertas tienen estado abierto y cerrado. (State)
 
+### UML:
+
 ![UML Laberinto](https://github.com/developwannabe/laberintoPython/blob/main/uml/UML.svg?raw=true)
+
+### Diagrama de secuencia para el cambio de modo de bichos perezosos:
+
+![UML Laberinto](https://github.com/developwannabe/laberintoPython/blob/main/uml/cambiarModo.svg?raw=true)
