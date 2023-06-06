@@ -11,7 +11,7 @@ class TestLab4Hab4BichosTunel(unittest.TestCase):
         sys.stdout_save =sys.stdout
         sys.stdout = StringIO()#Deshabilitamos la salida para facilitar la lectura de los test
         director = Director()
-        director.procesar('json/lab4hab4bichostunel.json')
+        director.procesar('json/lab4hab4bichos-rombo.json')
         self.juego = director.obtenerJuego()
         personaje = Personaje()
         personaje.nick = "Prueba"
@@ -29,42 +29,42 @@ class TestLab4Hab4BichosTunel(unittest.TestCase):
         hab1 = self.juego.laberinto.hijos[0]
         self.assertEqual(hab1.esHabitacion(),True)
         self.assertEqual(hab1.num,1)
-        self.assertEqual(len(hab1.hijos),3)
-        self.assertEqual(hab1.forma.esCuadrado(),True)
-        self.assertEqual(hab1.forma.norte.esPared(),True)
-        self.assertEqual(hab1.forma.este.esPuerta(),True)
-        self.assertEqual(hab1.forma.oeste.esPared(),True)
-        self.assertEqual(hab1.forma.sur.esPuerta(),True)
+        self.assertEqual(len(hab1.hijos),1)
+        self.assertEqual(hab1.forma.esRombo(),True)
+        self.assertEqual(hab1.forma.noreste.esPuerta(),True)
+        self.assertEqual(hab1.forma.noroeste.esPared(),True)
+        self.assertEqual(hab1.forma.sureste.esPuerta(),True)
+        self.assertEqual(hab1.forma.suroeste.esPared(),True)
         #Habitación 2
         hab2 = self.juego.laberinto.hijos[1]
         self.assertEqual(hab2.esHabitacion(),True)
         self.assertEqual(hab2.num,2)
         self.assertEqual(len(hab2.hijos),1)
-        self.assertEqual(hab2.forma.esCuadrado(),True)
-        self.assertEqual(hab2.forma.norte.esPuerta(),True)
-        self.assertEqual(hab2.forma.este.esPuerta(),True)
-        self.assertEqual(hab2.forma.oeste.esPared(),True)
-        self.assertEqual(hab2.forma.sur.esPared(),True)
+        self.assertEqual(hab2.forma.esRombo(),True)
+        self.assertEqual(hab2.forma.noreste.esPuerta(),True)
+        self.assertEqual(hab2.forma.noroeste.esPuerta(),True)
+        self.assertEqual(hab2.forma.sureste.esPared(),True)
+        self.assertEqual(hab2.forma.suroeste.esPared(),True)
         #Habitación 3
         hab3 = self.juego.laberinto.hijos[2]
         self.assertEqual(hab3.esHabitacion(),True)
         self.assertEqual(hab3.num,3)
-        self.assertEqual(len(hab3.hijos),2)
-        self.assertEqual(hab3.forma.esCuadrado(),True)
-        self.assertEqual(hab3.forma.norte.esPared(),True)
-        self.assertEqual(hab3.forma.este.esPared(),True)
-        self.assertEqual(hab3.forma.oeste.esPuerta(),True)
-        self.assertEqual(hab3.forma.sur.esPuerta(),True)
+        self.assertEqual(len(hab3.hijos),1)
+        self.assertEqual(hab3.forma.esRombo(),True)
+        self.assertEqual(hab3.forma.noreste.esPared(),True)
+        self.assertEqual(hab3.forma.noroeste.esPared(),True)
+        self.assertEqual(hab3.forma.sureste.esPuerta(),True)
+        self.assertEqual(hab3.forma.suroeste.esPuerta(),True)
         #Habitación 4
         hab4 = self.juego.laberinto.hijos[3]
         self.assertEqual(hab4.esHabitacion(),True)
         self.assertEqual(hab4.num,4)
-        self.assertEqual(len(hab4.hijos),2)
-        self.assertEqual(hab4.forma.esCuadrado(),True)
-        self.assertEqual(hab4.forma.norte.esPuerta(),True)
-        self.assertEqual(hab4.forma.este.esPared(),True)
-        self.assertEqual(hab4.forma.oeste.esPuerta(),True)
-        self.assertEqual(hab4.forma.sur.esPared(),True)
+        self.assertEqual(len(hab4.hijos),0)
+        self.assertEqual(hab4.forma.esRombo(),True)
+        self.assertEqual(hab4.forma.noreste.esPared(),True)
+        self.assertEqual(hab4.forma.noroeste.esPuerta(),True)
+        self.assertEqual(hab4.forma.sureste.esPared(),True)
+        self.assertEqual(hab4.forma.suroeste.esPuerta(),True)
 
         print("ESTRUCTURA DE LAS HABITACIONES COMPROBADAS.\n")
 
@@ -82,23 +82,9 @@ class TestLab4Hab4BichosTunel(unittest.TestCase):
         b2 = bichos[1]
         self.assertEqual(b2.num,2)
         self.assertEqual(b2.modo.esPerezoso(),True)
-        self.assertEqual(b2.posicion,self.juego.laberinto.hijos[1])
+        self.assertEqual(b2.posicion,self.juego.laberinto.hijos[3])
         self.assertEqual(b2.juego,self.juego)
         self.assertEqual(b2.estado.estaVivo(),True)
-        #Bicho 3
-        b3 = bichos[2]
-        self.assertEqual(b3.num,3)
-        self.assertEqual(b3.modo.esAgresivo(),True)
-        self.assertEqual(b3.posicion,self.juego.laberinto.hijos[2])
-        self.assertEqual(b3.juego,self.juego)
-        self.assertEqual(b3.estado.estaVivo(),True)
-        #Bicho 4
-        b4 = bichos[3]
-        self.assertEqual(b4.num,4)
-        self.assertEqual(b4.modo.esPerezoso(),True)
-        self.assertEqual(b4.posicion,self.juego.laberinto.hijos[3])
-        self.assertEqual(b4.juego,self.juego)
-        self.assertEqual(b4.estado.estaVivo(),True)
         
         print("TEST DE LOS BICHOS SUPERADO.\n")
 
@@ -117,28 +103,28 @@ class TestLab4Hab4BichosTunel(unittest.TestCase):
 
     def testPuertas(self):
         #Puerta 1
-        p1 = self.juego.obtenerHabitacion(1).forma.sur
+        p1 = self.juego.obtenerHabitacion(1).forma.sureste
         self.assertEqual(p1.esPuerta(),True)
         self.assertEqual(p1.lado1,self.juego.obtenerHabitacion(1))
         self.assertEqual(p1.lado2,self.juego.obtenerHabitacion(2))
         self.assertEqual(p1.comandos[0].esAbrir(),True)
         self.assertEqual(p1.comandos[0].receptor,p1)
         #Puerta 2
-        p2 = self.juego.obtenerHabitacion(2).forma.este
+        p2 = self.juego.obtenerHabitacion(2).forma.noreste
         self.assertEqual(p2.esPuerta(),True)
         self.assertEqual(p2.lado1,self.juego.obtenerHabitacion(2))
         self.assertEqual(p2.lado2,self.juego.obtenerHabitacion(4))
         self.assertEqual(p2.comandos[0].esAbrir(),True)
         self.assertEqual(p2.comandos[0].receptor,p2)
         #Puerta 3
-        p3 = self.juego.obtenerHabitacion(4).forma.norte
+        p3 = self.juego.obtenerHabitacion(4).forma.noroeste
         self.assertEqual(p3.esPuerta(),True)
         self.assertEqual(p3.lado1,self.juego.obtenerHabitacion(4))
         self.assertEqual(p3.lado2,self.juego.obtenerHabitacion(3))
         self.assertEqual(p3.comandos[0].esAbrir(),True)
         self.assertEqual(p3.comandos[0].receptor,p3)
         #Puerta 4
-        p4 = self.juego.obtenerHabitacion(3).forma.oeste
+        p4 = self.juego.obtenerHabitacion(3).forma.suroeste
         self.assertEqual(p4.esPuerta(),True)
         self.assertEqual(p4.lado1,self.juego.obtenerHabitacion(3))
         self.assertEqual(p4.lado2,self.juego.obtenerHabitacion(1))
@@ -155,48 +141,26 @@ class TestLab4Hab4BichosTunel(unittest.TestCase):
                 arm1 = hijo
         self.assertEqual(arm1.num,1)
         self.assertEqual(arm1.padre,pad1)
-        self.assertEqual(len(arm1.hijos),1)
-        self.assertEqual(arm1.forma.esCuadrado(),True)
-        self.assertEqual(arm1.forma.norte.esPared(),True)
-        self.assertEqual(arm1.forma.este.esPared(),True)
-        self.assertEqual(arm1.forma.oeste.esPared(),True)
-        self.assertEqual((p1:=arm1.forma.sur).esPuerta(),True)
+        self.assertEqual(len(arm1.hijos),3)
+        self.assertEqual(arm1.forma.esRombo(),True)
+        self.assertEqual(arm1.forma.noroeste.esPared(),True)
+        self.assertEqual(arm1.forma.noreste.esPared(),True)
+        self.assertEqual(arm1.forma.sureste.esPared(),True)
+        self.assertEqual((p1:=arm1.forma.suroeste).esPuerta(),True)
         self.assertEqual(p1.estaAbierta(),False)
         self.assertEqual(p1.comandos[0].esAbrir(),True)
         self.assertEqual(p1.comandos[0].receptor,p1)
-        #Armario 2
-        arm2 = None
-        pad2 = None
-        for hijo in (pad2:=self.juego.obtenerHabitacion(4)).hijos:
-            if hijo.esArmario():
-                arm2 = hijo
-        self.assertEqual(arm2.num,2)
-        self.assertEqual(arm2.padre,pad2)
-        self.assertEqual(len(arm2.hijos),0)
-        self.assertEqual(arm2.forma.esCuadrado(),True)
-        self.assertEqual(arm2.forma.norte.esPared(),True)
-        self.assertEqual(arm2.forma.este.esPared(),True)
-        self.assertEqual(arm2.forma.oeste.esPared(),True)
-        self.assertEqual((p2:=arm1.forma.sur).esPuerta(),True)
-        self.assertEqual(p2.estaAbierta(),False)
-        self.assertEqual(p2.comandos[0].esAbrir(),True)
-        self.assertEqual(p2.comandos[0].receptor,p2)
+
+        print("TEST DE ARMARIOS SUPERADO.")
 
     def testTuneles(self):
-        tunel = None
-        padre = None
-        for hijo in (padre:=self.juego.obtenerHabitacion(3)).hijos:
-            if hijo.esTunel():
-                tunel = hijo
-        self.assertEqual(tunel.padre,padre)
-        self.assertEqual(tunel.laberinto,None)
-        print("TEST DE TÚNELES SUPERADO.\n")
+        pass#No tiene túneles
     
     def testbombas(self):
         #Bomba 1
         bomba1 = None
         pad1 = None
-        for hijo in (pad1:=self.juego.obtenerHabitacion(1)).hijos:
+        for hijo in (pad1:=self.juego.obtenerHabitacion(3)).hijos:
             if hijo.esBomba():
                 bomba1 = hijo
         self.assertEqual(bomba1.num,1)
@@ -204,18 +168,6 @@ class TestLab4Hab4BichosTunel(unittest.TestCase):
         self.assertEqual(bomba1.padre,pad1)
         self.assertEqual(bomba1.comandos[0].esEntrar(),True)
         self.assertEqual(bomba1.comandos[0].receptor,bomba1)
-        #Bomba 2
-        bomba2 = None
-        pad2 = None
-        for hijo in (pad2:=self.juego.obtenerHabitacion(4)).hijos:
-            if hijo.esBomba():
-                bomba2 = hijo
-        self.assertEqual(bomba2.num,2)
-        self.assertEqual(bomba2.activa,True)
-        self.assertEqual(bomba2.padre,pad2)
-        self.assertEqual(bomba2.comandos[0].esEntrar(),True)
-        self.assertEqual(bomba2.comandos[0].receptor,bomba2)
-        print("TEST DE BOMBAS SUPERADO.")
 
     def testObjetos(self):
         #Objetos Habitación 1
@@ -225,11 +177,10 @@ class TestLab4Hab4BichosTunel(unittest.TestCase):
         self.assertEqual((banana1:=arm1.hijos[0]).esBanana(),True)
         self.assertEqual((com1:=banana1.comandos[0]).esCoger(),True)
         self.assertEqual(com1.receptor,banana1)
-        #Escudo
-        self.assertEqual((escudo:=hab1.hijos[1]).esEscudo(),True)
-        self.assertEqual(escudo.num,1)
-        self.assertEqual(escudo.comandos[0].esCoger(),True)
-        self.assertEqual(escudo.comandos[0].receptor,escudo)
+        #Banana 2
+        self.assertEqual((banana2:=arm1.hijos[0]).esBanana(),True)
+        self.assertEqual((com1:=banana2.comandos[0]).esCoger(),True)
+        self.assertEqual(com1.receptor,banana2)
         #Objetos Habitación 2
         hab2 = self.juego.obtenerHabitacion(2)
         #Espada metal
@@ -238,14 +189,6 @@ class TestLab4Hab4BichosTunel(unittest.TestCase):
         self.assertEqual(espada1.comandos[0].esCoger(),True)
         self.assertEqual(espada1.comandos[0].receptor,espada1)
         self.assertEqual(espada1.material.esMetal(),True)
-        #Objetos Habitación 3
-        hab3 = self.juego.obtenerHabitacion(3)
-        #Espada metal
-        self.assertEqual((espada2:=hab3.hijos[0]).esEspada(),True)
-        self.assertEqual(espada2.num,1)
-        self.assertEqual(espada2.comandos[0].esCoger(),True)
-        self.assertEqual(espada2.comandos[0].receptor,espada2)
-        self.assertEqual(espada2.material.esDiamante(),True)
         print("TEST DE OBJETOS SUPERADO.\n")
         
 unittest.main()

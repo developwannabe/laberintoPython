@@ -182,6 +182,8 @@ class TestLab4Hab4BichosTunel(unittest.TestCase):
         self.assertEqual(p2.comandos[0].esAbrir(),True)
         self.assertEqual(p2.comandos[0].receptor,p2)
 
+        print("TEST DE ARMARIOS SUPERADO.")
+
     def testTuneles(self):
         tunel = None
         padre = None
