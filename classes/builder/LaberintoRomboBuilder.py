@@ -5,6 +5,7 @@ from classes.orientacion.Noreste import Noreste
 from classes.orientacion.Noroeste import Noroeste
 from classes.orientacion.Sureste import Sureste
 from classes.orientacion.Suroeste import Suroeste
+from classes.comando.Abrir import Abrir
 
 class LaberintoRomboBuilder(LaberintoBuilder):
     
@@ -48,10 +49,22 @@ class LaberintoRomboBuilder(LaberintoBuilder):
         armario = self.fabricarArmario(num)
         
         p1= self.fabricarPuerta()
+        com = Abrir()
+        com.receptor=p1
+        p1.agregarComando(com)
+
+
+        p1.lado1=self
+        p1.lado2=padre
 
         armario.forma= self.fabricarForma()
         p1.lado1= armario
         p1.lado2 = padre
+
+        armario.agregarOrientacion(self.fabricarNoreste())
+        armario.agregarOrientacion(self.fabricarNoroeste())
+        armario.agregarOrientacion(self.fabricarSureste())
+        armario.agregarOrientacion(self.fabricarSuroeste())
 
         armario.ponerElementoEn(self.fabricarNoreste(),self.fabricarPared())
         armario.ponerElementoEn(self.fabricarNoroeste(),self.fabricarPared())
@@ -59,3 +72,4 @@ class LaberintoRomboBuilder(LaberintoBuilder):
         armario.ponerElementoEn(self.fabricarSuroeste(),p1)
 
         padre.agregarHijo(armario)
+        return armario
