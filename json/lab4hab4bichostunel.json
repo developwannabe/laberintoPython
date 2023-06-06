@@ -4,19 +4,18 @@
         {"tipo":"habitacion","num":1,"hijos":[
             {"tipo":"armario","num":1,"hijos":[{"tipo":"banana","num":1}]},
             {"tipo":"escudo","num":1},
-            {"tipo":"tunel"},
             {"tipo":"bomba","num":1}
         ]},
         {"tipo":"habitacion","num":2,"hijos":[
-            {"tipo":"espada","num":1,"material":"metal"},
-            {"tipo":"armario","num":2,"hijos":[]}
+            {"tipo":"espada","num":1,"material":"metal"}
         ]},
         {"tipo":"habitacion","num":3,"hijos":[
             {"tipo":"espada","num":1,"material":"diamante"},
-            {"tipo":"armario","num":3,"hijos":[]}
+            {"tipo":"tunel"}
         ]},
         {"tipo":"habitacion","num":4,"hijos":[
-            {"tipo":"bomba","num":3}
+            {"tipo":"bomba","num":2},
+            {"tipo":"armario","num":2,"hijos":[]}
         ]}
     ],
     "puertas":[[1,"Sur",2,"Norte"],[2,"Este",4,"Oeste"],[4,"Norte",3,"Sur"],[3,"Oeste",1,"Este"]],
