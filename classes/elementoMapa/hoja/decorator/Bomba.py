@@ -7,6 +7,7 @@ class Bomba (Decorator):
         super().__init__()
         self.num = None
         self.activa = True
+        self.dano = 20
         self.observadoresActiva = []
         com = Entrar()
         com.receptor = self
@@ -25,7 +26,7 @@ class Bomba (Decorator):
     def entrar(self,ente):
         if self.activa:
             print("La bomba ha explotado.")
-            ente.setVidas(ente.vidas - 20)
+            ente.setVidas(ente.vidas - self.dano)
             self.activa = False
             for com in self.comandos:
                 if com.esEntrar():

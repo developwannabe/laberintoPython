@@ -243,7 +243,7 @@ class LaberintoGUI():
                     if armario[0] == 'cerrado':
                         self.ventana.blit(armarioC,armario[1])
                 pygame.display.update()
-
+            #TODO:Hacer pantalla Game Over
             self.juego.terminarBichos()#Por si se cierra la ventana
 
     def agregarPersonaje(self,nombre):

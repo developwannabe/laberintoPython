@@ -312,20 +312,106 @@ class TestLab4Hab4BichosTunel(unittest.TestCase):
         self.assertEqual(banana.padre,personaje.posicion)
         coms= personaje.obtenerComandos(personaje)
         coms[0].ejecutar(personaje)#Volver a coger banana
-        print(coms)
         coms= personaje.bolsa.hijos[0].obtenerComandos(personaje)
         vida = personaje.vidas
         coms[1].ejecutar(personaje)#Comer banana
         self.assertEqual(personaje.vidas, vida + banana.vida) #Se le sumará la vida de la banana
         coms= personaje.obtenerComandos(personaje)
         coms[0].ejecutar(personaje)#Irse del armario
-        #TODO:Coger escudo
-        #TODO:Equipar escudo
-        #TODO:Coger espada
-        #TODO:Equipar espada
-        #TODO:Coger otra espada
-        #TODO:Equipar otra espada
-        #TODO:Atacar bicho con espada
-        #TODO:Atacar bicho sin espada
+        coms= personaje.obtenerComandos(personaje)
+        coms[2].ejecutar(personaje)#Cogemos escudo
+        self.assertEqual(len(hijos:=personaje.bolsa.hijos),1)
+        self.assertEqual((esc:=hijos[0]).esEscudo(),True)
+        self.assertEqual(len(coms:=esc.comandos),2)
+        self.assertEqual(coms[0].esSoltar(),True)
+        self.assertEqual(coms[1].esUsar(),True)
+        coms[1].ejecutar(personaje)
+        self.assertEqual(len(personaje.bolsa.hijos),0)#Ya no tiene escudo en el inventario
+        self.assertEqual(personaje.cuerpo.mIzquierda,esc)#Tiene escudo en la mano izquierda
+        coms= personaje.obtenerComandos(personaje)
+        bomba=coms[2].receptor
+        vidas = personaje.vidas
+        coms[2].ejecutar(personaje)#Detonamos la bomba
+        self.assertEqual(bomba.activa,False)
+        self.assertEqual(personaje.vidas,vidas-bomba.dano)#Comprobamos que el personaje ha recibido daño de la explosión
+        coms= personaje.obtenerComandos(personaje)
+        coms[3].ejecutar(personaje)#Abrimos la puerta 1 - 2
+        coms= personaje.obtenerComandos(personaje)
+        coms[3].ejecutar(personaje)#Entramos en la habitación 2
+        hab2 = self.juego.obtenerHabitacion(2)
+        self.assertEqual(personaje.posicion,hab2)#Comprobamos que la posición del personaje es la habitación 2
+        coms= personaje.obtenerComandos(personaje)
+        coms[0].ejecutar(personaje)#Cogemos la espada de metal.
+        self.assertEqual(len(hijos:=personaje.bolsa.hijos),1)
+        self.assertEqual((esc:=hijos[0]).esEspada(),True)
+        self.assertEqual(esc.material.esMetal(),True)
+        self.assertEqual(len(coms:=esc.comandos),2)
+        self.assertEqual(coms[0].esSoltar(),True)
+        self.assertEqual(coms[1].esUsar(),True)
+        coms[1].ejecutar(personaje)
+        self.assertEqual(len(personaje.bolsa.hijos),0)#Ya no tiene la espada de metal en el inventario
+        self.assertEqual(personaje.cuerpo.mDerecha,esc)#Tiene la espada en la mano derecha
+        personaje.atacar()
+        personaje.atacar()
+        bicho2 = self.juego.bichos[1]
+        self.assertEqual(bicho2.estaVivo(),False) #Acabamos con el bicho 2 perezoso con 2 golpes gracias a la espada.
+        coms= personaje.obtenerComandos(personaje)
+        coms[2].ejecutar(personaje)
+        coms= personaje.obtenerComandos(personaje)
+        coms[2].ejecutar(personaje)#Entramos en la habitación 4
+        hab4 = self.juego.obtenerHabitacion(4)
+        self.assertEqual(personaje.posicion,hab4)#Comprobamos que la posición del personaje es la habitación 4
+        coms= personaje.obtenerComandos(personaje)
+        bomba=coms[0].receptor
+        vidas = personaje.vidas
+        coms[0].ejecutar(personaje)#Detonamos la bomba
+        self.assertEqual(bomba.activa,False)
+        self.assertEqual(personaje.vidas,vidas-bomba.dano)#Comprobamos que el personaje ha recibido daño de la explosión
+        personaje.atacar()
+        personaje.atacar()
+        bicho4 = self.juego.bichos[3]
+        self.assertEqual(bicho4.estaVivo(),False) #Acabamos con el bicho 2 perezoso con 2 golpes gracias a la espada.
+        coms= personaje.obtenerComandos(personaje)
+        coms[0].ejecutar(personaje)
+        coms= personaje.obtenerComandos(personaje)
+        coms[0].ejecutar(personaje)#Entramos en el armario 2
+        self.assertEqual((arm:=personaje.posicion).esArmario(),True)
+        self.assertEqual(arm.num,2)#El armario es el armario 2
+        coms= personaje.obtenerComandos(personaje)
+        coms[0].ejecutar(personaje)#Abandonamos el armario
+        self.assertEqual(personaje.posicion,hab4)#La posición del personaje vuelve a ser la habitación 4
+        coms= personaje.obtenerComandos(personaje)
+        coms[2].ejecutar(personaje)
+        coms= personaje.obtenerComandos(personaje)
+        coms[2].ejecutar(personaje)#Entramos en la habitación 3
+        hab3 = self.juego.obtenerHabitacion(3)
+        self.assertEqual(personaje.posicion,hab3)#Comprobamos que la posición del personaje es la habitación 3
+        self.assertEqual((espada:=hab3.hijos[0]).esEspada(),True)
+        self.assertEqual(espada.material.esDiamante(),True)#Cogemos y comprobamos la espada de diamante
+        espada.comandos[0].ejecutar(personaje)
+        espada.comandos[1].ejecutar(personaje)
+        self.assertEqual(personaje.cuerpo.mDerecha,espada)#Hemos equipado la espada de diamante
+        self.assertEqual((espMetal:=personaje.bolsa.hijos[0]).material.esMetal(),True)#La espada de metal vuelve al inventario al equipar la de diamante.
+        espMetal.comandos[1].ejecutar(personaje)#Soltamos la espada de metal
+        self.assertEqual(personaje.posicion.hijos[1].material.esMetal(),True)
+        personaje.atacar()
+        personaje.atacar()
+        personaje.atacar()
+        self.assertEqual(self.juego.bichos[2].estaVivo(),False)#Matamos a un bicho agresivo con 3 golpes de espada de diamante.
+        espada.comandos[0].ejecutar(personaje)
+        espada.comandos[1].ejecutar(personaje)
+        self.assertEqual((espMetal:=personaje.posicion.hijos[2]).material.esDiamante(),True)#La espada de diamante vuelve a la habitación al soltarse.
+        coms= personaje.obtenerComandos(personaje)
+        coms[2].ejecutar(personaje)
+        coms= personaje.obtenerComandos(personaje)
+        coms[2].ejecutar(personaje)#Entramos en la habitación 1
+        hab1 = self.juego.obtenerHabitacion(1)
+        self.assertEqual(personaje.posicion,hab1)#Comprobamos que la posición del personaje es la habitación 1
+        for i in range(1,13):
+            self.assertEqual(self.juego.bichos[0].estaVivo(),True)
+            personaje.atacar()
+        self.assertEqual(self.juego.bichos[0].estaVivo(),False)#Nos toma 12 golpes acabar con un bicho agresivo sin espada.
+        self.juego.fase.esFinal()#El juego ha terminado al matar a los bichos.
+        print("TEST FUNCIONALES SUPERADAS.")
         
 unittest.main()
