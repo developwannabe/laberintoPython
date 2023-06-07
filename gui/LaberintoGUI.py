@@ -478,7 +478,7 @@ class LaberintoGUI():
         an = unCont.getExtent()[0]
         al = unCont.getExtent()[1]
         a = unCont.getPunto()[0] + an - 200
-        b = 100 
+        b = unCont.getPunto()[1] + 100 
         if bomba.activa:
             self.bombasP[str(bomba)]=("Activa",(a,b))
         else:

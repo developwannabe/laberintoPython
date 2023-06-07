@@ -123,6 +123,7 @@ class TestLab4Hab4BichosTunel(unittest.TestCase):
         self.assertEqual(p1.lado2,self.juego.obtenerHabitacion(2))
         self.assertEqual(p1.comandos[0].esAbrir(),True)
         self.assertEqual(p1.comandos[0].receptor,p1)
+        self.assertEqual(p1.estaAbierta(),False)
         #Puerta 2
         p2 = self.juego.obtenerHabitacion(2).forma.este
         self.assertEqual(p2.esPuerta(),True)
@@ -130,6 +131,7 @@ class TestLab4Hab4BichosTunel(unittest.TestCase):
         self.assertEqual(p2.lado2,self.juego.obtenerHabitacion(4))
         self.assertEqual(p2.comandos[0].esAbrir(),True)
         self.assertEqual(p2.comandos[0].receptor,p2)
+        self.assertEqual(p2.estaAbierta(),False)
         #Puerta 3
         p3 = self.juego.obtenerHabitacion(4).forma.norte
         self.assertEqual(p3.esPuerta(),True)
@@ -137,6 +139,7 @@ class TestLab4Hab4BichosTunel(unittest.TestCase):
         self.assertEqual(p3.lado2,self.juego.obtenerHabitacion(3))
         self.assertEqual(p3.comandos[0].esAbrir(),True)
         self.assertEqual(p3.comandos[0].receptor,p3)
+        self.assertEqual(p3.estaAbierta(),False)
         #Puerta 4
         p4 = self.juego.obtenerHabitacion(3).forma.oeste
         self.assertEqual(p4.esPuerta(),True)
@@ -144,6 +147,7 @@ class TestLab4Hab4BichosTunel(unittest.TestCase):
         self.assertEqual(p4.lado2,self.juego.obtenerHabitacion(1))
         self.assertEqual(p4.comandos[0].esAbrir(),True)
         self.assertEqual(p4.comandos[0].receptor,p4)
+        self.assertEqual(p4.estaAbierta(),False)
         print("TEST DE PUERTAS SUPERADO.\n")
 
     def testArmarios(self):
