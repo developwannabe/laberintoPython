@@ -28,7 +28,6 @@
 ### Funcionalidades añadidas:
   - El personaje tiene una bolsa con objetos que podrán ser usados. (Composite)
   - La espada tiene un material del cual estará fabricada. Esto influirá en su comportamiento al usarse. (Strategy)
-  - La vista solo recalcula individualmente los objetos que cambian su estado. (Observer)
   - Implementados comandos para los objetos. (Command)
   - El personaje ahora tiene un cuerpo, donde tendrá sus armas. (Bridge)
   - Si dos bichos perezosos se encuentrar en la misma habitación, tienen una probabilidad de cambiar su modo a agresivo. (Mediator y Template Method)
